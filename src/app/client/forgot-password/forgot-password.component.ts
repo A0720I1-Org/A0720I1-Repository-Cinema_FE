@@ -46,7 +46,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
   onSendChangePW(){
     console.log(this.count)
-    if(this.count === 0) {
+    if(this.count === 1) {
      this.router.navigateByUrl('/').then(()=> {
        this.toastr.error(
          'Cập nhật mật khẩu không thành công,vui lòng thử lại',
