@@ -9,24 +9,32 @@ import {CinemaRoomService} from "../../../service/cinema-room.service";
 })
 export class ListCinemaRoomComponent implements OnInit {
 
+  name: string = '';
   page = 0;
   totalPage: number;
 
 
-  listCinemaRoom: DTOCinemaRoom[];
+  listCinemaRoom: any;
 
   constructor(private cinemaRoomService: CinemaRoomService) {
   }
 
   ngOnInit(): void {
-    this.getAllListCinemaRoom();
+    this.getSearchByName();
   }
 
-  getAllListCinemaRoom() {
-    this.cinemaRoomService.getAllListCinemaRoom(this.page).subscribe((data: DTOCinemaRoom[]) => {
-      this.listCinemaRoom = data.content;
-      this.totalPage = data.totalPages;
-    })
+  getSearchByName() {
+    if (this.name == ''){
+      this.cinemaRoomService.getAllListCinemaRoom(this.page).subscribe((data: any) => {
+        this.listCinemaRoom = data.content;
+        this.totalPage = data.totalPages;
+      })
+    }else {
+      this.cinemaRoomService.getSearchByName(this.name, this.page).subscribe((data: any) => {
+        this.listCinemaRoom = data.content;
+        this.totalPage= data.totalPages;
+      })
+  }
   }
 
 
@@ -58,4 +66,6 @@ export class ListCinemaRoomComponent implements OnInit {
   }
 
 
+
 }
+

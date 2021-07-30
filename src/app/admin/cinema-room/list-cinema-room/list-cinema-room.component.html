@@ -17,9 +17,9 @@
           <div class="col-8 mt-auto mb-auto">
           </div>
           <div class="col-4 input-group mt-auto mb-auto">
-            <input type="search" class="form-control" placeholder="Tìm kiếm">
+            <input type="search" class="form-control" placeholder="Tìm kiếm" [(ngModel)]="name">
             <div class="input-group-append">
-              <button type="submit" class="btn btn-default">
+              <button type="submit" class="btn btn-default" (click)="getSearchByName()">
                 <i class="fa fa-search"></i>
               </button>
             </div>
