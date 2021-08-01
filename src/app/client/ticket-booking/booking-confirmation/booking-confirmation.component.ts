@@ -8,6 +8,11 @@ import {ShowtimeService} from "../../../service/showtime.service";
 import {ToastrService} from "ngx-toastr";
 import {BookingInformation} from "../../../model/book-ticket/BookingInformation";
 import {InvoiceService} from "../../../service/invoice.service";
+import {Payment} from "../../../model/book-ticket/Payment";
+import {PaymentService} from "../../../service/payment.service";
+import {BookingStorageService} from "../../../service/booking-storage.service";
+import {TokenStorageService} from "../../../service/token-storage.service";
+import {Membership} from "../../../model/book-ticket/Membership";
 
 @Component({
   selector: 'app-booking-confirmation',
@@ -20,42 +25,33 @@ export class BookingConfirmationComponent implements OnInit {
   selectedSeatIdList = [];
   paymentMethods: PaymentMethod[];
   methodId = 0;
+  payment = new Payment();
+  membership: Membership = null;
 
   constructor(
     private dataService: DataService,
     private router: Router,
     private showtimeService: ShowtimeService,
     private toastrService: ToastrService,
-    private invoiceService: InvoiceService
+    private invoiceService: InvoiceService,
+    private paymentService: PaymentService,
+    private bookingStorageService: BookingStorageService,
+    private tokenStorageService: TokenStorageService
   ) {
   }
 
   ngOnInit(): void {
-    this.dataService.showtime.subscribe(data => {
-      if (data == null){
-        this.router.navigateByUrl('/book/film-selection')
-        this.toastrService.warning("Vui lòng chọn phim và suất chiếu", "Thông báo")
-      }else {
-        this.showtime = data
-      }
-    },
-      error => console.log(error.message))
-    this.dataService.selectSeat.subscribe(
-      data => {
-        if (data == null){
-          this.router.navigateByUrl('/book/seat-selection');
-          this.toastrService.warning("Vui lòng chọn ghế", "Thông báo")
-        } else {
-          this.selectedSeats = data;
-          for (let seat of data) {
-            this.selectedSeatIdList.push(seat.id);
-          }
-        }
-      },
-      error => console.log(error.message));
+    this.showtime = this.bookingStorageService.getShowtime();
+    this.selectedSeats = this.bookingStorageService.getSeats();
+    if (this.showtime == null || this.selectedSeats == null){
+      this.router.navigateByUrl('/book/film-selection')
+          this.toastrService.warning("Vui lòng chọn phim và suất chiếu", "Thông báo")
+    }
+    this.getSeatIdList();
     this.showtimeService.getPaymentMethodList().subscribe(
       data => this.paymentMethods = data,
       error => console.log(error.message))
+    this.membership = this.tokenStorageService.getUser().membership;
   }
 
   getTotalAmount() {
@@ -82,14 +78,22 @@ export class BookingConfirmationComponent implements OnInit {
   }
 
   next() {
-    let bookingInformation = new BookingInformation(this.showtime.showtimeId, 1, this.selectedSeatIdList, this.methodId)
+    const memberId = this.tokenStorageService.getUser().account.id;
+    let bookingInformation = new BookingInformation(this.showtime.showtimeId, memberId, this.selectedSeatIdList, this.methodId);
+    this.dataService.setBooking(bookingInformation);
     switch (this.methodId) {
       case 1: {
         console.log(this.methodId);
         break;
       }
       case 2: {
-        console.log((this.methodId));
+        this.payment.amount = this.getTotalAmount();
+        this.bookingStorageService.saveBookingLocal(bookingInformation);
+        this.paymentService.payByPaypal(this.payment).subscribe(
+          data => {
+            window.location.href = data.link
+          }
+        )
         break
       }
       case 3: {
