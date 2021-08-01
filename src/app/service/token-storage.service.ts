@@ -27,7 +27,9 @@ export class TokenStorageService {
       return sessionStorage.getItem(TOKEN_KEY);
     }
   }
-
+  public getTokenSession():string {
+    return sessionStorage.getItem(TOKEN_KEY);
+  }
   public saveUserLocal(user) {
     window.localStorage.removeItem(USER_KEY);
     window.localStorage.setItem(USER_KEY, JSON.stringify(user));

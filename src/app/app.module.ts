@@ -11,6 +11,11 @@ import { SocialLoginModule, SocialAuthServiceConfig, SocialAuthService, Facebook
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFireStorageModule} from "@angular/fire/storage";
+import {AngularFireDatabaseModule} from "@angular/fire/database";
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -24,7 +29,10 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     HttpClientModule,
     ToastrModule.forRoot(),
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
   ],
   providers: [{
     provide: 'SocialAuthServiceConfig',

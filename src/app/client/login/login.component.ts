@@ -45,8 +45,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.form.group({
-      username: ['', [Validators.required, Validators.pattern("^[0-9A-Za-z]*$")]],
-      password: ['', Validators.required],
+      username: ['', [Validators.required, Validators.pattern("^[0-9A-Za-z]*$"),Validators.maxLength(45),Validators.minLength(6)]],
+      password: ['', [Validators.required,Validators.maxLength(45),Validators.minLength(6)]],
       remember: false
     });
     if (this.tokenStorage.getToken()) {
@@ -55,34 +55,38 @@ export class LoginComponent implements OnInit {
       this.roles = this.tokenStorage.getUser().roles;
       this.username = this.tokenStorage.getUser().username;
     }
+    if(this.tokenStorage.getTokenSession()) {
+          this.router.navigate(["/"]);
+    }
   }
 
   onSubmit() {
-    this.authService.login(this.loginForm.value).subscribe(
-      data => {
-        if (this.loginForm.value.remember){
-          this.tokenStorage.saveTokenLocal(data.token);
-          this.tokenStorage.saveUserLocal(data)
-        } else {
-          this.tokenStorage.saveTokenSession(data.token);
-          this.tokenStorage.saveUserSession(data)
+    if(this.loginForm.valid){
+      this.authService.login(this.loginForm.value).subscribe(
+        data => {
+          if (this.loginForm.value.remember){
+            this.tokenStorage.saveTokenLocal(data.token);
+            this.tokenStorage.saveUserLocal(data)
+          } else {
+            this.tokenStorage.saveTokenSession(data.token);
+            this.tokenStorage.saveUserSession(data)
+          }
+          this.authService.isLoggedIn = true;
+          this.username = this.tokenStorage.getUser().username;
+          this.roles = this.tokenStorage.getUser().roles;
+          this.loginForm.reset();
+          this.router.navigate(["/"]);
+        },
+        err => {
+          this.error = err.error;
+          this.toastr.error(
+              err.error.message,
+              "Thông tin đăng nhập không chính xác",
+              {timeOut: 3000, extendedTimeOut: 1500}
+            )
         }
-        this.authService.isLoggedIn = true;
-        this.username = this.tokenStorage.getUser().username;
-        this.roles = this.tokenStorage.getUser().roles;
-        this.loginForm.reset();
-        this.shareService.sendClickEvent();
-        this.router.navigate(["/"]);
-      },
-      err => {
-        this.error = err.error;
-        this.toastr.error(
-            err.error.message,
-            "Thông tin đăng nhập không chính xác",
-            {timeOut: 3000, extendedTimeOut: 1500}
-          )
-      }
-    );
+      );
+    }
   }
   signInWithGoogle(): void {
     this.auth.signIn(GoogleLoginProvider.PROVIDER_ID).then(data => {
@@ -96,12 +100,42 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl("/");
         },
         error => {
-          console.log("đay la error " + error)
+          this.toastr.error(
+            "Vui lòng thử lại cách đăng nhập khác ",
+            "Đăng nhập không thành công",
+            {timeOut: 3000, extendedTimeOut: 1500}
+          )
           this.logOut()
         })
     }).catch(
       err => {
         console.log(err)
+      }
+    );
+  }
+  signInWithFacebook(): void {
+    this.auth.signIn(FacebookLoginProvider.PROVIDER_ID).then(data => {
+      console.log(data)
+      this.socialUser = data;
+      const tokenFacebook = this.socialUser.authToken;
+      this.authService.loginFacebook({token : tokenFacebook}).subscribe(data => {
+          this.tokenStorage.saveTokenSession(data.token);
+          this.tokenStorage.saveUserSession(data)
+          this.shareService.sendClickEvent();
+          this.router.navigateByUrl("/");
+        },
+        error => {
+          this.toastr.error(
+            "Vui lòng thử lại cách đăng nhập khác ",
+            "Đăng nhập không thành công",
+            {timeOut: 3000, extendedTimeOut: 1500}
+          ),
+          this.logOut();
+        })
+    }).catch(
+      err => {
+        console.log(err);
+        this.logOut();
       }
     );
   }
@@ -116,4 +150,17 @@ export class LoginComponent implements OnInit {
   toggleShowHide() {
     this.textType = !this.textType;
   }
+  validationMessage = {
+    'username': [
+      {type: 'required', message: 'Tên đăng nhập không được để trống!'},
+      {type: 'minlength', message: 'Tên đăng nhập  phải nhiều hơn 6 kí tự'},
+      {type: 'maxlength', message: 'Tên đăng nhập phải ít hơn 45 kí tự'},
+    ],
+    'password': [
+      {type: 'required', message: 'Mật khẩu không được để trống!'},
+      {type: 'minlength', message: 'Mật khẩu phải nhiều hơn 6 kí tự'},
+      {type: 'maxlength', message: 'Mật khẩu phải ít hơn 45 kí tự'},
+      {type: 'pattern', message: 'Mật khẩu không được chứa kí tự đặc biệt'},
+    ],
+  };
 }
