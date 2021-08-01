@@ -31,15 +31,31 @@ export class BookingConfirmationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataService.showtime.subscribe(data => this.showtime = data)
+    this.dataService.showtime.subscribe(data => {
+      if (data == null){
+        this.router.navigateByUrl('/book/film-selection')
+        this.toastrService.warning("Vui lòng chọn phim và suất chiếu", "Thông báo")
+      }else {
+        this.showtime = data
+      }
+    },
+      error => console.log(error.message))
     this.dataService.selectSeat.subscribe(
       data => {
-        this.selectedSeats = data;
-        for (let seat of data) {
-          this.selectedSeatIdList.push(seat.id);
+        if (data == null){
+          this.router.navigateByUrl('/book/seat-selection');
+          this.toastrService.warning("Vui lòng chọn ghế", "Thông báo")
+        } else {
+          this.selectedSeats = data;
+          for (let seat of data) {
+            this.selectedSeatIdList.push(seat.id);
+          }
         }
-      });
-    this.showtimeService.getPaymentMethodList().subscribe(data => this.paymentMethods = data)
+      },
+      error => console.log(error.message));
+    this.showtimeService.getPaymentMethodList().subscribe(
+      data => this.paymentMethods = data,
+      error => console.log(error.message))
   }
 
   getTotalAmount() {

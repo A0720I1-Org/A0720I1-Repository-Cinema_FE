@@ -19,7 +19,7 @@ export class TicketService {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        // 'Authorization': `Bearer ` + this.tokenStorageService.getToken()
+        'Authorization': `Bearer ` + this.tokenStorageService.getToken()
       })
       , 'Access-Control-Allow-Origin': 'http://localhost:4200',
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'

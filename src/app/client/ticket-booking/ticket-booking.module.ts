@@ -7,14 +7,16 @@ import { SeatSelectionComponent } from './seat-selection/seat-selection.componen
 import {ToastrModule} from "ngx-toastr";
 import { BookingConfirmationComponent } from './booking-confirmation/booking-confirmation.component';
 import { BookingInformationComponent } from './booking-information/booking-information.component';
+import {ClientSharedModule} from "../client-shared/client-shared.module";
 
 
 @NgModule({
   declarations: [FilmSelectionComponent, SeatSelectionComponent, BookingConfirmationComponent, BookingInformationComponent],
-  imports: [
-    CommonModule,
-    TicketBookingRoutingModule,
-    ToastrModule.forRoot()
-  ]
+    imports: [
+        CommonModule,
+        TicketBookingRoutingModule,
+        ToastrModule.forRoot(),
+        ClientSharedModule
+    ]
 })
 export class TicketBookingModule { }
