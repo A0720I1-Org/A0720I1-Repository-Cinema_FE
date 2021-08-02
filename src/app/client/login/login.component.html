@@ -2,20 +2,36 @@
 <div class="content-inner row form-sigin">
   <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
       <div class="card card-signin my-5">
-          <div class="card-body">
-              <h5 class="card-title text-center font-weight-bold">Đăng nhập</h5>
+          <div class="card-body ">
+            <div class="d-flex flex-row justify-content-center">
+              <h3 class="card-title text-center font-weight-bold">Đăng nhập</h3>
+            </div>
               <form class="form-signin form-group" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                   <div class="form-label-group">
-                    <input type="text" id="inputUsername" class="form-control" placeholder="Tên đăng nhập" autofocus formControlName="username">
+                    <input type="text" id="inputUsername" class="form-control mx-0" placeholder="Tên đăng nhập" formControlName="username">
+                    <ng-container *ngFor="let validation of validationMessage.username">
+                      <small class="form-text text-danger"
+                             *ngIf="loginForm.get('username').hasError(validation.type)&& loginForm.get('username').touched">
+                        {{validation.message}}
+                      </small>
+                    </ng-container>
                     <ng-container *ngIf="error.type === 'username'">
                       <small class="form-text text-danger">
                              {{error.message}}
                       </small>
                     </ng-container>
                   </div>
-                  <div class="form-label-group d-flex align-item-center">
-                    <input [type]="textType===true ? 'text' : 'password'" id="inputPassword" class="form-control" placeholder="Mật khẩu" formControlName="password">
-                    <i [class]="textType===true ? showPass : hidePass" class="icon" (click)="toggleShowHide()"></i>
+                  <div class="form-label-group">
+                    <div class="d-flex align-item-center">
+                      <input [type]="textType===true ? 'text' : 'password'" id="inputPassword" class="form-control" placeholder="Mật khẩu" formControlName="password">
+                      <i [class]="textType===true ? showPass : hidePass" class="icon" (click)="toggleShowHide()"></i>
+                    </div>
+                    <ng-container *ngFor="let validation of validationMessage.password">
+                      <small class="form-text text-danger"
+                             *ngIf="loginForm.get('password').hasError(validation.type)&& loginForm.get('password').touched">
+                        {{validation.message}}
+                      </small>
+                    </ng-container>
                     <ng-container *ngIf="error.type === 'password'">
                       <small class="form-text text-danger">
                              {{error.message}}
@@ -25,12 +41,12 @@
                   <div class="custom-control custom-checkbox mb-3 flex-row d-flex justify-content-between">
                       <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="remember">
                       <label class="custom-control-label" for="customCheck1">Ghi nhớ tài khoản?</label>
-                      <a routerLink='/member/forgot'>Quên mật khẩu?</a>
+                      <a routerLink='/member/forgot' class="custom-control-link">Quên mật khẩu?</a>
                   </div>
                   <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Đăng nhập</button>
                   <hr class="my-4">
                   <div class="btn btn-lg btn-google btn-block text-uppercase" (click)="signInWithGoogle()"><span class="fab fa-google mr-2"></span> Đăng nhập với Google</div>
-                  <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><span class="fab fa-facebook-square mr-2"></span> Đăng nhập với Facebook</button>
+                  <div class="btn btn-lg btn-facebook btn-block text-uppercase" (click)="signInWithFacebook()"><span class="fab fa-facebook-square mr-2"></span> Đăng nhập với Facebook</div>
               </form>
           </div>
       </div>

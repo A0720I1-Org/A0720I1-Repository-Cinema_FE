@@ -180,3 +180,61 @@ text-overflow: ellipsis;
 .col-form-label {
   font-size: 14px;
 }
+.btn-progress{
+  outline: none;
+  font-style: normal;
+  font-size: 14px;
+  display: block;
+  border: none;
+  -webkit-transition: .5s all;
+  -webkit-appearance: button;
+  cursor: pointer;
+  width: 10rem;
+  height: 2.5rem;
+  margin-right: 1rem;
+}
+
+.btn-progress:hover{
+  color: #fff;
+  background: #fe423f;
+}
+
+.btn-submit{
+  color: #fff !important;
+  background: #02a388;
+}
+.btn-progress-sm {
+  height: auto;
+  width: 8rem !important;
+}
+.btn-submit-lg{
+  padding: 1rem 2rem;
+  font-size: 1rem;
+}
+
+.btn-cancel {
+  background: #0c0d0d;
+  color: #fff !important;
+}
+
+.btn-cancel:hover{
+  color: #02a388;
+}
+::ng-deep.mat-dialog-container{
+  background-color: white;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.custom-dialog-container  {
+  background-color: #0a346d !important;
+}
+.card-custom{
+  margin: 0;
+}
+.icon {
+  padding: 10px;
+  background-color: #dddddd;
+  color: black;
+  min-width: 50px;
+  text-align: center;
+}
