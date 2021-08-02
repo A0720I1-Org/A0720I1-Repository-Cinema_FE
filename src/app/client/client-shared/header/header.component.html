@@ -1,0 +1,16 @@
+<body>
+  <div class="banner-inner">
+    <div class="banner-inner-dot">
+       <app-navbar></app-navbar>
+    </div>
+    <div class="w3_agilits_banner_bootm">
+        <div class="w3_agilits_inner_bottom">
+            <ul class="red-bar d-flex flex-row mx-0 px-0">
+                <li><i class="fa fa-phone" aria-hidden="true"></i> 0236.123.456</li>
+                <li><a routerLink='/member/login' *ngIf="!isLoggedIn" class="login">Đăng nhập</a></li>
+                <li><a routerLink='/member/register' *ngIf="!isLoggedIn" class="login ml-1">Đăng ký</a></li>
+            </ul>
+        </div>
+    </div>
+  </div>
+  </body>
