@@ -15,6 +15,7 @@ export class Showtime {
   showtimeDay: Date;
   showtimeTime: Time;
   cinemaRoomId: number;
+  cinemaRoomName: string;
 
 
   constructor() {

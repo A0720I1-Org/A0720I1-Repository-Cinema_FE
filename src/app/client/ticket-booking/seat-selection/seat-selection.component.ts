@@ -49,6 +49,7 @@ export class SeatSelectionComponent implements OnInit {
           this.toastrService.warning("Vui lòng chọn phim và suất chiếu", "Thông báo")
         } else {
           this.showtime = data;
+          console.log(this.showtime);
           this.showtimeService.getSeatList(this.showtime.showtimeId).subscribe(
             (list) => {
               this.seatList = list

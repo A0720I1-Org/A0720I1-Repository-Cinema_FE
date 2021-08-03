@@ -26,6 +26,10 @@
             <td class="font-weight-bold">{{showtime.showtimeTime.toString().slice(0,5)}}</td>
           </tr>
           <tr>
+            <td>Rạp:</td>
+            <td class="font-weight-bold">{{showtime.cinemaRoomName}}</td>
+          </tr>
+          <tr>
             <td>Ghế:</td>
             <td class="font-weight-bold">
               <ng-container *ngFor="let ticket of ticketList; let i = index">
