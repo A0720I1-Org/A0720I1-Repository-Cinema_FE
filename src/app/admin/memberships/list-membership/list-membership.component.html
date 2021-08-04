@@ -1,0 +1,97 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Danh sách thành viên</h1>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div>
+  </div>
+
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid ">
+
+
+      <div class="card shadow">
+        <div class="col-12 card-header" style="display: flex; justify-content: flex-end">
+
+          <div class="col-4 input-group mt-auto mb-auto">
+            <input type="search" class="form-control" placeholder="Tìm kiếm">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-default">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+              <thead class="bg-secondary">
+              <tr>
+                <th class="text-center">STT</th>
+                <th class="text-center">Mã thành viên</th>
+                <th class="text-center">Tên thành viên</th>
+                <th class="text-center">Số CMND</th>
+                <th class="text-center">Email</th>
+                <th class="text-center">Số điện thoại</th>
+                <th class="text-center">Địa chỉ</th>
+                <th colspan="3"><span style="margin-left : 20px">sửa</span></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let membership of listMembership; let i = index">
+                <td class="text-center">{{i+1}}</td>
+                <td class="text-center">{{membership.memberCode}}</td>
+                <td class="text-center">{{membership.name}}</td>
+                <td class="text-center">{{membership.card}}</td>
+                <td class="text-center">{{membership.email}}</td>
+                <td class="text-center">{{membership.phone}}</td>
+                <td class="text-center">{{membership.wardName}}, {{membership.districtName}}, {{membership.provinceName}}</td>
+
+                <td style=" text-align: center;vertical-align: middle; padding: 0">
+                  <a href="">
+                          <span class="material-icons">
+                            edit
+                          </span>
+                  </a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- start pagination -->
+          <div class="d-flex flex-row justify-content-center ">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center">
+                <li class="page-item">
+                  <a class="page-link click" tabindex="-1"(click)="paginate(0)">Đầu</a>
+                </li>
+                <li class="page-item ">
+                  <button class="page-link click" (click)="paginate(page-1)"><i class="fas fa-chevron-left"></i></button>
+                </li >
+                <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page-2)" *ngIf="page-2>=0&&page+1>=totalPage">{{page-1}}</a></li>
+                <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page-1)" *ngIf="page-1>=0">{{page}}</a></li>
+                <li class="page-item click"><a class="page-link text-light bg-secondary" (click)="paginate(page)">{{page+1}}</a></li>
+                <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page+1)" *ngIf="page+1<totalPage">{{page+2}}</a></li>
+                <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page+2)" *ngIf="page+2<totalPage&&page-1<0">{{page+3}}</a></li>
+                <li class="page-item">
+                  <button class="page-link click" (click)="paginate(page+1)"><i class="fas fa-chevron-right"></i></button>
+                </li>
+                <li class="page-item">
+                  <a class="page-link text-dark click" (click)="paginate(totalPage-1)">Cuối</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <!-- end pagination -->
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
