@@ -37,7 +37,7 @@ export class AccountService {
   }
   public changePassword(accountDTO : IAccountDTO): Observable<any> {
     let username = this.tokenStorage.getUser().account.username;
-    return this.http.put<any>(this.AUTH_API + '/api/public/change-password/'+ username, accountDTO,this.httpOptions);
+    return this.http.put<any>(this.AUTH_API + '/api/member/password/'+ username, accountDTO,this.httpOptions);
   }
   public forgotPassword(username:string): Observable<any> {
     return this.http.put<any>(this.AUTH_API + '/api/public/forgot-password/'+ username,this.httpOptions);

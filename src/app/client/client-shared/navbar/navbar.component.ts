@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ShareService } from 'src/app/service/share.service';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['../member.component.scss','./sidebar.component.scss']
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss','../scss/layout.scss','../scss/content.scss']
 })
-export class SidebarComponent implements OnInit {
+export class NavbarComponent implements OnInit {
   username: string;
   role: string;
   isLoggedIn : boolean = false;
@@ -16,11 +16,8 @@ export class SidebarComponent implements OnInit {
     private tokenStorageService: TokenStorageService,
     private shareService: ShareService,
     private router: Router,
-  ) {
-    this.shareService.getClickEvent().subscribe(() => {
-      this.load()
-    })
-  }
+    private route: ActivatedRoute
+  ) { }
   load() {
     if (this.tokenStorageService.getToken()) {
       this.username = this.tokenStorageService.getUser().account.username;
@@ -31,11 +28,5 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.load();
   }
-  logOut(){
-    this.tokenStorageService.signOut();
-    this.role = null;
-    this.username = null;
-    this.ngOnInit();
-    this.router.navigateByUrl("/")
-  }
+
 }

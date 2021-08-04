@@ -1,3 +1,4 @@
+import { ShareService } from 'src/app/service/share.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FormGroup } from '@angular/forms';
 import { Component, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
@@ -13,6 +14,7 @@ import { AccountService } from 'src/app/service/account.service';
 })
 export class ForgotPasswordComponent implements OnInit {
   @ViewChild('loading', { static: true }) loading: TemplateRef<any>;
+  @ViewChild('resetPassword', { static: true }) resetPW: TemplateRef<any>;
   username:string;
   isShowOtp:boolean = false;
   code:string;
@@ -24,29 +26,46 @@ export class ForgotPasswordComponent implements OnInit {
   private toastr: ToastrService,
   private router: Router,
   private accountService : AccountService,
+  private shareService : ShareService,
   private dialog: MatDialog
    ) {
    }
 
   ngOnInit(): void {
+    if(this.tokenStorage.getTokenSession()) {
+      this.shareService.sendClickEvent();
+          this.router.navigate(["/"]);
+    }
   }
   onSendSubmit(username:string){
     this.error='';
     if(!username) return;
-    this.dialog.open(this.loading);
+    this.dialog.open(this.loading,{
+      width: '150px',
+      height:'125px',
+    });
     this.accountService.forgotPassword(username).subscribe((data) => {
-      console.log(data)
       this.dialog.closeAll();
       this.isShowOtp=true;
       this.code = data;
+      console.log(data)
     },err=> {
       this.error= err.error;
       setTimeout(()=>{ this.dialog.closeAll(); }, 100);
     })
   }
   onSendChangePW(){
-    console.log(this.count)
-    if(this.count === 1) {
+    if(this.otp == this.code) {
+      this.accountService.resetPassword(this.username).subscribe((data) => {
+        this.dialog.open(this.resetPW,{
+          width: '300px',
+          height:'auto',
+          panelClass: 'custom-dialog-container'
+        });
+      },err=> {
+      })
+      }
+    if(this.count === 0) {
      this.router.navigateByUrl('/').then(()=> {
        this.toastr.error(
          'Cập nhật mật khẩu không thành công,vui lòng thử lại',
@@ -54,19 +73,13 @@ export class ForgotPasswordComponent implements OnInit {
         {timeOut: 3000, extendedTimeOut: 1500})
      })
     }
-
-    if(this.otp == this.code) {
-      this.accountService.resetPassword(this.username).subscribe((data) => {
-        alert("Mật khẩu mởi của bạn là 12345678,Vui lòng đăng nhập để tiếp tục")
-      },err=> {
-
-      })
-      }
       else{
-        console.log(this.otp);
-        console.log(this.code);
         this.count--;
         this.errorOTP = "Bạn còn " + this.count + ' lượt nhập';
       }
+    }
+    onSignin(){
+      this.router.navigateByUrl("/member/login");
+      this.dialog.closeAll();
     }
   }

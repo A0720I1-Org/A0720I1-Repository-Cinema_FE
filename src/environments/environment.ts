@@ -7,13 +7,14 @@ export const environment = {
   apiBaseUrl: 'http://localhost:8080',
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   firebaseConfig: {
-    apiKey: "AIzaSyBL9oqFpmhKQzkxJiu5oMC4pMI4uRbW-E0",
-    authDomain: "a0720i1.firebaseapp.com",
-    databaseURL: "https://a0720i1-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "a0720i1",
-    storageBucket: "a0720i1.appspot.com",
-    messagingSenderId: "986167714596",
-    appId: "1:986167714596:web:baac5147cbd0eec74289b1"
+    apiKey: "AIzaSyA6I_CF3m0uwOKr-dkGrr4AJ6w8FMxUlZk",
+    authDomain: "a0720i1-cinema.firebaseapp.com",
+    databaseURL: "https://a0720i1-cinema-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "a0720i1-cinema",
+    storageBucket: "a0720i1-cinema.appspot.com",
+    messagingSenderId: "601232487043",
+    appId: "1:601232487043:web:dcb0a86585ebb399e2a1b6",
+    measurementId: "G-P53ZEZJVXQ"
   }
 };
 

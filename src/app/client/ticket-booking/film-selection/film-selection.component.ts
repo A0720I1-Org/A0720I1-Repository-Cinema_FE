@@ -28,12 +28,13 @@ export class FilmSelectionComponent implements OnInit {
     private showtimeService: ShowtimeService,
     private dataService: DataService,
     private router: Router,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private activatedRoute: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
-    this.getShowtimeList()
+    this.getShowtimeList();
   }
 
   getShowtimeList() {
@@ -41,6 +42,14 @@ export class FilmSelectionComponent implements OnInit {
       (data) => {
         this.showtimeList = data;
         this.filmList = Array.from(data.reduce((m, t) => m.set(t.filmId, t), new Map()).values());
+        this.activatedRoute.queryParams
+          .subscribe(params => {
+              this.filmId = params.filmId;
+              if (this.filmId != 0) {
+                this.getShowtimeDateList(this.filmId)
+              }
+            }
+          );
       },
       error => {
         console.log(error.message)
