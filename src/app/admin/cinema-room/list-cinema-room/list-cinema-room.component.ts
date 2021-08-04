@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {DTOCinemaRoom} from "../dto/DTOCinemaRoom";
 import {CinemaRoomService} from "../../../service/cinema-room.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-list-cinema-room',
@@ -13,10 +13,11 @@ export class ListCinemaRoomComponent implements OnInit {
   page = 0;
   totalPage: number;
 
-
   listCinemaRoom: any;
 
-  constructor(private cinemaRoomService: CinemaRoomService) {
+  constructor(private cinemaRoomService: CinemaRoomService,
+              private router: Router,
+              private toastrService : ToastrService  ) {
   }
 
   ngOnInit(): void {
@@ -24,17 +25,30 @@ export class ListCinemaRoomComponent implements OnInit {
   }
 
   getSearchByName() {
-    if (this.name == ''){
+    if (this.name == '') {
       this.cinemaRoomService.getAllListCinemaRoom(this.page).subscribe((data: any) => {
         this.listCinemaRoom = data.content;
         this.totalPage = data.totalPages;
+        this.router.navigateByUrl('').then(
+          r => this.toastrService.warning(
+            "Vui lòng nhập dữ liệu cần tìm",
+            "Thông báo",
+            {timeOut: 3000, extendedTimeOut: 1500})
+        )
       })
+    } else if (this.name == null) {
+      this.router.navigateByUrl('').then(
+        r => this.toastrService.warning(
+          "Không tìm thấy dữ liệu",
+          "Thông báo",
+          {timeOut: 3000, extendedTimeOut: 1500})
+      )
     }else {
       this.cinemaRoomService.getSearchByName(this.name, this.page).subscribe((data: any) => {
         this.listCinemaRoom = data.content;
-        this.totalPage= data.totalPages;
+        this.totalPage = data.totalPages;
       })
-  }
+    }
   }
 
 
@@ -64,7 +78,6 @@ export class ListCinemaRoomComponent implements OnInit {
     }
 
   }
-
 
 
 }

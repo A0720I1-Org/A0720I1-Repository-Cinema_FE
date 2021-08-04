@@ -2,15 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {ListCinemaRoomComponent} from "./list-cinema-room/list-cinema-room.component";
 import {DetailCinemaRoomComponent} from "./detail-cinema-room/detail-cinema-room.component";
+import {CreateShowtimeComponent} from "../showtime/create-showtime/create-showtime.component";
 
 
 const routes: Routes = [
-  {
-    path: '', component: ListCinemaRoomComponent
-  },
-  {
-    path: 'detail/:id', component: DetailCinemaRoomComponent
-  },
+  {path: '', component: ListCinemaRoomComponent},
+  {path: 'detail/:id', component: DetailCinemaRoomComponent},
+
 ];
 
 @NgModule({
