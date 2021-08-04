@@ -194,6 +194,7 @@ export class RegisterComponent implements OnInit {
                   )
                 },
                 (err) => {
+                  this.dialog.closeAll();
                   this.toastrService.error('Hãy kiểm tra lại đăng kí', 'Đăng kí thất bại', {
                     timeOut: 2000,
                     progressBar: true,

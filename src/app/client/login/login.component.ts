@@ -79,11 +79,6 @@ export class LoginComponent implements OnInit {
         },
         err => {
           this.error = err.error;
-          this.toastr.error(
-              err.error.message,
-              "Thông tin đăng nhập không chính xác",
-              {timeOut: 3000, extendedTimeOut: 1500}
-            )
         }
       );
     }

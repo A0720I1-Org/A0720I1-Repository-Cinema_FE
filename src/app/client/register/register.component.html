@@ -1,254 +1,317 @@
 <div class="content-inner row d-flex justify-content-center mt-3 mb-3">
-
   <div class="card text-dark mb-3 col-md-9 mx-0 px-0 form-check">
-    <div class="card-header"  style="background-color:#02a388">
+    <div class="card-header" style="background-color: #02a388">
       <h1 class="text-light card-text">Đăng kí</h1>
     </div>
-      <div class="card-body">
-              <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                  <div class="mx-0 px-0 row d-flex justify-content-center image-container mb-4">
-                    <img class="avatar mx-0 px-0" [src]="getImageUrl()" alt="card image">
-                </div>
-                  <div class="row mb-3">
-                  <div class="col-md-6 pr-1">
-                    <div class="form-group">
-                      <label for="username" class="required font-weight-bold">Tên đăng nhập</label>
-                      <input id="username" type="text" class="form-control"  formControlName="username">
-                      <ng-container *ngFor="let validation of validationMessage.username">
-                        <small class="form-text text-danger"
-                               *ngIf="registerForm.get('username').hasError(validation.type) && registerForm.get('username').touched">
-                          {{validation.message}}
-                        </small>
-                      </ng-container>
-                      <ng-container *ngIf="listError">
-                        <small class="form-text text-danger" *ngIf="listError.existUsername">
-                               {{listError.existUsername}}
-                        </small>
-                      </ng-container>
-                    </div>
-                  </div>
-                  <div class="col-md-6 pr-1">
-                    <div class="form-group">
-                      <label for="imageUrl"  class="font-weight-bold">Hình ảnh</label>
-                      <input type="file" class="form-control" id="imageUrl" accept=".jpg,.jpeg,.png" (change)="selectImage($event)">
-                    </div>
-                  </div>
-                  </div>
-                  <div class="row  mb-3">
-                    <div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label for="password" class="required font-weight-bold">Mật khẩu</label>
-                        <div class="d-flex">
-                          <input [type]="textType===true ? 'text' : 'password'" class="form-control" width="auto" formControlName="password">
-                          <i [class]="textType===true ? showPass : hidePass" class="icon" (click)="toggleShowHide()"></i>
-                        </div>
-                        <ng-container *ngFor="let validation of validationMessage.password">
-                          <small class="form-text text-danger"
-                                 *ngIf="registerForm.get('password').hasError(validation.type)&& registerForm.get('password').touched">
-                            {{validation.message}}
-                          </small>
-                        </ng-container>
-                      </div>
-                    </div>
-
-                    <div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label for="confirmPassword" class="required font-weight-bold">Xác nhận mật khẩu</label>
-                        <div class="d-flex">
-                          <input [type]="textType===true ? 'text' : 'password'" class="form-control" width="auto" formControlName="confirmPassword">
-                          <i [class]="textType===true ? showPass : hidePass" class="icon" (click)="toggleShowHide()"></i>
-                        </div>
-                        <ng-container *ngFor="let validation of validationMessage.confirmPassword">
-                          <small class="form-text text-danger"
-                                 *ngIf="registerForm.get('confirmPassword').hasError(validation.type)&& registerForm.get('confirmPassword').touched">
-                            {{validation.message}}
-                          </small>
-                        </ng-container>
-                        <ng-container *ngFor="let validation of validationMessage.confirmPassword">
-                          <small class="form-text text-danger"
-                                 *ngIf="registerForm.hasError(validation.type) && registerForm.get('confirmPassword').touched">
-                            {{validation.message}}
-                          </small>
-                        </ng-container>
-
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label for="name" class="required font-weight-bold">Họ và tên</label>
-                        <input id="name" type="text" class="form-control" placeholder="" formControlName="name">
-                        <ng-container *ngFor="let validation of validationMessage.name">
-                          <small class="form-text text-danger"
-                                 *ngIf="registerForm.get('name').hasError(validation.type)&& registerForm.get('name').touched">
-                            {{validation.message}}
-                          </small>
-                        </ng-container>
-                      </div>
-                    </div>
-                    <div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label for="email" class="font-weight-bold required">Email</label>
-                        <input type="email" class="form-control" id="email" value="phat.thanh.113@gmail.com" formControlName="email">
-                        <ng-container *ngFor="let validation of validationMessage.email">
-                          <small class="form-text text-danger"
-                                 *ngIf="registerForm.get('email').hasError(validation.type) && registerForm.get('email').touched">
-                            {{validation.message}}
-                          </small>
-                        </ng-container>
-                        <ng-container *ngIf="listError.existEmail">
-                          <small class="form-text text-danger">
-                                 {{listError.existEmail}}
-                          </small>
-                        </ng-container>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label for="birthday" class="required font-weight-bold">Ngày Sinh</label>
-                        <input id="birthday" type="date" class="form-control" placeholder="" formControlName="birthday">
-                        <ng-container *ngFor="let validation of validationMessage.birthday">
-                          <small class="form-text text-danger"
-                                 *ngIf="registerForm.get('birthday').hasError(validation.type) && registerForm.get('birthday').touched">
-                            {{validation.message}}
-                          </small>
-                        </ng-container>
-                        <ng-container *ngFor="let validation of validationMessage.birthday">
-                          <small class="form-text text-danger"
-                                 *ngIf="registerForm.hasError(validation.type) && registerForm.get('confirmPassword').touched">
-                            {{validation.message}}
-                          </small>
-                        </ng-container>
-                      </div>
-                    </div>
-                    <div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label for="idCard" class="required font-weight-bold">Chứng minh nhân dân</label>
-                        <input id="idCard" type="text" class="form-control" placeholder="" formControlName="card">
-                        <ng-container *ngFor="let validation of validationMessage.card">
-                          <small class="form-text text-danger"
-                                 *ngIf="registerForm.get('card').hasError(validation.type) && registerForm.get('card').touched">
-                            {{validation.message}}
-                          </small>
-                        </ng-container>
-                        <ng-container *ngIf="listError">
-                          <small class="form-text text-danger" *ngIf="listError.existCard">
-                                 {{listError.existCard}}
-                          </small>
-                        </ng-container>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label for="gender" class="required font-weight-bold">Giới tính</label>
-                        <div class="pt-1">
-                          <div class="form-check form-check-inline">
-                            <ng-container *ngIf="genders != null">
-                              <ng-container *ngFor="let gender of genders">
-                              <input class="form-check-input" type="radio" formControlName="gender" [value]="gender">
-                              <label class="form-check-label mr-3">{{gender}}</label>
-                              </ng-container>
-                            </ng-container>
-                            <ng-container *ngFor="let validation of validationMessage.gender">
-                              <small class="form-text text-danger"
-                                     *ngIf="registerForm.get('gender').hasError(validation.type) && registerForm.get('gender').touched">
-                                {{validation.message}}
-                              </small>
-                            </ng-container>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label for="phone" class="required font-weight-bold">Số điện thoại</label>
-                        <input id="phone" type="text" class="form-control" placeholder="" formControlName="phone">
-                        <ng-container *ngFor="let validation of validationMessage.phone">
-                          <small class="form-text text-danger"
-                                 *ngIf="registerForm.get('phone').hasError(validation.type) && registerForm.get('phone').touched">
-                            {{validation.message}}
-                          </small>
-                        </ng-container>
-                        <ng-container *ngIf="listError">
-                          <small class="form-text text-danger" *ngIf="listError.existPhone">
-                                 {{listError.existPhone}}
-                          </small>
-                        </ng-container>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <div class="col-md-4 pr-1">
-                      <div class="form-group">
-                        <label for="inputState" class="required font-weight-bold">Tỉnh/Thành Phố</label>
-                        <select id="inputState" class="form-control" (change)="getProvinceId($event.target)" (focusout)="getDistrict()" formControlName="provinceId">
-                          <option selected value="">Chọn...</option>
-                          <ng-container *ngIf="provinces != null">
-                            <ng-container *ngFor="let province of provinces">
-                              <option value="{{province.id}}"> {{province.name}}</option>
-                            </ng-container>
-                          </ng-container>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-4 pr-1">
-                      <div class="form-group">
-                        <label for="inputState" class="required font-weight-bold">Quận/Huyện</label>
-                        <select id="inputState" class="form-control"  (change)="getDistrictId($event.target)" (focusout)="getWard()" formControlName="districtId">
-                          <option selected>Chọn...</option>
-                          <ng-container *ngIf="districts != null">
-                            <ng-container *ngFor="let district of districts">
-                              <option value="{{district.id}}">{{district.name}}</option>
-                            </ng-container>
-                          </ng-container>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-4 pr-1">
-                      <div class="form-group">
-                        <label for="inputState" class="required font-weight-bold">Xã/Phường</label>
-                        <select id="inputState" class="form-control"  (change)="getWardId($event.target)" formControlName="wardId">
-                          <option selected>Chọn...</option>
-                          <ng-container *ngIf="wards != null">
-                            <ng-container *ngFor="let ward of wards">
-                              <option value="{{ward.id}}">{{ward.name}}</option>
-                            </ng-container>
-                          </ng-container>
-                          <ng-container *ngFor="let validation of validationMessage.wardId">
-                            <small class="form-text invalid-feedback"
-                                   *ngIf="registerForm.get('wardId').hasError(validation.type) && registerForm.get('wardId').touched">
-                              {{validation.message}}
-                            </small>
-                          </ng-container>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="custom-control custom-checkbox mb-3 flex-row d-flex justify-content-between">
-                    <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="confirm"> <label class="custom-control-label font-weight-bold" for="customCheck1">Tôi đồng ý với các thông tin và điều khoản của rạp phim</label>
-                    <ng-container *ngFor="let validation of validationMessage.confirm">
-                      <small class="form-text text-danger"
-                             *ngIf="registerForm.get('confirm').hasError(validation.type) && (registerForm.get('confirm').touched ||registerForm.get('confirm').dirty )">
-                        {{validation.message}}
-                      </small>
-                    </ng-container>
-                </div>
-                <div class="form-group row mt-5 d-flex justify-content-center">
-                  <button class="btn btn-outline-success mr-3  btn-submit btn-progress btn-progress-sm" [disabled]="registerForm.invalid">Xác nhận</button>
-                  <button class="btn btn-outline-primary btn-cancel btn-progress btn-progress-sm ">Quay lại</button>
+    <div class="card-body">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="
+            mx-0
+            px-0
+            row
+            d-flex
+            justify-content-center
+            image-container
+            mb-4
+          ">
+          <img class="avatar mx-0 px-0" [src]="getImageUrl()" alt="card image" />
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6 pr-1">
+            <div class="form-group">
+              <label for="username" class="required font-weight-bold">Tên đăng nhập</label>
+              <input id="username" type="text" class="form-control" formControlName="username" />
+              <ng-container *ngFor="let validation of validationMessage.username">
+                <small class="form-text text-danger" *ngIf="
+                    registerForm.get('username').hasError(validation.type) &&
+                    registerForm.get('username').touched
+                  ">
+                  {{ validation.message }}
+                </small>
+              </ng-container>
+              <ng-container *ngIf="listError">
+                <small class="form-text text-danger" *ngIf="listError.existUsername">
+                  {{ listError.existUsername }}
+                </small>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-md-6 pr-1">
+            <div class="form-group">
+              <label for="imageUrl" class="font-weight-bold">Hình ảnh</label>
+              <input type="file" class="form-control" id="imageUrl" accept=".jpg,.jpeg,.png"
+                (change)="selectImage($event)" />
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6 pr-1">
+            <div class="form-group">
+              <label for="password" class="required font-weight-bold">Mật khẩu</label>
+              <div class="d-flex">
+                <input [type]="textType === true ? 'text' : 'password'" class="form-control" width="auto"
+                  formControlName="password" />
+                <i [class]="textType === true ? showPass : hidePass" class="icon" (click)="toggleShowHide()"></i>
               </div>
-            </form>
-      </div>
+              <ng-container *ngFor="let validation of validationMessage.password">
+                <small class="form-text text-danger" *ngIf="
+                    registerForm.get('password').hasError(validation.type) &&
+                    registerForm.get('password').touched
+                  ">
+                  {{ validation.message }}
+                </small>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="col-md-6 pr-1">
+            <div class="form-group">
+              <label for="confirmPassword" class="required font-weight-bold">Xác nhận mật khẩu</label>
+              <div class="d-flex">
+                <input [type]="textType === true ? 'text' : 'password'" class="form-control" width="auto"
+                  formControlName="confirmPassword" />
+                <i [class]="textType === true ? showPass : hidePass" class="icon" (click)="toggleShowHide()"></i>
+              </div>
+              <ng-container *ngFor="let validation of validationMessage.confirmPassword">
+                <small class="form-text text-danger" *ngIf="
+                    registerForm
+                      .get('confirmPassword')
+                      .hasError(validation.type) &&
+                    registerForm.get('confirmPassword').touched
+                  ">
+                  {{ validation.message }}
+                </small>
+              </ng-container>
+              <ng-container *ngFor="let validation of validationMessage.confirmPassword">
+                <small class="form-text text-danger" *ngIf="
+                    registerForm.hasError(validation.type) &&
+                    registerForm.get('confirmPassword').touched
+                  ">
+                  {{ validation.message }}
+                </small>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6 pr-1">
+            <div class="form-group">
+              <label for="name" class="required font-weight-bold">Họ và tên</label>
+              <input id="name" type="text" class="form-control" placeholder="" formControlName="name" />
+              <ng-container *ngFor="let validation of validationMessage.name">
+                <small class="form-text text-danger" *ngIf="
+                    registerForm.get('name').hasError(validation.type) &&
+                    registerForm.get('name').touched
+                  ">
+                  {{ validation.message }}
+                </small>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-md-6 pr-1">
+            <div class="form-group">
+              <label for="email" class="font-weight-bold required">Email</label>
+              <input type="email" class="form-control" id="email" value="phat.thanh.113@gmail.com"
+                formControlName="email" />
+              <ng-container *ngFor="let validation of validationMessage.email">
+                <small class="form-text text-danger" *ngIf="
+                    registerForm.get('email').hasError(validation.type) &&
+                    registerForm.get('email').touched
+                  ">
+                  {{ validation.message }}
+                </small>
+              </ng-container>
+              <ng-container *ngIf="listError.existEmail">
+                <small class="form-text text-danger">
+                  {{ listError.existEmail }}
+                </small>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6 pr-1">
+            <div class="form-group">
+              <label for="birthday" class="required font-weight-bold">Ngày Sinh</label>
+              <input id="birthday" type="date" class="form-control" placeholder="" formControlName="birthday" />
+              <ng-container *ngFor="let validation of validationMessage.birthday">
+                <small class="form-text text-danger" *ngIf="
+                    registerForm.get('birthday').hasError(validation.type) &&
+                    registerForm.get('birthday').touched
+                  ">
+                  {{ validation.message }}
+                </small>
+              </ng-container>
+              <ng-container *ngFor="let validation of validationMessage.birthday">
+                <small class="form-text text-danger" *ngIf="
+                    registerForm.hasError(validation.type) &&
+                    registerForm.get('birthday').touched
+                  ">
+                  {{ validation.message }}
+                </small>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-md-6 pr-1">
+            <div class="form-group">
+              <label for="idCard" class="required font-weight-bold">Chứng minh nhân dân</label>
+              <input id="idCard" type="text" class="form-control"  formControlName="card" />
+              <ng-container *ngFor="let validation of validationMessage.card">
+                <small class="form-text text-danger" *ngIf="
+                    registerForm.get('card').hasError(validation.type) &&
+                    registerForm.get('card').touched
+                  ">
+                  {{ validation.message }}
+                </small>
+              </ng-container>
+              <ng-container *ngIf="listError">
+                <small class="form-text text-danger" *ngIf="listError.existCard">
+                  {{ listError.existCard }}
+                </small>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6 pr-1">
+            <div class="form-group">
+              <label for="gender" class="required font-weight-bold">Giới tính</label>
+              <div class="pt-1">
+                <div class="form-check form-check-inline">
+                  <ng-container *ngIf="genders != null">
+                    <ng-container *ngFor="let gender of genders">
+                      <input class="form-check-input" type="radio" formControlName="gender" [value]="gender" />
+                      <label class="form-check-label mr-3">{{ gender }}</label>
+                    </ng-container>
+                  </ng-container>
+                  <ng-container *ngFor="let validation of validationMessage.gender">
+                    <small class="form-text text-danger" *ngIf="
+                        registerForm.get('gender').hasError(validation.type) &&
+                        registerForm.get('gender').touched
+                      ">
+                      {{ validation.message }}
+                    </small>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 pr-1">
+            <div class="form-group">
+              <label for="phone" class="required font-weight-bold">Số điện thoại</label>
+              <input id="phone" type="text" class="form-control" placeholder="" formControlName="phone" />
+              <ng-container *ngFor="let validation of validationMessage.phone">
+                <small class="form-text text-danger" *ngIf="
+                    registerForm.get('phone').hasError(validation.type) &&
+                    registerForm.get('phone').touched
+                  ">
+                  {{ validation.message }}
+                </small>
+              </ng-container>
+              <ng-container *ngIf="listError">
+                <small class="form-text text-danger" *ngIf="listError.existPhone">
+                  {{ listError.existPhone }}
+                </small>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-4 pr-1">
+            <div class="form-group">
+              <label for="inputState" class="required font-weight-bold">Tỉnh/Thành Phố</label>
+              <select id="inputState" class="form-control" (change)="getProvinceId($event.target)"
+                (focusout)="getDistrict()" formControlName="provinceId">
+                <option selected value="">Chọn...</option>
+                <ng-container *ngIf="provinces != null">
+                  <ng-container *ngFor="let province of provinces">
+                    <option value="{{ province.id }}">
+                      {{ province.name }}
+                    </option>
+                  </ng-container>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4 pr-1">
+            <div class="form-group">
+              <label for="inputState" class="required font-weight-bold">Quận/Huyện</label>
+              <select id="inputState" class="form-control" (change)="getDistrictId($event.target)"
+                (focusout)="getWard()" formControlName="districtId">
+                <option selected>Chọn...</option>
+                <ng-container *ngIf="districts != null">
+                  <ng-container *ngFor="let district of districts">
+                    <option value="{{ district.id }}">
+                      {{ district.name }}
+                    </option>
+                  </ng-container>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4 pr-1">
+            <div class="form-group">
+              <label for="inputState" class="required font-weight-bold">Xã/Phường</label>
+              <select id="inputState" class="form-control" (change)="getWardId($event.target)" formControlName="wardId">
+                <option selected>Chọn...</option>
+                <ng-container *ngIf="wards != null">
+                  <ng-container *ngFor="let ward of wards">
+                    <option value="{{ ward.id }}">{{ ward.name }}</option>
+                  </ng-container>
+                </ng-container>
+                <ng-container *ngFor="let validation of validationMessage.wardId">
+                  <small class="form-text invalid-feedback" *ngIf="
+                      registerForm.get('wardId').hasError(validation.type) &&
+                      registerForm.get('wardId').touched
+                    ">
+                    {{ validation.message }}
+                  </small>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="
+            custom-control custom-checkbox
+            mb-3
+            flex-row
+            d-flex
+            justify-content-between
+          ">
+          <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="confirm" />
+          <label class="custom-control-label font-weight-bold" for="customCheck1">Tôi đồng ý với các thông tin và điều
+            khoản của rạp phim</label>
+          <ng-container *ngFor="let validation of validationMessage.confirm">
+            <small class="form-text text-danger" *ngIf="
+                registerForm.get('confirm').hasError(validation.type) &&
+                (registerForm.get('confirm').touched ||
+                  registerForm.get('confirm').dirty)
+              ">
+              {{ validation.message }}
+            </small>
+          </ng-container>
+        </div>
+        <div class="form-group row mt-5 d-flex justify-content-center">
+          <button class="
+              btn btn-outline-success
+              mr-3
+              btn-submit btn-progress btn-progress-sm
+            " [disabled]="registerForm.invalid">
+            Xác nhận
+          </button>
+          <button class="
+              btn btn-outline-primary btn-cancel btn-progress btn-progress-sm
+            ">
+            Quay lại
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
 <ng-template #loading>
   <div class="d-flex flex-row justify-content-center align-items-center">
     <mat-spinner></mat-spinner>
-</div>
+  </div>
 </ng-template>
-<p>{{registerForm.value|json}}</p>
+<p>{{ registerForm.value | json }}</p>

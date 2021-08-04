@@ -160,6 +160,7 @@ export class UpdateInfoComponent implements OnInit {
                       )
                     },
                     (err) => {
+                      this.dialog.closeAll();
                       this.toastrService.error('Hãy kiểm tra lại cập nhật', 'Cập nhật thất bại', {
                         timeOut: 2000,
                         progressBar: true,

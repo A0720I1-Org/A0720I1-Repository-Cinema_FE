@@ -1,11 +1,10 @@
-.sidebar-container{
+.sidebar-container {
   background-color: white;
   padding: 0;
   margin: 0;
   padding-top: 0px;
   height: auto;
   padding-left: 13px;
-
 }
 .card-body-text-bold {
   font-weight: bold;
@@ -19,20 +18,20 @@
   padding-bottom: 0;
   color: rgb(112, 112, 112);
 }
-.sidebar-link{
+.sidebar-link {
   background: #02a388;
   cursor: pointer;
   display: flex;
   flex-direction: row;
   justify-content: start;
   padding-left: 1rem;
-transition: 0.4s;
+  transition: 0.4s;
   width: 90%;
-  border: none ;
+  border: none;
   margin-top: 3px;
 }
 
-.sidebar-link:hover{
+.sidebar-link:hover {
   background-color: #fe423f;
   cursor: pointer;
   color: white;
@@ -42,7 +41,7 @@ transition: 0.4s;
   width: 90%;
 }
 
-.sidebar-link-item{
+.sidebar-link-item {
   display: block;
   text-decoration: none;
   color: white;
@@ -53,7 +52,7 @@ transition: 0.4s;
   font-size: 16px;
   width: 273px;
 }
-.sidebar-icon{
+.sidebar-icon {
   width: 5%;
   margin-right: 2rem;
   align-content: end;
@@ -63,7 +62,7 @@ transition: 0.4s;
   text-decoration: none;
   color: white;
 }
-.sidebar-link-selected{
+.sidebar-link-selected {
   background-color: rgb(154, 186, 187);
 }
 .navbar-nav {
@@ -72,45 +71,45 @@ transition: 0.4s;
   flex-direction: column;
   padding-left: 0;
   margin-bottom: 0;
-  list-style: none
+  list-style: none;
 }
 
 .navbar-nav .nav-link {
   padding-right: 0;
-  padding-left: 0
+  padding-left: 0;
 }
 
 .navbar-nav .dropdown-menu {
   position: static;
-  float: none
+  float: none;
 }
 
 .navbar-text {
   display: inline-block;
-  padding-top: .5rem;
-  padding-bottom: .5rem
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
-.col-form-label{
+.col-form-label {
   font-size: 16px;
   font-weight: bold;
 }
 .required:after {
-  content:" *";
+  content: " *";
   color: red;
 }
 
-.form-check{
-    max-width: 65%;
+.form-check {
+  max-width: 65%;
 }
-.table-check{
+.table-check {
   max-width: 74%;
 }
 .content-inner {
-    font-size: 14px;
+  font-size: 14px;
 }
 .form-group {
-  padding:0;
-  margin:0;
+  padding: 0;
+  margin: 0;
   position: relative;
 }
 .image-container {
@@ -122,17 +121,17 @@ transition: 0.4s;
   top: 5rem;
 }
 span {
-  color :rgb(112, 112, 112)
+  color: rgb(112, 112, 112);
 }
 .required:after {
-  content:" *";
+  content: " *";
   color: red;
 }
 .avatar {
-    width: 100px;
-    height: 100px;
-    border: 1px solid #DDDDDD;
-    border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #dddddd;
+  border-radius: 50%;
 }
 .btn-link {
   font-weight: normal;
@@ -146,7 +145,7 @@ span {
 fieldset[disabled] .btn-link {
   background-color: transparent;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 .btn-link,
 .btn-link:hover,
@@ -167,26 +166,27 @@ fieldset[disabled] .btn-link:focus {
   color: #777;
   text-decoration: none;
 }
-table td, table th {
- height: auto;
- text-align: left;
- width: 30px;
+table td,
+table th {
+  height: auto;
+  text-align: left;
+  width: 30px;
 }
 table th .name-film {
   white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .col-form-label {
   font-size: 14px;
 }
-.btn-progress{
+.btn-progress {
   outline: none;
   font-style: normal;
   font-size: 14px;
   display: block;
   border: none;
-  -webkit-transition: .5s all;
+  -webkit-transition: 0.5s all;
   -webkit-appearance: button;
   cursor: pointer;
   width: 10rem;
@@ -194,12 +194,12 @@ text-overflow: ellipsis;
   margin-right: 1rem;
 }
 
-.btn-progress:hover{
+.btn-progress:hover {
   color: #fff;
   background: #fe423f;
 }
 
-.btn-submit{
+.btn-submit {
   color: #fff !important;
   background: #02a388;
 }
@@ -207,7 +207,7 @@ text-overflow: ellipsis;
   height: auto;
   width: 8rem !important;
 }
-.btn-submit-lg{
+.btn-submit-lg {
   padding: 1rem 2rem;
   font-size: 1rem;
 }
@@ -217,18 +217,18 @@ text-overflow: ellipsis;
   color: #fff !important;
 }
 
-.btn-cancel:hover{
+.btn-cancel:hover {
   color: #02a388;
 }
-::ng-deep.mat-dialog-container{
+::ng-deep.mat-dialog-container {
   background-color: white;
   padding: 0 !important;
   margin: 0 !important;
 }
-.custom-dialog-container  {
+.custom-dialog-container {
   background-color: #0a346d !important;
 }
-.card-custom{
+.card-custom {
   margin: 0;
 }
 .icon {
