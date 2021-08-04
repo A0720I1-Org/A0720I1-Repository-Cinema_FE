@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {TokenStorageService} from "./token-storage.service";
-import {Observable} from "rxjs";
 import {BookingInformation} from "../model/book-ticket/BookingInformation";
+import {Observable} from "rxjs";
+import {Payment} from "../model/book-ticket/Payment";
 
 @Injectable({
   providedIn: 'root'
 })
-export class InvoiceService {
+export class PaymentService {
   private API_URL = environment.apiBaseUrl;
   httpOptions: any;
   constructor(
@@ -25,11 +26,7 @@ export class InvoiceService {
     };
   }
 
-  createInvoice(bookingInformation: BookingInformation): Observable<any> {
-    return this.httpClient.post<any>(this.API_URL + "/api/member/invoice/create-invoice", bookingInformation, this.httpOptions);
-  }
-
-  getInvoiceById(invoiceId: number): Observable<any> {
-    return this.httpClient.get<any>(this.API_URL + "/api/member/invoice/get-invoice-by-id/" + invoiceId, this.httpOptions);
+  payByPaypal(payment: Payment): Observable<any> {
+    return this.httpClient.post<any>(this.API_URL + "/api/member/paypal/pay", payment, this.httpOptions);
   }
 }

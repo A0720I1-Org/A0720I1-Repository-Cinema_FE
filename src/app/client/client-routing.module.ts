@@ -8,6 +8,7 @@ import { AuthGuardService } from '../service/auth-guard.service';
 
 
 const routes: Routes = [
+  {path: 'book', loadChildren: () => import('./ticket-booking/ticket-booking.module').then(m => m.TicketBookingModule)},
   {path : '',component : ClientComponent},
 
   { path: 'member',component : ClientComponent ,
