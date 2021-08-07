@@ -20,8 +20,10 @@ export class ManagerTicketComponent implements OnInit {
 
   ngOnInit(): void {
     this.ticketService.getAllTicket(this.page).subscribe(data=>{
-      this.tickets = data.content;
-      this.totalPage=data.totalPages;
+      if(data != null) {
+        this.tickets = data.content;
+        this.totalPage=data.totalPages;
+      }
     })
   }
   lastPage() {
