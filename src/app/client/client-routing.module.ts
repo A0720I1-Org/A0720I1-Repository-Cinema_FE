@@ -1,3 +1,5 @@
+
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -17,8 +19,7 @@ const routes: Routes = [
     component : LoginComponent,
   },
     {path : 'register' ,component : RegisterComponent},
-    // {path : 'manager' ,
-    // loadChildren: () => import('./member/member.module').then(m => m.MemberModule),}
+    {path : 'ticket' ,component : NotFoundPageComponent},
     {path : 'manager' ,
     loadChildren: () => import('./member/member.module').then(m => m.MemberModule),
     canActivate : [AuthGuardService],

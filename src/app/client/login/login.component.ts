@@ -4,12 +4,13 @@ import { SecurityService } from './../../service/security.service';
 import { IMembership } from './../phat-model/entity/IMembership';
 import { ILoginRequest } from './../phat-model/entity/ILoginRequest';
 import { ISocialResponse } from './../phat-model/dto/ISoclalResponse';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IAccount } from '../phat-model/entity/IAccount';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized } from '@angular/router';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
 import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser} from "angularx-social-login";
+import { filter, pairwise,map } from 'rxjs/operators';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -29,14 +30,17 @@ export class LoginComponent implements OnInit {
   roles: string[] = [];
   socialResponse : ISocialResponse = null;
   error :any='';
+  previousUrl = '';
   constructor(
               private router: Router,
+              private route:ActivatedRoute,
               private form: FormBuilder,
               private tokenStorage: TokenStorageService,
               private auth: SocialAuthService,
               private authService: SecurityService,
               private shareService: ShareService,
-              private toastr : ToastrService
+              private toastr : ToastrService,
+              private el: ElementRef,
               ) {
                 this.shareService.getClickEvent().subscribe(() => {
                   this.ngOnInit()
@@ -61,7 +65,17 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.loginForm.valid){
+    if(this.loginForm.invalid){
+      for (const key of Object.keys(this.loginForm.controls)) {
+        if (this.loginForm.controls[key].invalid) {
+          const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + key + '"]');
+          this.loginForm.get(key).markAsTouched();
+          invalidControl.focus();
+          break;
+       }
+  }
+    }
+    else{
       this.authService.login(this.loginForm.value).subscribe(
         data => {
           if (this.loginForm.value.remember){
@@ -75,13 +89,30 @@ export class LoginComponent implements OnInit {
           this.username = this.tokenStorage.getUser().username;
           this.roles = this.tokenStorage.getUser().roles;
           this.loginForm.reset();
-          this.router.navigate(["/"]);
+          const { redirect } = window.history.state;
+          this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate([redirect || '']);
+        });
         },
         err => {
+          this.toastr.error(
+            "Đăng nhập không thành công",
+            "Thông báo ",
+            {timeOut: 3000, extendedTimeOut: 1500}
+          )
           this.error = err.error;
         }
       );
     }
+  }
+
+  getPreviousUrl(){
+    this.router.events
+    .pipe(filter((evt: any) => evt instanceof RoutesRecognized), pairwise())
+    .subscribe((events: RoutesRecognized[]) => {
+      this.previousUrl = events[0].urlAfterRedirects;
+
+    });
   }
   signInWithGoogle(): void {
     this.auth.signIn(GoogleLoginProvider.PROVIDER_ID).then(data => {
@@ -92,7 +123,10 @@ export class LoginComponent implements OnInit {
           this.tokenStorage.saveTokenSession(data.token);
           this.tokenStorage.saveUserSession(data)
           this.shareService.sendClickEvent();
-          this.router.navigateByUrl("/");
+          const { redirect } = window.history.state;
+          this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate([redirect || '']);
+        });
         },
         error => {
           this.toastr.error(
@@ -117,7 +151,10 @@ export class LoginComponent implements OnInit {
           this.tokenStorage.saveTokenSession(data.token);
           this.tokenStorage.saveUserSession(data)
           this.shareService.sendClickEvent();
-          this.router.navigateByUrl("/");
+          const { redirect } = window.history.state;
+          this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate([redirect || '']);
+        });
         },
         error => {
           this.toastr.error(

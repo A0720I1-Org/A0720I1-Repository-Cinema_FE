@@ -1,3 +1,4 @@
+import { ChangeIdPipe } from './pipe/invoice-id';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MemberTicketComponent } from './member-ticket/member-ticket.component';
 import {NgModule} from '@angular/core';
@@ -8,7 +9,7 @@ import {AdminComponent} from "./admin.component";
 
 
 @NgModule({
-  declarations: [AdminComponent,MemberTicketComponent],
+  declarations: [AdminComponent,MemberTicketComponent,ChangeIdPipe],
   imports: [
     CommonModule,
     AdminRoutingModule,

@@ -1,3 +1,4 @@
+import { NotFoundPageComponent } from './client/not-found-page/not-found-page.component';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import { AuthGuardService } from './service/auth-guard.service';
@@ -11,6 +12,7 @@ const routes: Routes = [
     roles: ['ROLE_ADMIN'] //Quy dinh role nao duoc truy cap vao component nay
     },
   },
+  {path:'**',component:NotFoundPageComponent},
 ];
 
 

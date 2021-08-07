@@ -12,7 +12,7 @@ export class MemberTicketComponent implements OnInit {
   totalPage: number;
   listTicket: any = [];
   editTicket:any;
-  card:string='';
+  phone:string='';
   constructor(private invoiceService: InvoiceService) {
   }
   ngOnInit(): void {

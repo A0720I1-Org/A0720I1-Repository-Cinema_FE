@@ -13,7 +13,7 @@
             <tr>
               <th class="name-film">Tên phim</th>
               <th>Thời gian chiếu</th>
-              <th>Tổng tiền(VND)</th>
+              <th>Tổng tiền</th>
               <th>Ghế</th>
               <th>Trạng thái</th>
             </tr>
@@ -22,7 +22,7 @@
             <tr *ngFor="let ticket of tickets; let i = index">
               <th class="name-film">{{ticket.filmName}}</th>
               <td>{{ticket.date +' '+ ticket.time | date:'dd/MM/yyyy, h:mm a'}}</td>
-              <th>{{ticket.price}}</th>
+              <td>{{ticket.price +' VND'}}</td>
               <th>{{ticket.seatName}}</th>
               <td *ngIf="ticket.status == 0" class="text-primary">Đợi nhận vé</td>
               <td *ngIf="ticket.status == 1" class="text-success">Đã nhận vé </td>
@@ -30,7 +30,7 @@
           </tbody>
         </table>
 <!-- start pagination -->
-    <div class="d-flex flex-row justify-content-center" *ngIf="tickets.length > 0">
+    <div class="d-flex flex-row justify-content-center mt-5" *ngIf="tickets.length > 0">
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
           <li class="page-item" >

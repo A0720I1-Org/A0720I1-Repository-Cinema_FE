@@ -11,10 +11,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+
 
 
 @NgModule({
-  declarations: [ClientComponent,LoginComponent,RegisterComponent, ForgotPasswordComponent],
+  declarations: [ClientComponent,LoginComponent,RegisterComponent, ForgotPasswordComponent, NotFoundPageComponent],
   imports: [
     CommonModule,
     ClientRoutingModule,

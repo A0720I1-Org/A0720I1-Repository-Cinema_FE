@@ -42,7 +42,7 @@
               </thead>
               <tbody>
               <tr *ngFor="let ticket of listTicket">
-                <td class="text-center">{{ticket.invoiceId}}</td>
+                <td>{{ticket.invoiceId | changeId:'MHD'}}</td>
                 <td>{{ticket.memberCode}}</td>
                 <td>{{ticket.memberName}}</td>
                 <td>{{ticket.memberCard}}</td>
@@ -66,7 +66,7 @@
                 </li >
                 <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page-2)" *ngIf="page-2>=0&&page+1>=totalPage">{{page-1}}</a></li>
                 <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page-1)" *ngIf="page-1>=0">{{page}}</a></li>
-                <li class="page-item click"><a class="page-link text-dark bg-secondary" (click)="paginate(page)">{{page+1}}</a></li>
+                <li class="page-item click"><a class="page-link text-light bg-secondary" (click)="paginate(page)">{{page+1}}</a></li>
                 <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page+1)" *ngIf="page+1<totalPage">{{page+2}}</a></li>
                 <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page+2)" *ngIf="page+2<totalPage&&page-1<0">{{page+3}}</a></li>
                 <li class="page-item">

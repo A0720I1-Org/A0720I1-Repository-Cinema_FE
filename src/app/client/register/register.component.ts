@@ -6,7 +6,7 @@ import { IDistrict } from './../phat-model/entity/IDistrict';
 import { IProvince } from './../phat-model/entity/IProvince';
 import { IWard } from './../phat-model/entity/IWard';
 import { IAccountMemberDTO } from './../phat-model/dto/IAccountMemberDTO';
-import { Component, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmPasswordValidation, ConfirmPasswordValidator, OldNewPassword } from '../validator/confirm-password';
@@ -47,7 +47,8 @@ export class RegisterComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private shareService: ShareService,
     @Inject(AngularFireStorage) private storage: AngularFireStorage,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private el: ElementRef) { }
   ngOnInit(): void {
     if (this.tokenStorage.getTokenSession()) {
       this.shareService.sendClickEvent();
@@ -170,7 +171,13 @@ export class RegisterComponent implements OnInit {
   }
   onSubmit() {
     if (this.registerForm.invalid) {
-      return;
+      for (const key of Object.keys(this.registerForm.controls)) {
+        if (this.registerForm.controls[key].invalid) {
+          const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + key + '"]');
+          invalidControl.focus();
+          break;
+       }
+  }
     }
     else {
       if (this.inputImage != null) {
@@ -247,54 +254,54 @@ export class RegisterComponent implements OnInit {
   validationMessage = {
     'username': [
       { type: 'required', message: 'Tên đăng nhập không được để trống!' },
-      { type: 'minlength', message: 'Tên đăng nhập  phải nhiều hơn 6 kí tự' },
-      { type: 'maxlength', message: 'Tên đăng nhập  phải ít hơn 45 kí tự' },
-      { type: 'pattern', message: 'Tên đăng nhập không hợp lệ .VD :phat1234' }
+      { type: 'minlength', message: 'Tên đăng nhập  phải nhiều hơn 6 kí tự!' },
+      { type: 'maxlength', message: 'Tên đăng nhập  phải ít hơn 45 kí tự!' },
+      { type: 'pattern', message: 'Tên đăng nhập không hợp lệ .VD :phat1234!' }
     ],
     'password': [
       { type: 'required', message: 'Mật khẩu không được để trống!' },
-      { type: 'minlength', message: 'Mật khẩu phải nhiều hơn 6 kí tự' },
-      { type: 'maxlength', message: 'Mật khẩu phải ít hơn 45 kí tự' },
-      { type: 'pattern', message: 'Mật khẩu không được chứa kí tự đặc biệt' },
+      { type: 'minlength', message: 'Mật khẩu phải nhiều hơn 6 kí tự!' },
+      { type: 'maxlength', message: 'Mật khẩu phải ít hơn 45 kí tự!' },
+      { type: 'pattern', message: 'Mật khẩu không được chứa kí tự đặc biệt!' },
     ],
     'confirmPassword': [
-      { type: 'required', message: 'Xác nhận mật khẩu không được để trống' },
-      { type: 'failConfirmPassword', message: 'Xác nhận mật khẩu phải trùng với mật khẩu' },
+      { type: 'required', message: 'Xác nhận mật khẩu không được để trống!' },
+      { type: 'failConfirmPassword', message: 'Xác nhận mật khẩu phải trùng với mật khẩu!' },
     ],
     'email': [
       { type: 'required', message: 'Email không được để trống!' },
-      { type: 'maxlength', message: 'Mật khẩu phải ít hơn 45 kí tự' },
-      { type: 'pattern', message: 'Email phải đúng định dạng.VD:09xxabcxyz' },
+      { type: 'maxlength', message: 'Mật khẩu phải ít hơn 45 kí tự!' },
+      { type: 'pattern', message: 'Email phải đúng định dạng.VD:09xxabcxyz!' },
     ],
     'name': [
       { type: 'required', message: 'Họ và tên không được để trống!' },
-      { type: 'maxlength', message: 'Mật khẩu phải ít hơn 45 kí tự' },
-      { type: 'pattern', message: 'Họ và tên phải ít nhất 2 từ' },
+      { type: 'maxlength', message: 'Mật khẩu phải ít hơn 45 kí tự!' },
+      { type: 'pattern', message: 'Họ và tên phải ít nhất 2 từ!' },
     ],
     'birthday': [
       { type: 'required', message: 'Ngày sinh không được để trống!' },
-      { type: 'pattern', message: 'Ngày sinh phải đúng định dạng' },
-      { type: 'notEnoughAge', message: 'Bạn chưa đủ tuổi để đăng kí' },
-      { type: 'past', message: 'Ngày sinh phải là ngày trong quá khứ' },
-      { type: 'tooAge', message: 'Bạn không thể quá 100 tuổi' }
+      { type: 'pattern', message: 'Ngày sinh phải đúng định dạng!' },
+      { type: 'notEnoughAge', message: 'Bạn chưa đủ tuổi để đăng kí!' },
+      { type: 'past', message: 'Ngày sinh phải là ngày trong quá khứ!' },
+      { type: 'tooAge', message: 'Bạn không thể quá 100 tuổi!' }
     ],
     'gender': [
       { type: 'required', message: 'Giới tính không được để trống!' },
     ],
     'card': [
       { type: 'required', message: 'Số CMND không được để trống!' },
-      { type: 'pattern', message: 'Số CMND chỉ được tử 9-12 chữ số' },
+      { type: 'pattern', message: 'Số CMND chỉ được tử 9-12 chữ số!' },
     ],
     'phone': [
       { type: 'required', message: 'Số điện thoại không được để trống!' },
-      { type: 'pattern', message: 'Số điện thoại phải đúng định dạng : 09xxabcxyz' },
+      { type: 'pattern', message: 'Số điện thoại phải đúng định dạng : 09xxabcxyz!' },
     ],
     'wardId': [
       { type: 'required', message: 'Khu vực không được để trống!' },
       { type: 'pattern', message: 'Khu vực không được để trống!' },
     ],
     'confirm': [
-      { type: 'requiredTrue', message: 'Bạn phải chấp nhận điều khoản để hoàn thành việc đăng kí' },
+      { type: 'requiredTrue', message: 'Bạn phải chấp nhận điều khoản để hoàn thành việc đăng kí!' },
     ],
   };
 
