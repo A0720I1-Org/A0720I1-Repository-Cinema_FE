@@ -6,13 +6,13 @@ import { ClientComponent } from './client.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClientRoutingModule } from './client-routing.module';
+
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
-
 
 
 @NgModule({

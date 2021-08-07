@@ -11,9 +11,9 @@ import { SocialLoginModule, SocialAuthServiceConfig, SocialAuthService, Facebook
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../environments/environment';
+import {environment} from "../environments/environment";
 import {AngularFireStorageModule} from "@angular/fire/storage";
+import {AngularFireModule} from "@angular/fire";
 import {AngularFireDatabaseModule} from "@angular/fire/database";
 
 @NgModule({
@@ -23,6 +23,7 @@ import {AngularFireDatabaseModule} from "@angular/fire/database";
     BrowserAnimationsModule,
     RouterModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     SocialLoginModule,
