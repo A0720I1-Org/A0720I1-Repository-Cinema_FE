@@ -27,8 +27,10 @@
               Phim
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item mb-2" style="color: black" href="#idFilm" (click)="getListUpShowingFilm()">Phim đang chiếu</a>
-              <a class="dropdown-item" style="color: black" href="#idFilm" (click)="getListUpComingFilm()">Phim sắp chiếu</a>
+              <a class="dropdown-item mb-2" style="color: black" href="#idFilm" (click)="getListUpShowingFilm()">Phim
+                đang chiếu</a>
+              <a class="dropdown-item" style="color: black" href="#idFilm" (click)="getListUpComingFilm()">Phim sắp
+                chiếu</a>
             </div>
           </li>
           <li class="nav-item">
@@ -37,14 +39,9 @@
           <li class="nav-item">
             <a class="nav-link nav-link-custom" routerLink="/member/ticket-price">Giá vé </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link nav-link-custom" href="#">Khuyến mãi </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link nav-link-custom" href="#">Tin tức </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link nav-link-custom" href="#">Liên hệ </a>
+          <li class="nav-item" *ngIf="isLoggedIn">
+            <a class="nav-link nav-link-custom truncate text-left" href="#"
+               routerLink="/member/manager/">{{username}} </a>
           </li>
         </ul>
       </div>
@@ -111,8 +108,10 @@
   <!--  Header list-film-->
   <div class="main-list-film">
     <div class="nav-herder d-flex justify-content-center flex-wrap" id="idFilm">
-      <span [ngStyle]="{background: isShowing ? '#02a388' : '#0c0d0d'}"><a href="#idFilm" (click)="getListUpShowingFilm()">Phim Đang Chiếu</a></span>
-      <span [ngStyle]="{background: isShowing ? '#0c0d0d' : '#02a388'}"><a href="#idFilm" (click)="getListUpComingFilm()">Phim Sắp Chiếu</a></span>
+      <span [ngStyle]="{background: isShowing ? '#02a388' : '#0c0d0d'}"><a href="#idFilm"
+                                                                           (click)="getListUpShowingFilm()">Phim Đang Chiếu</a></span>
+      <span [ngStyle]="{background: isShowing ? '#0c0d0d' : '#02a388'}"><a href="#idFilm"
+                                                                           (click)="getListUpComingFilm()">Phim Sắp Chiếu</a></span>
     </div>
     <!--  Header list-film-->
     <!--    Button search-->
@@ -134,7 +133,7 @@
                  alt="...">
             <div class="hover-overlay"></div>
             <div class="button-overlay d-flex flex-row">
-              <a class="btn-sm mr-3" [routerLink]="['/member/book/film-selection', film.id]" > Đặt vé </a>
+              <a class="btn-sm mr-3" [routerLink]="['/member/book/film-selection', film.id]"> Đặt vé </a>
               <a class="btn-sm" [routerLink]="['/detail', film.id]"> Chi tiết </a>
               <div class="button-play-video">
                 <button class="border-0" (click)="viewTrailer(film.trailer)">
@@ -144,7 +143,7 @@
             </div>
             <div class="card-body pt-2">
               <div class="card-title info-header">
-                <a  [routerLink]="['/detail', film.id]"><h3>{{film.name}}</h3></a>
+                <a [routerLink]="['/detail', film.id]"><h3>{{film.name}}</h3></a>
               </div>
               <div class="card-text info-detail">
                 <ul>

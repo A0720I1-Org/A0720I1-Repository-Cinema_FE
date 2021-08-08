@@ -7,6 +7,7 @@ import {ViewTrailerComponent} from "../view-trailer/view-trailer.component";
 import {IFilmTopDTO} from "../../../dto/IFilmTopDTO";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
+import {TokenStorageService} from "../../../service/token-storage.service";
 
 @Component({
   selector: 'app-homepages',
@@ -18,18 +19,32 @@ export class HomepagesComponent implements OnInit {
   listFilmData: IFilmDTO[] = [];
   isShowing: boolean;
   nameSearch: string = '';
+  username: string;
+  role: string;
+  isLoggedIn: boolean = false;
 
   constructor(
     private filmService: FilmService,
     private dialog: MatDialog,
     private toastrService: ToastrService,
     private router: Router,
+    private tokenStorageService: TokenStorageService,
   ) {
   }
 
   ngOnInit(): void {
+    this.load();
     this.getListUpShowingFilm();
     this.getTopFilm();
+  }
+
+  load() {
+    if (this.tokenStorageService.getToken()) {
+      this.username = this.tokenStorageService.getUser().account.username;
+      console.log(this.role);
+      this.role = this.tokenStorageService.getUser().roles[0];
+    }
+    this.isLoggedIn = this.username != null;
   }
 
   getTopFilm() {

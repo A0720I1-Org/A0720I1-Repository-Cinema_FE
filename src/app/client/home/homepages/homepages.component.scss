@@ -43,6 +43,17 @@ ul.dropdown-menu.multi-column.w-200 {
   width: 200px;
 }
 
+.navbar-nav {
+  margin-left: 20rem;
+}
+
+.truncate {
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .agile_w3_title {
   margin: 1.2em 0 1em;
   font-size: 2.5rem;
