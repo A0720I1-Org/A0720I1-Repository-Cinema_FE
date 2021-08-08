@@ -1,6 +1,6 @@
 import {MemberTicketComponent} from './member-ticket/member-ticket.component';
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {Routes, RouterModule, ActivatedRoute} from '@angular/router';
 import {AdminComponent} from "./admin.component";
 
 
@@ -21,4 +21,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AdminRoutingModule {
+
 }
