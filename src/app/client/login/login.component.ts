@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
       this.username = this.tokenStorage.getUser().username;
     }
     if(this.tokenStorage.getTokenSession()) {
-          this.router.navigate([this.router.url]);
+          this.router.navigate(['']);
     }
   }
 
