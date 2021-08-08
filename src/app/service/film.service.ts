@@ -13,6 +13,10 @@ export class FilmService {
   constructor(private httpClient: HttpClient) {
   }
 
+  getTopFilm(): Observable<any> {
+    return this.httpClient.get<any>(this.API_URL + "/api/public/film/top-film");
+  }
+
   getListUpComingFilmDTO(): Observable<any> {
     return this.httpClient.get<any>(this.API_URL + "/api/public/film/listUpComingFilm");
   }
@@ -27,5 +31,13 @@ export class FilmService {
 
   searchUpShowingFilmDTO(name: string) {
     return this.httpClient.get<any>(this.API_URL + "/api/public/film/showing?name=" + name)
+  }
+
+  getFilmById(id: number) {
+    return this.httpClient.get<any>(this.API_URL + "/api/public/film/film?id=" + id)
+  }
+
+  getListTicketPrice() {
+    return this.httpClient.get<any>(this.API_URL + "/api/public/ticket-price/list-ticket-price");
   }
 }

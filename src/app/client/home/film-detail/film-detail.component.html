@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="film-detail-header d-flex justify-content-center">
+    <p>Nội dung phim</p>
+  </div>
+  <hr>
+  <div class="d-flex justify-content-start film-detail">
+    <div class="film-detail-image">
+      <img src="{{filmDetail.imageUrl}}"
+           alt="imageFilm">
+    </div>
+    <div class="film-detail-info">
+      <div class="film-detail-info-name">
+        <h1>{{filmDetail.name}}</h1>
+      </div>
+      <div>
+        <span><strong>Khởi chiếu:</strong></span>
+        <span> Từ {{filmDetail.start_date | date: "dd/MM/yyyy"}}</span>
+      </div>
+      <div>
+        <span><strong>Loại phim:</strong></span>
+        <span> {{filmDetail.category}}</span>
+      </div>
+      <div>
+        <span><strong>Đạo diễn:</strong></span>
+        <span> {{filmDetail.directors}}</span>
+      </div>
+      <div>
+        <span><strong>Diễn viên:</strong></span>
+        <span> {{filmDetail.actors}}</span>
+      </div>
+      <div>
+        <span><strong>Thời lượng:</strong></span>
+        <span> {{filmDetail.duration}} phút</span>
+      </div>
+      <div>
+        <span><strong>Hãng:</strong></span>
+        <span> {{filmDetail.studio}}</span>
+      </div>
+      <div>
+        <span><strong>Đánh Giá:</strong></span>
+        <span> {{filmDetail.rate}}</span>
+      </div>
+      <div class="img-age">
+        <span>
+          <img src="{{filmDetail.age}}" alt="">
+        </span>
+      </div>
+      <div class="btn-film-detail">
+        <span><a href="#" class="btn btn-outline-success">Đặt vé</a></span>
+      </div>
+    </div>
+  </div>
+  <div class="film-detail-content">
+      <nav>
+        <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+             aria-controls="nav-home" aria-selected="true">Nội dung</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+             aria-controls="nav-profile" aria-selected="false">Trailer</a>
+        </div>
+      </nav>
+      <div class="tab-content description" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <p>{{filmDetail.description}}</p>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <iframe width="600" height="400" [src]="filmDetail.trailer | safe">
+          </iframe>
+        </div>
+      </div>
+    </div>
+</div>
