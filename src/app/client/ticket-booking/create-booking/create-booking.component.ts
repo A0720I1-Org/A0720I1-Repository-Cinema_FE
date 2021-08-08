@@ -25,12 +25,14 @@ export class CreateBookingComponent implements OnInit {
 
   ngOnInit(): void {
     this.booking = this.bookingStorageService.getBooking()
-
     if (this.booking != null) {
       this.invoiceService.createInvoice(this.booking).subscribe(
         data => {
           this.bookingStorageService.clear();
           this.router.navigateByUrl('book/booking-information/' + data.id)
+        },
+        error => {
+          this.toastrService.error("Có lỗi xảy ra", "Thông báo");
         }
       )
     } else {

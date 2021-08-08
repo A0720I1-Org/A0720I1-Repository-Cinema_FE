@@ -118,23 +118,23 @@
   //-ms-transition: .5s ease-in;
   color: #02a388;
   background: white;
-  border: 1px solid #0b0b0b;
+  border: 0.5px solid #02a388;
 }
 
 .showtime-label:hover{
-  color: #02a388;
-  background:  rgba(255, 230, 124, 0.8);
+  color: white;
+  background:  #02a388;
 }
 
 .selected{
   //background:  linear-gradient(to right, #fea83f, rgba(254, 168, 63, 0.17));
-  background:  linear-gradient(to right, #ffe662, rgba(255, 230, 124, 0.33));
-  color: #02a388;
+  background:  #02a388;
+  color: white;
 }
 
 .showtime-selected{
-  color: #02a388;
-  background: #ffe662;
+  color: white;
+  background: #02a388;
 }
 
 .btn-progress{

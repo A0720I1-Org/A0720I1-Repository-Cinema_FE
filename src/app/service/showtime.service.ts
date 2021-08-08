@@ -25,15 +25,15 @@ export class ShowtimeService {
   }
 
   getShowtimeList(): Observable<any> {
-    return this.httpClient.get<any>(this.API_URL + "/api/member/showtime/get-showtime-showing", this.httpOptions);
+    return this.httpClient.get<any>(this.API_URL + "/api/public/showtime/get-showtime-showing", this.httpOptions);
   }
 
   getSeatList(showTimeId: number): Observable<any> {
-    return this.httpClient.get<any>(this.API_URL + "/api/member/showtime/get-seat-of-showtime?showtimeId=" + showTimeId, this.httpOptions);
+    return this.httpClient.get<any>(this.API_URL + "/api/public/showtime/get-seat-of-showtime?showtimeId=" + showTimeId, this.httpOptions);
   }
 
   getCinemaRoomLayout(showTimeId: number): Observable<any> {
-    return this.httpClient.get<any>(this.API_URL + "/api/member/showtime/get-cinema-room-layout?showtimeId=" + showTimeId, this.httpOptions);
+    return this.httpClient.get<any>(this.API_URL + "/api/public/showtime/get-cinema-room-layout?showtimeId=" + showTimeId, this.httpOptions);
   }
 
   getShowtimeByInvoiceId(invoiceId: number): Observable<any> {
@@ -41,6 +41,6 @@ export class ShowtimeService {
   }
 
   getPaymentMethodList(): Observable<any> {
-    return this.httpClient.get<any>(this.API_URL + "/api/member/showtime/get-payment-method-list", this.httpOptions);
+    return this.httpClient.get<any>(this.API_URL + "/api/public/showtime/get-payment-method-list", this.httpOptions);
   }
 }

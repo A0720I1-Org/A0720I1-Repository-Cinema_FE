@@ -51,7 +51,7 @@ export class BookingConfirmationComponent implements OnInit {
     this.showtimeService.getPaymentMethodList().subscribe(
       data => this.paymentMethods = data,
       error => console.log(error.message))
-    this.membership = this.tokenStorageService.getUser().membership;
+      this.membership = this.tokenStorageService.getUser().membership;
   }
 
   getTotalAmount() {
@@ -89,20 +89,39 @@ export class BookingConfirmationComponent implements OnInit {
       case 2: {
         this.payment.amount = this.getTotalAmount();
         this.bookingStorageService.saveBookingLocal(bookingInformation);
-        this.paymentService.payByPaypal(this.payment).subscribe(
+        this.invoiceService.checkSeatAvailable(bookingInformation).subscribe(
           data => {
-            window.location.href = data.link
+            this.paymentService.payByPaypal(this.payment).subscribe(
+              data => {
+                window.location.href = data.link
+              }
+            )
+          },
+          error => {
+            this.router.navigateByUrl('book/seat-selection')
+            this.toastrService.warning(error.error.message, 'Có lỗi xảy ra');
           }
         )
-        break
+        break;
       }
       case 3: {
-        this.invoiceService.createInvoice(bookingInformation).subscribe(
+        this.invoiceService.checkSeatAvailable(bookingInformation).subscribe(
           data => {
-            console.log(data.id)
-            this.router.navigateByUrl('book/booking-information/' + data.id)
+            this.invoiceService.createInvoice(bookingInformation).subscribe(
+              data => {
+                this.router.navigateByUrl('book/booking-information/' + data.id)
+                this.toastrService.success("Mua vé thành công", "Thông báo")
+              },
+              error => this.toastrService.error("Có lỗi xảy ra")
+            )
+          },
+          error => {
+            console.log(error)
+            this.router.navigateByUrl('book/seat-selection')
+            this.toastrService.warning(error.error.message, 'Có lỗi xảy ra');
           }
         )
+
         console.log(bookingInformation);
         break;
       }

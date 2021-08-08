@@ -6,6 +6,7 @@ import {TechnologyAndSubtitle} from "../../../model/book-ticket/TechnologyAndSub
 import {DataService} from "../../../service/data.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import {BookingStorageService} from "../../../service/booking-storage.service";
 
 @Component({
   selector: 'app-film-selection',
@@ -29,7 +30,8 @@ export class FilmSelectionComponent implements OnInit {
     private dataService: DataService,
     private router: Router,
     private toastrService: ToastrService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private bookingStorageService: BookingStorageService
   ) {
   }
 
@@ -41,18 +43,24 @@ export class FilmSelectionComponent implements OnInit {
     this.showtimeService.getShowtimeList().subscribe(
       (data) => {
         this.showtimeList = data;
-        this.filmList = Array.from(data.reduce((m, t) => m.set(t.filmId, t), new Map()).values());
-        this.activatedRoute.queryParams
-          .subscribe(params => {
-              this.filmId = params.filmId;
-              if (this.filmId != 0) {
-                this.getShowtimeDateList(this.filmId)
+        if (this.showtimeList != null){
+          this.filmList = Array.from(data.reduce((m, t) => m.set(t.filmId, t), new Map()).values());
+          this.activatedRoute.queryParams
+            .subscribe(params => {
+                this.filmId = params.filmId;
+                if (this.filmId != 0) {
+                  this.getShowtimeDateList(this.filmId)
+                }
               }
-            }
-          );
+            );
+        } else {
+          this.toastrService.warning("Rất tiếc! Hiện tại không có phim nào được chiếu tại rạp", "Thông báo")
+        }
+
       },
       error => {
-        console.log(error.message)
+        console.log(error.message);
+        this.toastrService.error("Có lỗi xảy ra", "Thông báo");
       }
     )
   }
@@ -93,10 +101,10 @@ export class FilmSelectionComponent implements OnInit {
 
   next() {
     if (this.selectedShowtime != null) {
-      this.dataService.setShowtime(this.selectedShowtime)
+     this.bookingStorageService.saveShowtimeLocal(this.selectedShowtime);
       this.router.navigateByUrl("/book/seat-selection")
     } else {
-      this.toastrService.error("Vui lòng chọn suất chiếu", "Lỗi")
+      this.toastrService.warning("Vui lòng chọn suất chiếu", "Thông báo")
     }
   }
 }

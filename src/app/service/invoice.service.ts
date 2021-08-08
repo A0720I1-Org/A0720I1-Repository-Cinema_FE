@@ -32,4 +32,9 @@ export class InvoiceService {
   getInvoiceById(invoiceId: number): Observable<any> {
     return this.httpClient.get<any>(this.API_URL + "/api/member/invoice/get-invoice-by-id/" + invoiceId, this.httpOptions);
   }
+
+  checkSeatAvailable(bookingInformation: BookingInformation): Observable<any> {
+    return this.httpClient.post<any>(this.API_URL + "/api/member/invoice/check-seat-available",bookingInformation, this.httpOptions);
+  }
+
 }
