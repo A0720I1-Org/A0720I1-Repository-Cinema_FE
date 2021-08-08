@@ -12,7 +12,8 @@ import {FormsModule} from "@angular/forms";
     imports: [
         CommonModule,
         CinemaRoomRoutingModule,
-        FormsModule
+        FormsModule,
+
     ]
 })
 export class CinemaRoomModule { }

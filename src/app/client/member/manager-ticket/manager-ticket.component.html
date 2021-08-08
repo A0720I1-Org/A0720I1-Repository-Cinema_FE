@@ -1,0 +1,62 @@
+
+<div class="content-inner row mb-5 mt-5">
+  <div  class="col-md-3 sidebar-container">
+      <app-sidebar></app-sidebar>
+  </div>
+  <div class="card text-dark mb-3 col-md-9 mx-0 px-0 table-check">
+      <div class="card-header"  style="background-color:#02a388">
+        <h1 class="text-light card-text">Quản lí vé</h1>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped" *ngIf="tickets.length > 0; else noData">
+          <thead class="text-primary">
+            <tr>
+              <th class="name-film">Tên phim</th>
+              <th>Thời gian chiếu</th>
+              <th>Tổng tiền</th>
+              <th>Ghế</th>
+              <th>Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ticket of tickets; let i = index">
+              <th class="name-film">{{ticket.filmName}}</th>
+              <td>{{ticket.date +' '+ ticket.time | date:'dd/MM/yyyy, h:mm a'}}</td>
+              <td>{{ticket.price +' VND'}}</td>
+              <th>{{ticket.seatName}}</th>
+              <td *ngIf="ticket.status == 0" class="text-primary">Đợi nhận vé</td>
+              <td *ngIf="ticket.status == 1" class="text-success">Đã nhận vé </td>
+            </tr>
+          </tbody>
+        </table>
+<!-- start pagination -->
+    <div class="d-flex flex-row justify-content-center mt-5" *ngIf="tickets.length > 0">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" >
+            <a class="page-link click" tabindex="-1"(click)="paginate(0)">Đầu</a>
+          </li>
+          <li class="page-item" *ngIf="page >= 1">
+            <button class="page-link click" (click)="paginate(page-1)"><i class="fas fa-chevron-left"></i></button>
+          </li >
+          <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page-2)" *ngIf="page-2>=0&&page+1>=totalPage">{{page-1}}</a></li>
+          <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page-1)" *ngIf="page-1>=0">{{page}}</a></li>
+          <li class="page-item click"><a class="page-link text-light bg-secondary" (click)="paginate(page)">{{page+1}}</a></li>
+          <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page+1)" *ngIf="page+1<totalPage">{{page+2}}</a></li>
+          <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page+2)" *ngIf="page+2<totalPage&&page-1<0">{{page+3}}</a></li>
+          <li class="page-item" *ngIf="page < totalPage-1">
+            <button class="page-link click" (click)="paginate(page+1)"><i class="fas fa-chevron-right"></i></button>
+          </li>
+          <li class="page-item">
+            <a class="page-link text-dark click" (click)="paginate(totalPage-1)">Cuối</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- end pagination -->
+</div>
+<ng-template #noData>
+  <p class="mt-3 text-center text-dark">Không có dữ liệu</p>
+</ng-template>
+
+

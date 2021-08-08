@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {DTOCinemaRoom} from "../dto/DTOCinemaRoom";
 import {CinemaRoomService} from "../../../service/cinema-room.service";
+import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-list-cinema-room',
@@ -13,29 +14,45 @@ export class ListCinemaRoomComponent implements OnInit {
   page = 0;
   totalPage: number;
 
-
   listCinemaRoom: any;
 
-  constructor(private cinemaRoomService: CinemaRoomService) {
+  constructor(private cinemaRoomService: CinemaRoomService,
+              private router: Router,
+              private toastrService: ToastrService) {
   }
 
   ngOnInit(): void {
-    this.getSearchByName();
+    this.cinemaRoomService.getAllListCinemaRoom(this.page).subscribe((data: any) => {
+      this.listCinemaRoom = data.content;
+      this.totalPage = data.totalPages;
+    })
   }
 
   getSearchByName() {
-    if (this.name == ''){
+    if (this.name == '') {
       this.cinemaRoomService.getAllListCinemaRoom(this.page).subscribe((data: any) => {
         this.listCinemaRoom = data.content;
         this.totalPage = data.totalPages;
+        this.toastrService.warning(
+          "Vui lòng nhập dữ liệu cần tìm",
+          "Thông báo",
+          {timeOut: 3000, extendedTimeOut: 1500})
       })
-    }else {
-      this.cinemaRoomService.getSearchByName(this.name, this.page).subscribe((data: any) => {
-        this.listCinemaRoom = data.content;
-        this.totalPage= data.totalPages;
+    } else {
+      this.cinemaRoomService.getSearchByName(this.name,this.page).subscribe((data: any) => {
+        if (data == null || data == '') {
+           this.toastrService.error(
+              "Không tìm thấy dữ liệu",
+              "Thông báo",
+              {timeOut: 3000, extendedTimeOut: 1500})
+        } else {
+          this.listCinemaRoom = data.content;
+          this.totalPage = data.totalPages;
+        }
       })
+    }
   }
-  }
+
 
 
   getTotalSeat(seatLayout: string) {
@@ -64,7 +81,6 @@ export class ListCinemaRoomComponent implements OnInit {
     }
 
   }
-
 
 
 }
