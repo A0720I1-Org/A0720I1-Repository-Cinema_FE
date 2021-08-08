@@ -1,7 +1,7 @@
 import { MembershipService } from './../../../service/membership.service';
 import { Router } from '@angular/router';
 import { IMembershipUpdateDTO } from './../../phat-model/dto/IMembershipUpdateDTO';
-import { Component, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { IDistrict } from '../../phat-model/entity/IDistrict';
 import { IProvince } from '../../phat-model/entity/IProvince';
 import { IWard } from '../../phat-model/entity/IWard';
@@ -44,7 +44,8 @@ export class UpdateInfoComponent implements OnInit {
     private router: Router,
     private membershipService: MembershipService,
     @Inject(AngularFireStorage) private storage: AngularFireStorage,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private el: ElementRef
     ) { }
   ngOnInit(): void {
     this.membership = this.tokenStorage.getUserSesstion().membership;
@@ -130,7 +131,16 @@ export class UpdateInfoComponent implements OnInit {
     return this.membershipService.getById(id);
   }
   onSubmit(){
-    if(!this.updateForm.valid) return;
+    if(this.updateForm.invalid) {
+      for (const key of Object.keys(this.updateForm.controls)) {
+        if (this.updateForm.controls[key].invalid) {
+          const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + key + '"]');
+          this.updateForm.get(key).markAsTouched();
+          invalidControl.focus();
+          break;
+       }
+     }
+    }
     else{
       if(this.inputImage != null) {
         this.dialog.open(this.loading,{
@@ -160,6 +170,7 @@ export class UpdateInfoComponent implements OnInit {
                       )
                     },
                     (err) => {
+                      this.dialog.closeAll();
                       this.toastrService.error('Hãy kiểm tra lại cập nhật', 'Cập nhật thất bại', {
                         timeOut: 2000,
                         progressBar: true,
@@ -221,33 +232,33 @@ export class UpdateInfoComponent implements OnInit {
 
       'name': [
         {type: 'required', message: 'Họ và tên không được để trống!'},
-        {type: 'maxlength', message: 'Họ và tên phải ít hơn 45 kí tự'},
-        {type: 'pattern', message: 'Họ và tên phải có ít nhất 2 từ'},
+        {type: 'maxlength', message: 'Họ và tên phải ít hơn 45 kí tự!'},
+        {type: 'pattern', message: 'Họ và tên phải có ít nhất 2 từ!'},
       ],
       'birthday': [
         {type: 'required', message: 'Ngày sinh không được để trống!'},
-        {type: 'pattern', message: 'Ngày sinh phải đúng định dạng'},
-        {type: 'notEnoughAge', message: 'Bạn phải đủ 15 tuổi'},
-        {type: 'past', message: 'Ngày sinh phải là ngày trong quá khứ'},
-        {type: 'tooAge', message: 'Bạn không thể quá 100 tuổi'}
+        {type: 'pattern', message: 'Ngày sinh phải đúng định dạng!'},
+        {type: 'notEnoughAge', message: 'Bạn phải đủ 15 tuổi!'},
+        {type: 'past', message: 'Ngày sinh phải là ngày trong quá khứ!'},
+        {type: 'tooAge', message: 'Bạn không thể quá 100 tuổi!'}
       ],
       'gender': [
         {type: 'required', message: 'Giới tính không được để trống!'},
       ],
       'card': [
         {type: 'required', message: 'Số CMND không được để trống!'},
-        {type: 'pattern', message: 'Số CMND chỉ được tử 9-12 chữ số'},
+        {type: 'pattern', message: 'Số CMND chỉ được tử 9-12 chữ số!'},
       ],
       'phone': [
         {type: 'required', message: 'Số điện thoại không được để trống!'},
-        {type: 'pattern', message: 'Số điện thoại phải đúng định dạng : 09xxabcxyz'},
+        {type: 'pattern', message: 'Số điện thoại phải đúng định dạng : 09xxabcxyz!'},
       ],
       'wardId': [
         {type: 'required', message: 'Khu vực không được để trống!'},
         {type: 'pattern', message: 'Khu vực không được để trống!'},
       ],
       'confirm': [
-        {type: 'requiredTrue', message: 'Bạn phải chấp nhận điều khoản để hoàn thành việc đăng kí'},
+        {type: 'requiredTrue', message: 'Bạn phải chấp nhận điều khoản để hoàn thành việc đăng kí!'},
       ],
     };
   }

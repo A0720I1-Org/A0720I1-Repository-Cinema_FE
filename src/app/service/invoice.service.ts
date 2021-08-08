@@ -1,9 +1,10 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {environment} from "../../environments/environment";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {TokenStorageService} from "./token-storage.service";
-import {Observable} from "rxjs";
-import {BookingInformation} from "../model/book-ticket/BookingInformation";
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { BookingInformation } from '../model/book-ticket/BookingInformation';
+import { TokenStorageService } from './token-storage.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -37,4 +38,13 @@ export class InvoiceService {
     return this.httpClient.post<any>(this.API_URL + "/api/member/invoice/check-seat-available",bookingInformation, this.httpOptions);
   }
 
+  public getTicketAll(page:any):Observable<any> {
+    return this.httpClient.get(this.API_URL + '/api/public/invoice?page='+page,this.httpOptions);
+  }
+  public updateTicketPrinted(id:any):Observable<any> {
+    return this.httpClient.put(this.API_URL + '/api/public/invoice/'+id,this.httpOptions);
+  }
+  public getTicketAllBySearch(page:any,key:string):Observable<any> {
+    return this.httpClient.get(this.API_URL + '/api/public/invoice/'+key+'?page='+page,this.httpOptions);
+  }
 }
