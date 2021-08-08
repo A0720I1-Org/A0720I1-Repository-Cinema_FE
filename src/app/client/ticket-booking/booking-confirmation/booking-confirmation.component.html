@@ -89,7 +89,7 @@
           </div>
           <div class="mt-5 mb-3">
             <h4 class="booking-confirmation-title">THÔNG TIN KHÁCH HÀNG</h4>
-            <table class="table table-striped confirm-film-table">
+            <table class="table table-striped confirm-film-table" *ngIf="membership">
               <tbody>
               <tr>
                 <td>Mã thành viên:</td>
@@ -113,6 +113,9 @@
               </tr>
               </tbody>
             </table>
+            <h3 *ngIf="!membership" class="mr-auto ml-auto text-center font-weight-bold text-danger">
+              Vui lòng <a routerLink="/member/login">đăng nhập</a> để tiếp tục đặt vé
+            </h3>
           </div>
           <div class="mt-5 mb-3 col-md-12">
             <h4 class="booking-confirmation-title mb-3">hình thức THANH TOÁN</h4>

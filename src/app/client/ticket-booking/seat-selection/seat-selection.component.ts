@@ -11,6 +11,7 @@ import {AngularFireList} from "@angular/fire/database";
 import {not} from "rxjs/internal-compatibility";
 import {map} from "rxjs/operators";
 import {BookingStorageService} from "../../../service/booking-storage.service";
+import {Time} from "@angular/common";
 
 @Component({
   selector: 'app-seat-selection',
@@ -25,6 +26,7 @@ export class SeatSelectionComponent implements OnInit {
   layout: CinemaRoomLayout = new CinemaRoomLayout();
   rows = [];
   columns = [];
+  time: Time[];
 
   constructor(
     private dataService: DataService,
@@ -42,40 +44,47 @@ export class SeatSelectionComponent implements OnInit {
   }
 
   getShowtime() {
-    this.dataService.showtime.subscribe(
-      data => {
-        if (data == null) {
-          this.router.navigateByUrl('/book/film-selection')
-          this.toastrService.warning("Vui lòng chọn phim và suất chiếu", "Thông báo")
-        } else {
-          this.showtime = data;
-          console.log(this.showtime);
-          this.showtimeService.getSeatList(this.showtime.showtimeId).subscribe(
-            (list) => {
-              this.seatList = list
-            });
-          this.showtimeService.getCinemaRoomLayout(this.showtime.showtimeId).subscribe(
-            layout => {
-              this.layout = layout;
-              this.rows = Array.from(Array(this.layout.rowSeat).keys());
-              this.columns = Array.from(Array(this.layout.columnSeat).keys())
-            });
-        }
-      },
-      error => console.log(error.message)
-    );
+    // this.dataService.showtime.subscribe(
+    //   data => {
+    //     if (data == null) {
+    //       this.router.navigateByUrl('/book/film-selection')
+    //       this.toastrService.warning("Vui lòng chọn phim và suất chiếu", "Thông báo")
+    //     } else {
+    //       this.showtime = data;
+    //       console.log(this.showtime);
+    //       this.showtimeService.getSeatList(this.showtime.showtimeId).subscribe(
+    //         (list) => {
+    //           this.seatList = list
+    //         });
+    //       this.showtimeService.getCinemaRoomLayout(this.showtime.showtimeId).subscribe(
+    //         layout => {
+    //           this.layout = layout;
+    //           this.rows = Array.from(Array(this.layout.rowSeat).keys());
+    //           this.columns = Array.from(Array(this.layout.columnSeat).keys())
+    //         });
+    //     }
+    //   },
+    //   error => console.log(error.message)
+    // );
+    this.showtime = this.bookingStorageService.getShowtime()
+    this.showtimeService.getSeatList(this.showtime.showtimeId).subscribe(
+      (list) => {
+        this.seatList = list
+      });
+    this.showtimeService.getCinemaRoomLayout(this.showtime.showtimeId).subscribe(
+      layout => {
+        this.layout = layout;
+        this.rows = Array.from(Array(this.layout.rowSeat).keys());
+        this.columns = Array.from(Array(this.layout.columnSeat).keys())
+      });
   }
 
   getKeepingSeatList() {
-    // this.keepingSeatService.getKeepingSeatList().snapshotChanges().pipe(
-    //   map(
-    //     changes => changes.map(
-    //       c =>({key: c.payload.key, ...c.payload.val})
-    //     ))
-    // ).subscribe(seats => {
-    //   this.keepingSeats = seats;
-    //   console.log(seats[].)
-    // })
+    this.keepingSeatService.getKeepingSeatList().snapshotChanges().subscribe(
+      res => res.forEach(doc => {
+        this.keepingSeats.push(doc.payload.val())
+      })
+    )
   }
 
   // getKeepingSeatById(id: number) {
@@ -94,7 +103,6 @@ export class SeatSelectionComponent implements OnInit {
 
   next() {
     if (this.selectedSeats.length > 0) {
-      this.bookingStorageService.saveShowtimeLocal(this.showtime);
       this.bookingStorageService.saveSeatsLocal(this.selectedSeats);
       this.router.navigateByUrl("/book/booking-confirmation")
     } else {
