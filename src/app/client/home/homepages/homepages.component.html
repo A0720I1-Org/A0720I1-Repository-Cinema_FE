@@ -54,8 +54,8 @@
       <i class="material-icons" aria-hidden="true">call</i>(+084) 037 471 8365
     </span>
     <span>
-      <a routerLink='/member/login' class="login">Đăng nhập</a>
-      <a routerLink='/member/register' class="login ml-1">Đăng ký</a>
+      <a routerLink='/member/login' class="login" *ngIf="!isLoggedIn">Đăng nhập</a>
+      <a routerLink='/member/register' class="login ml-1" *ngIf="!isLoggedIn">Đăng ký</a>
     </span>
   </div>
 </div>

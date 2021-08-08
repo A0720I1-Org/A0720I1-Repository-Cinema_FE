@@ -25,11 +25,10 @@ export class AuthGuardService implements CanActivate {
     if (loggedInUser !== null) {
       let role = loggedInUser.roles[0];
       if (route.data.roles.indexOf(role) !== -1) {
-
         return true;
       } else {
         this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
-          this.router.navigate([currentUrl]);
+          this.router.navigate([state.url]);
         });
         this.toastrService.warning(
           "Bạn không có quyền truy cập trang này",
@@ -39,7 +38,7 @@ export class AuthGuardService implements CanActivate {
         return false
       }
     } else {
-      this.router.navigateByUrl('/member/login')
+      this.router.navigate(['/member/login'], { state: { redirect: state.url } });
       this.toastrService.warning(
         "Bạn cần đăng nhập để vào trang này",
         "Cảnh báo",

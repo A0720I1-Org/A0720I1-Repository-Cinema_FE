@@ -1,3 +1,4 @@
+import { ShowtimeService } from './../../../service/showtime.service';
 import { MembershipService } from './../../../service/membership.service';
 import { Router } from '@angular/router';
 import { IMembershipUpdateDTO } from './../../phat-model/dto/IMembershipUpdateDTO';
@@ -45,7 +46,8 @@ export class UpdateInfoComponent implements OnInit {
     private membershipService: MembershipService,
     @Inject(AngularFireStorage) private storage: AngularFireStorage,
     private dialog: MatDialog,
-    private el: ElementRef
+    private el: ElementRef,
+    private showtime:ShowtimeService
     ) { }
   ngOnInit(): void {
     this.membership = this.tokenStorage.getUserSesstion().membership;

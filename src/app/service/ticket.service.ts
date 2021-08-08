@@ -34,5 +34,7 @@ export class TicketService {
     const id = this.tokenStorageService.getUser().membership.id;
     return this.http.get<any>(this.AUTH_API + '/api/member/ticket?id=' + id + '&page=' + page, this.httpOptions);
   }
-
+  getShowtimeList(): Observable<any> {
+    return this.http.get<any>(this.API_URL + "/api/public/showtime/get-showtime-showing", this.httpOptions);
+  }
 }

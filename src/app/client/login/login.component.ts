@@ -6,8 +6,7 @@ import { ILoginRequest } from './../phat-model/entity/ILoginRequest';
 import { ISocialResponse } from './../phat-model/dto/ISoclalResponse';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IAccount } from '../phat-model/entity/IAccount';
-import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterStateSnapshot, RoutesRecognized } from '@angular/router';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
 import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser} from "angularx-social-login";
 import { filter, pairwise,map } from 'rxjs/operators';
@@ -60,7 +59,7 @@ export class LoginComponent implements OnInit {
       this.username = this.tokenStorage.getUser().username;
     }
     if(this.tokenStorage.getTokenSession()) {
-          this.router.navigate([this.router.url]);
+          this.router.navigate(['']);
     }
   }
 
