@@ -44,7 +44,6 @@ export class DetailCinemaRoomComponent implements OnInit {
     for (let j = 0; j <= row; j++){
       let countSpace = 0;
       for (let k = 0; k < this.cinemaRoom.columnSeat; k++){
-
         if (this.cinemaRoom.seatLayout[j*this.cinemaRoom.columnSeat + k] == 'n'){
           countSpace++;
         }

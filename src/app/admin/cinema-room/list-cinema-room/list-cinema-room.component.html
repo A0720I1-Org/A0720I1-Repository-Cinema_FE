@@ -11,16 +11,14 @@
   </div>
   <section class="content">
     <div class="container-fluid ">
-
       <div class="card shadow">
         <div class="col-12 card-header d-flex justify-content-between">
           <div class="col-8 mt-auto mb-auto">
-            <button class="btn btn-success"><i class="fas fa-plus-circle nav-icon"></i> Thêm phòng chiếu</button>
           </div>
           <div class="col-4 input-group mt-auto mb-auto">
-            <input type="search" class="form-control" placeholder="Tìm kiếm">
+            <input type="search" class="form-control" (keydown.enter)="getSearchByName()" placeholder="Tìm kiếm theo tên phòng" [(ngModel)]="name">
             <div class="input-group-append">
-              <button type="submit" class="btn btn-default">
+              <button type="submit" class="btn btn-default" (click)="getSearchByName()">
                 <i class="fa fa-search"></i>
               </button>
             </div>
@@ -43,7 +41,7 @@
                 <td class="text-center">{{cinemarooom.id}}</td>
                 <td class="text-center">{{cinemarooom.name}}</td>
                 <td class="text-center">{{getTotalSeat(cinemarooom.seatLayout)}}</td>
-                <td class="text-center">{{cinemarooom.status}}</td>
+                <td class="text-center">{{getStatus(cinemarooom.status)}}</td>
                 <td class="text-center"><a href="#" [routerLink]="['/admin/cinema-room/detail',cinemarooom.id]"><span class="material-icons text-info">info</span></a></td>
               </tr>
               </tbody>
@@ -52,20 +50,22 @@
           <div class="d-flex flex-row justify-content-center ">
             <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1">Đầu</a>
-                </li>
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>
-                </li>
-                <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
-                <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
-                <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
                 <li class="page-item">
-                  <a class="page-link text-dark" href="#"><i class="fas fa-chevron-right"></i></a>
+                  <a class="page-link click" tabindex="-1"(click)="paginate(0)">Đầu</a>
+                </li>
+                <li class="page-item ">
+                  <button class="page-link text-dark click" (click)="paginate(page-1)"><i class="fas fa-chevron-left"></i></button>
+                </li >
+                <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page-2)" *ngIf="page-2>=0&&page+1>=totalPage">{{page-1}}</a></li>
+                <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page-1)" *ngIf="page-1>=0">{{page}}</a></li>
+                <li class="page-item click"><a class="page-link text-dark bg-secondary" (click)="paginate(page)">{{page+1}}</a></li>
+                <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page+1)" *ngIf="page+1<totalPage">{{page+2}}</a></li>
+                <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page+2)" *ngIf="page+2<totalPage&&page-1<0">{{page+3}}</a></li>
+                <li class="page-item">
+                  <button class="page-link text-dark click" (click)="paginate(page+1)"><i class="fas fa-chevron-right"></i></button>
                 </li>
                 <li class="page-item">
-                  <a class="page-link text-dark" href="#">Cuối</a>
+                  <a class="page-link text-dark click" (click)="paginate(totalPage-1)">Cuối</a>
                 </li>
               </ul>
             </nav>
