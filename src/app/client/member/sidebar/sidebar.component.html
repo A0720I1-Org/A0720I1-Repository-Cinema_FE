@@ -1,16 +1,16 @@
 <div class="sidebar mx-0 px-0">
   <ul class="navbar-nav navbar-nav-customize">
     <li class="nav-item sidebar-link">
-      <a class="nav-link sidebar-link-item" href="#"><i class="fas fa-info"></i>  Thông tin tài khoản</a>
+      <a class="nav-link sidebar-link-item" routerLink="/member/manager/info"><i class="fas fa-info"></i>  Thông tin tài khoản</a>
   </li>
   <li class="nav-item sidebar-link">
-      <a class="nav-link sidebar-link-item" href="#"><i class="fas fa-check"></i> Quản lí vé</a>
+      <a class="nav-link sidebar-link-item" routerLink="/member/manager/ticket"><i class="fas fa-check"></i> Quản lí vé</a>
   </li>
   <li class="nav-item sidebar-link">
-      <a class="nav-link sidebar-link-item" href="#"><i class="fas fa-unlock-alt"></i> Thay đổi mật khẩu</a>
+      <a class="nav-link sidebar-link-item" routerLink="/member/manager/password"><i class="fas fa-unlock-alt"></i> Thay đổi mật khẩu</a>
   </li>
   <li class="nav-item sidebar-link">
-      <a class="nav-link sidebar-link-item" href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+      <div class="nav-link sidebar-link-item" (click)="logOut()"><i class="fas fa-sign-out-alt" ></i> Đăng xuất</div>
   </li>
 </ul>
 </div>

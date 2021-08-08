@@ -174,7 +174,7 @@ table td, table th {
  width: 30px;
 }
 table th .name-film {
-  white-space: nowrap;
+white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
 }
@@ -191,4 +191,44 @@ text-overflow: ellipsis;
 .no-edit {
   background-color: #dddddd;
 
+}
+.btn-progress{
+  outline: none;
+  font-style: normal;
+  font-size: 14px;
+  display: block;
+  border: none;
+  -webkit-transition: .5s all;
+  -webkit-appearance: button;
+  cursor: pointer;
+  width: 10rem;
+  height: 2.5rem;
+  margin-right: 1rem;
+}
+
+.btn-progress:hover{
+  color: #fff;
+  background: #fe423f;
+}
+
+.btn-submit{
+  color: #fff !important;
+  background: #02a388;
+}
+.btn-progress-sm {
+  height: 2rem;
+  width: 8rem !important;
+}
+.btn-submit-lg{
+  padding: 1rem 2rem;
+  font-size: 1rem;
+}
+
+.btn-cancel {
+  background: #0c0d0d;
+  color: #fff !important;
+}
+
+.btn-cancel:hover{
+  color: #02a388;
 }

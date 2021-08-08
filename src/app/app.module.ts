@@ -10,12 +10,15 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   SocialLoginModule,
   SocialAuthServiceConfig,
-  SocialAuthService,
   FacebookLoginProvider,
   GoogleLoginProvider
 } from 'angularx-social-login';
 import {ToastrModule} from 'ngx-toastr';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {environment} from "../environments/environment";
+import {AngularFireStorageModule} from "@angular/fire/storage";
+import {AngularFireModule} from "@angular/fire";
+import {AngularFireDatabaseModule} from "@angular/fire/database";
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +34,10 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     HttpClientModule,
     ToastrModule.forRoot(),
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
   ],
   providers: [{
     provide: 'SocialAuthServiceConfig',

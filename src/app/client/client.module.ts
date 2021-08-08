@@ -14,7 +14,8 @@ import {RouterModule} from "@angular/router";
 import {ToastrModule} from "ngx-toastr";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {SafePipe, ViewTrailerComponent} from './home/view-trailer/view-trailer.component';
-import { TicketPriceComponent } from './home/ticket-price/ticket-price.component';
+import {TicketPriceComponent} from './home/ticket-price/ticket-price.component';
+import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
 
 
 @NgModule({
@@ -23,22 +24,27 @@ import { TicketPriceComponent } from './home/ticket-price/ticket-price.component
     LoginComponent,
     RegisterComponent,
     ForgotPasswordComponent,
+    NotFoundPageComponent,
+    ClientComponent,
+    LoginComponent,
+    RegisterComponent,
+    ForgotPasswordComponent,
     HomepagesComponent,
     FilmDetailComponent,
     ViewTrailerComponent,
     SafePipe,
-    TicketPriceComponent
+    TicketPriceComponent,
   ],
   imports: [
     CommonModule,
     ClientRoutingModule,
-    ClientSharedModule,
     RouterModule,
     MemberModule,
     ReactiveFormsModule,
     FormsModule,
     ToastrModule.forRoot(),
     MatProgressSpinnerModule,
+    ClientSharedModule
   ]
 })
 export class ClientModule {

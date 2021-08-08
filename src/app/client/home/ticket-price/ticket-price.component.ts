@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {TicketService} from "../../../service/ticket.service";
 import {FilmService} from "../../../service/film.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ITicketPriceDTO} from "../../../dto/ITicketPriceDTO";

@@ -24,20 +24,20 @@ export class AccountService {
     };
   }
   public getAllProvinces(): Observable<any> {
-    return this.http.get<any>(this.AUTH_API + '/api/public/province',this.httpOptions);
+    return this.http.get<any>(this.AUTH_API + '/api/public/address/province',this.httpOptions);
   }
   public getDistrictByProvince(provinceId): Observable<any> {
-    return this.http.get<any>(this.AUTH_API + '/api/public/district?provinceId=' + provinceId,this.httpOptions);
+    return this.http.get<any>(this.AUTH_API + '/api/public/address/district?provinceId=' + provinceId,this.httpOptions);
   }
   public getWardByDistrict(districtId): Observable<any> {
-    return this.http.get<any>(this.AUTH_API + '/api/public/ward?districtId=' + districtId,this.httpOptions);
+    return this.http.get<any>(this.AUTH_API + '/api/public/address/ward?districtId=' + districtId,this.httpOptions);
   }
   public register(memberAccountDTO : IAccountMemberDTO):Observable<any> {
     return this.http.post<any>(this.AUTH_API + '/api/public/register',memberAccountDTO,this.httpOptions);
   }
   public changePassword(accountDTO : IAccountDTO): Observable<any> {
     let username = this.tokenStorage.getUser().account.username;
-    return this.http.put<any>(this.AUTH_API + '/api/public/change-password/'+ username, accountDTO,this.httpOptions);
+    return this.http.put<any>(this.AUTH_API + '/api/member/password/'+ username, accountDTO,this.httpOptions);
   }
   public forgotPassword(username:string): Observable<any> {
     return this.http.put<any>(this.AUTH_API + '/api/public/forgot-password/'+ username,this.httpOptions);

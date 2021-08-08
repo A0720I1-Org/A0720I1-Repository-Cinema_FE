@@ -22,6 +22,9 @@ export class MembershipService {
     };
   }
   public update(membership : IMembershipUpdateDTO):Observable<any> {
-    return this.http.put(this.AUTH_API + '/api/public/membership/',membership,this.httpOptions);
+    return this.http.put(this.AUTH_API + '/api/member/membership/',membership,this.httpOptions);
+  }
+  public getById(id:any):Observable<any> {
+    return this.http.get(this.AUTH_API + '/api/member/membership/'+id,this.httpOptions);
   }
 }

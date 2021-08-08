@@ -89,7 +89,7 @@
           </div>
           <div class="position-absolute d-flex btn-top-movie">
             <a class="btn" href="#"> Đặt vé </a>
-            <a class="btn" [routerLink]="['/member/detail', film.id]"> Chi tiết </a>
+            <a class="btn" [routerLink]="['/detail', film.id]"> Chi tiết </a>
           </div>
           <div class="rated position-absolute">
             <img
@@ -134,8 +134,8 @@
                  alt="...">
             <div class="hover-overlay"></div>
             <div class="button-overlay d-flex flex-row">
-              <a class="btn-sm mr-3" href="#"> Đặt vé </a>
-              <a class="btn-sm" [routerLink]="['/member/detail', film.id]"> Chi tiết </a>
+              <a class="btn-sm mr-3" [routerLink]="['/member/book/film-selection', film.id]" > Đặt vé </a>
+              <a class="btn-sm" [routerLink]="['/detail', film.id]"> Chi tiết </a>
               <div class="button-play-video">
                 <button class="border-0" (click)="viewTrailer(film.trailer)">
                   <span class="material-icons">play_arrow</span>
@@ -144,7 +144,7 @@
             </div>
             <div class="card-body pt-2">
               <div class="card-title info-header">
-                <a  [routerLink]="['/member/detail', film.id]"><h3>{{film.name}}</h3></a>
+                <a  [routerLink]="['/detail', film.id]"><h3>{{film.name}}</h3></a>
               </div>
               <div class="card-text info-detail">
                 <ul>
