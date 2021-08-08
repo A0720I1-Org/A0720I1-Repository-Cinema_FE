@@ -37,19 +37,27 @@
             </tr>
           </table>
         </div>
-        <div class="col-md-8 seat-layout d-flex flex-row justify-content-center ml-auto mr-auto mt-2 mb-4">
-          <div class="seat standard-seat text-center"></div>
-          <label class="ml-2 mr-2">Ghế thường</label>
-          <div class="seat vip-seat text-center"></div>
-          <label class="ml-2 mr-2">Ghế VIP</label>
-          <div class="seat booked-seat text-center"></div>
-          <label class="ml-2 mr-2">Ghế đã được đặt</label>
-          <div class="seat keeping-seat text-center"></div>
-          <label class="ml-2 mr-2">Ghế đang chọn</label>
+        <div class="col-md-5 seat-layout d-flex flex-row justify-content-center ml-auto mr-auto mt-2 mb-4">
+          <div class="col-md-3">
+            <div class="seat standard-seat text-center mr-auto ml-auto"></div>
+            <div class="ml-auto mr-auto mt-1 font-weight-bold text-center">Ghế thường</div>
+          </div>
+          <div class="col-md-3">
+            <div class="seat vip-seat text-center mr-auto ml-auto"></div>
+            <div class="ml-auto mr-auto mt-1 font-weight-bold text-center">Ghế VIP</div>
+          </div>
+         <div class="col-md-3">
+           <div class="seat booked-seat text-center mr-auto ml-auto"></div>
+           <div class="ml-auto mr-auto mt-1 font-weight-bold text-center">Ghế đã được đặt</div>
+         </div>
+          <div class="col-md-3">
+            <div class="seat keeping-seat text-center mr-auto ml-auto"></div>
+            <div class="ml-auto mr-auto mt-1 font-weight-bold text-center">Ghế đang chọn</div>
+          </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="seat-selection-info">THÔNG TIN ĐẶT VÉ</div>
+      <div class="col-md-4 booking-detail">
+        <div class="seat-selection-info mt-2 mb-2">THÔNG TIN ĐẶT VÉ</div>
         <div class="seat-selection-film">{{showtime.filmName}}</div>
         <table class="table table-borderless seat-selection-table">
           <tbody>

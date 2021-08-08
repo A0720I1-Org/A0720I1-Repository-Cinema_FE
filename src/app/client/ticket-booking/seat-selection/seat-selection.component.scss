@@ -244,7 +244,7 @@
 
 .seat-selection-info{
   text-align: center;
-  border-bottom: 3px solid dimgrey;
+  border-bottom: 0.2rem solid dimgrey;
   font-size: 1.4rem;
   font-weight: bold;
 }
@@ -274,6 +274,11 @@
   color: #fe423f !important;
   //border-top: 1px solid dimgrey;
   text-transform: uppercase;
+}
+
+.booking-detail{
+  border: 0.2rem solid #0a7362;
+  margin-bottom: 2rem;
 }
 
 /*BOOKING CONFIRMATION*/
