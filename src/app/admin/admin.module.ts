@@ -13,7 +13,7 @@ import {AdminSharedModule} from "./admin-shared/admin-shared.module";
         CommonModule,
         AdminRoutingModule,
         RouterModule,
-        AdminSharedModule
+        AdminSharedModule,
     ]
 })
 export class AdminModule {

@@ -1,0 +1,136 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Danh sách nhân viên</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content" id="main-container">
+        <div class="container-fluid ">
+            <div class="card shadow">
+                <div class="col-12 card-header d-flex justify-content-between">
+                    <div class="col-8 mt-auto mb-auto">
+                        <a class=" btn btn-secondary" [routerLink]="['/admin/staffs/staff-create']"><i
+                                class="fas fa-plus-circle nav-icon"></i>Thêm nhân viên</a>
+                    </div>
+                    <div class="col-4 input-group mt-auto mb-auto">
+                        <input type="search" (ngModelChange)="searchStaffByKey(key.value)" #key="ngModel" ngModel
+                            name="key" id="searchName" class="form-control" placeholder="Tìm kiếm" required>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+                            <thead class="bg-secondary">
+                                <tr>
+                                    <th class="text-center">Mã NV</th>
+                                    <th class="text-center">Họ Tên</th>
+                                    <th class="text-center">CMND</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">SĐT</th>
+                                    <th class="text-center">Địa chỉ</th>
+                                    <!-- <th class="text-center">Trạng Thái</th> -->
+                                    <th colspan="2" class="text-center">Hành Động</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let staff of listStaff">
+                                <tr>
+                                    <td class="text-center">{{staff.id}}</td>
+                                    <td class="text-center">{{staff.name}}</td>
+                                    <td class="text-center">{{staff.card}}</td>
+                                    <td class="text-center">{{staff.email}}</td>
+                                    <td class="text-center">{{staff.phone}}</td>
+                                    <td class="text-center">{{staff.province}}</td>
+                                    <!-- <td class="text-center">{{staff.status}}</td> -->
+                                    <div style="display: flex; justify-content: center;">
+                                        <td>
+                                            <a href="#myModal" class="trigger-btn" data-toggle="modal"
+                                                (click)="onOpenModal(staff,'delete')">
+                                                <span class="material-icons text-danger">
+                                                    delete
+                                                </span>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a [routerLink]="['/admin/staffs/staff-update' , staff.id]">
+                                                <span class="mr2 material-icons text-warning">
+                                                    edit
+                                                </span>
+                                            </a>
+                                        </td>
+                                    </div>
+                                    <!-- <td class="text-center"><a href="#"><span
+                                                class="mr-2 material-icons text-info">info</span></a></td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Modal -->
+
+                    <div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog"
+                        aria-labelledby="deleteModelLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModelLabel">Delete Employee</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Bạn có thực sự muốn xóa nhân viên <span style="color: red;">
+                                            <b>{{deleteEmployee?.name}}</b></span> ?</p>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        <button (click)="deleteStaffById(deleteEmployee?.id)" class="btn btn-danger"
+                                            data-dismiss="modal">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="d-flex flex-row justify-content-center ">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link click" tabindex="-1" (click)="paginate(0)">Đầu</a>
+                                </li>
+                                <li class="page-item ">
+                                    <button class="page-link text-dark click" (click)="paginate(page-1)"><i
+                                            class="fas fa-chevron-left"></i></button>
+                                </li>
+                                <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page-2)"
+                                        *ngIf="page-2>=0&&page+1>=totalPage">{{page-1}}</a></li>
+                                <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page-1)"
+                                        *ngIf="page-1>=0">{{page}}</a></li>
+                                <li class="page-item click"><a class="page-link text-dark bg-secondary"
+                                        (click)="paginate(page)">{{page+1}}</a></li>
+                                <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page+1)"
+                                        *ngIf="page+1<totalPage">{{page+2}}</a></li>
+                                <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page+2)"
+                                        *ngIf="page+2<totalPage&&page-1<0">{{page+3}}</a></li>
+                                <li class="page-item">
+                                    <button class="page-link text-dark click" (click)="paginate(page+1)"><i
+                                            class="fas fa-chevron-right"></i></button>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link text-dark click" (click)="paginate(totalPage-1)">Cuối</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

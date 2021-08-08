@@ -1,0 +1,245 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <!-- <h1 class="m-0">Nhân Viên</h1> -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content" style="font-family: 'Poppins', sans-serif;">
+        <div class="container-fluid">
+            <!-- Thêm mới nhân viên -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card card-user">
+                        <div class="card-body">
+                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                <div class="fileinput-new thumbnail img-raised">
+                                    <img [src]="getImageUrl()"
+                                        style="width: 100%;" alt="..." rel="nofollow">
+                                </div>
+                                <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                                <div>
+                                    <span class="btn btn-info btn-round btn-default btn-file btn__upload-custom">
+                                        <span class="fileinput-new">Upload</span>
+                                        <input type="file" name="..." (change)="selectImage($event)"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End table information-->
+
+                <div class="col-md-9">
+                    <div class="card-user">
+                        <div class="card-header card-background-color ">
+                            <h4><b>Thêm Mới Nhân Viên</b></h4>
+                        </div>
+                        <div class="card-body">
+                            <form [formGroup]="staffCreateForm" (ngSubmit)="onSubmit()">
+                                <div class="row">
+                                    <div class="col-md-12 pr-1">
+                                        <div class="form-group">
+                                            <label class="required">Tài khoản</label>
+                                            <input type="text" class="form-control" placeholder="Tài khoản"
+                                                formControlName="username">
+                                            <ng-container *ngFor="let validation of validationMessage.username">
+                                                <small class="form-text text-danger"
+                                                    *ngIf="staffCreateForm.get('username').hasError(validation.type)&& staffCreateForm.get('username').touched">
+                                                    {{validation.message}}
+                                                </small>
+                                            </ng-container>
+                                            <ng-container *ngIf="listError">
+                                                <small class="form-text text-danger" *ngIf="listError.existUsername">
+                                                  {{ listError.existUsername }}
+                                                </small>
+                                              </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12 pr-1">
+                                            <div class="form-group">
+                                                <label class="required">Mật khẩu</label>
+                                                <input type="password" class="form-control" placeholder="Mật Khẩu"
+                                                    formControlName="password">
+                                            </div>
+                                            <ng-container *ngFor="let validation of validationMessage.password">
+                                                <small class="form-text text-danger"
+                                                    *ngIf="staffCreateForm.get('password').hasError(validation.type)&& staffCreateForm.get('password').touched">
+                                                    {{validation.message}}
+                                                </small>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 pr-1">
+                                            <div class="form-group">
+                                                <label class="required">Nhập lại mật khẩu</label>
+                                                <input type="password" class="form-control"
+                                                    placeholder="Nhập Lại Mật Khẩu" formControlName="confirmPassword">
+                                            </div>
+                                        </div>
+                                        <ng-container *ngFor="let validation of validationMessage.confirmPassword">
+                                            <small class="form-text text-danger" *ngIf="
+                                                staffCreateForm.hasError(validation.type) &&
+                                                staffCreateForm.get('confirmPassword').touched
+                                              ">
+                                              {{ validation.message }}
+                                            </small>
+                                          </ng-container>
+                                    </div>
+                               
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="required">Họ và tên</label>
+                                            <input type="text" class="form-control" placeholder="Họ và tên"
+                                                formControlName="name">
+                                        </div>
+                                        <ng-container *ngFor="let validation of validationMessage.name">
+                                            <small class="form-text text-danger"
+                                                *ngIf="staffCreateForm.get('name').hasError(validation.type)&& staffCreateForm.get('name').touched">
+                                                {{validation.message}}
+                                            </small>
+                                        </ng-container>
+                                    </div>
+                                    <div class="col-md-4 pr-1">
+                                        <div class="form-group">
+                                            <label class="required">Ngày Sinh</label>
+                                            <input type="date" class="form-control" placeholder="Company"
+                                                formControlName="birthday">
+                                        </div>
+                                        <ng-container *ngFor="let validation of validationMessage.birthday">
+                                            <small class="form-text text-danger"
+                                                *ngIf="staffCreateForm.get('birthday').hasError(validation.type)&& staffCreateForm.get('birthday').touched">
+                                                {{validation.message}}
+                                            </small>
+                                        </ng-container>
+                                        <ng-container *ngFor="let validation of validationMessage.birthday">
+                                            <small class="form-text text-danger" *ngIf="
+                                                staffCreateForm.hasError(validation.type) &&
+                                                staffCreateForm.get('birthday').touched
+                                              ">
+                                              {{ validation.message }}
+                                            </small>
+                                          </ng-container>
+                                    </div>
+                                    <div class="col-md-4 pr-1">
+                                        <div class="form-group">
+                                            <label for="gender">Giới tính</label>
+                                            <select class="form-control" id="gender" formControlName="gender">
+                                                <option>Nam</option>
+                                                <option>Nữ</option>
+                                                <option>Khác</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4 pr-1">
+                                        <div class="form-group">
+                                            <label for="inputState" class="required font-weight-bold">Tỉnh/Thành
+                                                Phố</label>
+                                            <select id="inputState" class="form-control"
+                                                (change)="getProvinceId($event.target)" (focusout)="getDistrict()"
+                                                formControlName="provinceId">
+                                                <option selected>Chọn...</option>
+                                                <ng-container *ngIf="provinces != null">
+                                                    <ng-container *ngFor="let province of provinces">
+                                                        <option value="{{province.id}}"> {{province.name}}</option>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 pr-1">
+                                        <div class="form-group">
+                                            <label for="inputState" class="required font-weight-bold">Quận/Huyện</label>
+                                            <select id="inputState" class="form-control"
+                                                (change)="getDistrictId($event.target)" (focusout)="getWard()"
+                                                formControlName="districtId">
+                                                <option selected>Chọn...</option>
+                                                <ng-container *ngIf="districts != null">
+                                                    <ng-container *ngFor="let district of districts">
+                                                        <option value="{{district.id}}">{{district.name}}</option>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 pr-1">
+                                        <div class="form-group">
+                                            <label for="inputState" class="required font-weight-bold">Xã/Phường</label>
+                                            <select id="inputState" class="form-control"
+                                                (change)="getWardId($event.target)" formControlName="wardId">
+                                                <option selected>Chọn...</option>
+                                                <ng-container *ngIf="wards != null">
+                                                    <ng-container *ngFor="let ward of wards">
+                                                        <option value="{{ward.id}}">{{ward.name}}</option>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 pr-1">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" placeholder="Email"
+                                                formControlName="email">
+                                        </div>
+                                        <ng-container *ngFor="let validation of validationMessage.email">
+                                            <small class="form-text text-danger"
+                                                *ngIf="staffCreateForm.get('email').hasError(validation.type)&& staffCreateForm.get('email').dirty">
+                                                {{validation.message}}
+                                            </small>
+                                        </ng-container>
+                                    </div>
+                                    <div class="col-md-4 pr-1">
+                                        <div class="form-group">
+                                            <label>CMND</label>
+                                            <input type="text" class="form-control" placeholder="CMND"
+                                                formControlName="card">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 pr-1">
+                                        <div class="form-group">
+                                            <label>Số điện thoại</label>
+                                            <input type="text" class="form-control" placeholder="SĐT"
+                                                formControlName="phone">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="display: flex; justify-content: center;">
+                                    <div class="">
+                                        <button type="submit" class="btn btn-success" style="margin: 0 8px"><span>Xác
+                                                nhận</span></button>
+                                    </div>
+                                    <div class="">
+                                        <button class="btn btn-primary" routerLink="/admin/staffs"><span>Quay
+                                                lại</span></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Thêm mới nhân viên -->
+        </div><!-- /.container-fluid -->
+        <!-- <p>{{staffCreateForm.value | json}}</p> -->
+    </section>
+    <!-- /.content -->
+</div>
+
