@@ -85,7 +85,7 @@
             <p>{{film.name}}</p>
           </div>
           <div class="position-absolute d-flex btn-top-movie">
-            <a class="btn" href="#"> Đặt vé </a>
+            <a class="btn" [routerLink]="['book/film-selection']" [queryParams]="{filmId: film.id}" > Đặt vé </a>
             <a class="btn" [routerLink]="['/detail', film.id]"> Chi tiết </a>
           </div>
           <div class="rated position-absolute">
@@ -133,7 +133,9 @@
                  alt="...">
             <div class="hover-overlay"></div>
             <div class="button-overlay d-flex flex-row">
-              <a class="btn-sm mr-3" [routerLink]="['/member/book/film-selection', film.id]"> Đặt vé </a>
+              <ng-container *ngIf="checkBookTicket(film.id)">
+                <a class="btn-sm mr-3" [routerLink]="['book/film-selection']" [queryParams]="{filmId: film.id}"> Đặt vé </a>
+              </ng-container>
               <a class="btn-sm" [routerLink]="['/detail', film.id]"> Chi tiết </a>
               <div class="button-play-video">
                 <button class="border-0" (click)="viewTrailer(film.trailer)">
