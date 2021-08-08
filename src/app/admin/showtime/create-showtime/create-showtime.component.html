@@ -19,7 +19,6 @@
           <h3 class="m-0 font-weight-bold text-primary">Tạo mới phim</h3>
         </div>
         <div class="row">
-
           <div class="col-md-12 mr-auto ml-auto">
             <div class="card-user">
               <div class="card-body">
@@ -27,31 +26,33 @@
                   <div class="col-md-6 ">
                     <div class="form-group">
                       <label class="required">Phim</label>
-                      <select class="form-control" id="nameFilm" formControlName="Film">
+                      <select class="form-control" id="nameFilm" formControlName="filmId">
                         <option selected disabled value="-Chọn-">-Chọn-</option>
-                        <option>phim hoạt hình</option>
-                        <option>phim hành động</option>
-                      </select>
-                      <ng-container *ngIf="films != null">
-                        <ng-container *ngFor="let film of films">
-                          <option value="{{film.id}}"> {{film.name}}</option>
+                        <ng-container *ngIf="films != null">
+                          <ng-container *ngFor="let film of films">
+                            <option value="{{film.id}}"> {{film.name}}</option>
+                          </ng-container>
                         </ng-container>
-                      </ng-container>
+                      </select>
+
                     </div>
                   </div>
                   <div class="col-md-6 pr-1">
                     <div class="form-group">
                       <label class="required">ngày: </label>
-                      <input type="date" class="form-control" formControlName="Day">
+                      <input type="date" class="form-control" formControlName="day">
                     </div>
                   </div>
                   <div class="col-md-6 ">
                     <div class="form-group">
                       <label class="required">Tên Phòng</label>
-                      <select class="form-control" id="cinemaRoom" formControlName="cinemaRoom">
+                      <select class="form-control" id="cinemaRoom" formControlName="cinemaRoomId" (change)="getRoom()">
                         <option selected disabled value="-Chọn-">-Chọn-</option>
-                        <option>PC01</option>
-                        <option>PC02</option>
+                        <ng-container *ngIf="cinemaRooms != null">
+                          <ng-container *ngFor="let cinemaRoom of cinemaRooms">
+                            <option value="{{cinemaRoom.id}}"> {{cinemaRoom.name}}</option>
+                          </ng-container>
+                        </ng-container>
                       </select>
                     </div>
                   </div>
@@ -65,39 +66,24 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-12">
                     <div class="form-group">
                       <label class="required">Giờ chiếu </label>
-                        <ul class="ks-cboxtags d-flex flex-wrap justify-content-start m-0 p-0 ml-1  ">
-                          <li>
-                            <input type="checkbox" id="checkboxOne" value="Order one">
-                            <label for="checkboxOne">11:00:00</label>
+                      <ul class="col-md-12 ks-cboxtags d-flex flex-wrap justify-content-start m-0 p-0 ml-1">
+<!--                        <ng-container *ngFor="let time of timeArr">-->
+<!--                          <li class="mr-2">-->
+<!--                            <input type="checkbox" id="{{time.hours}}:{{time.minutes|number :'2.0'}}" (change)="getTime(time)" >-->
+<!--                            <label for="{{time.hours}}:{{time.minutes|number :'2.0'}}">{{time.hours}}-->
+<!--                              :{{time.minutes|number :'2.0'}}</label>-->
+<!--                          </li>-->
+<!--                        </ng-container>-->
+                        <ng-container *ngFor="let time of timeArr">
+                          <li class="mr-2">
+                            <input type="checkbox" id="{{time}}" (change)="getTime(time)" >
+                            <label for="{{time}}">{{time.slice(0,5)}}</label>
                           </li>
-                          <li>
-                            <input type="checkbox" id="checkbox2" value="Order one">
-                            <label for="checkbox2">13:00:00</label>
-                          </li>
-                          <li>
-                            <input type="checkbox" id="checkbox3" value="Order one">
-                            <label for="checkbox3">15:00:00</label>
-                          </li>
-                          <li>
-                            <input type="checkbox" id="checkbox4" value="Order one">
-                            <label for="checkbox4">17:00:00</label>
-                          </li>
-                          <li>
-                            <input type="checkbox" id="checkbox5" value="Order one">
-                            <label for="checkbox5">19:00:00</label>
-                          </li>
-                          <li>
-                            <input type="checkbox" id="checkbox6" value="Order one">
-                            <label for="checkbox6">21:00:00</label>
-                          </li>
-                          <li>
-                            <input type="checkbox" id="checkbox7" value="Order one">
-                            <label for="checkbox7">23:00:00</label>
-                          </li>
-                        </ul>
+                        </ng-container>
+                      </ul>
                     </div>
                   </div>
                   <div class="col-md-6 ">
@@ -120,7 +106,7 @@
           </div>
         </div>
       </div>
-      <!--      <p>{{filmForm.value | json}}</p>-->
+      <p>{{ createForm.value | json }}</p>
     </div><!-- /.container-fluid -->
   </section>
   <!-- /.content -->

@@ -11,13 +11,12 @@
   </div>
   <section class="content">
     <div class="container-fluid ">
-
       <div class="card shadow">
         <div class="col-12 card-header d-flex justify-content-between">
           <div class="col-8 mt-auto mb-auto">
           </div>
           <div class="col-4 input-group mt-auto mb-auto">
-            <input type="search" class="form-control" placeholder="Tìm kiếm" [(ngModel)]="name">
+            <input type="search" class="form-control" (keydown.enter)="getSearchByName()" placeholder="Tìm kiếm theo tên phòng" [(ngModel)]="name">
             <div class="input-group-append">
               <button type="submit" class="btn btn-default" (click)="getSearchByName()">
                 <i class="fa fa-search"></i>

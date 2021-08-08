@@ -7,6 +7,7 @@ import {AdminComponent} from "./admin.component";
 import {AdminSharedModule} from "./admin-shared/admin-shared.module";
 
 
+
 @NgModule({
   declarations: [AdminComponent],
     imports: [

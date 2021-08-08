@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CinemaRoomService} from "../../../service/cinema-room.service";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-list-cinema-room',
@@ -17,11 +18,14 @@ export class ListCinemaRoomComponent implements OnInit {
 
   constructor(private cinemaRoomService: CinemaRoomService,
               private router: Router,
-              private toastrService : ToastrService  ) {
+              private toastrService: ToastrService) {
   }
 
   ngOnInit(): void {
-    this.getSearchByName();
+    this.cinemaRoomService.getAllListCinemaRoom(this.page).subscribe((data: any) => {
+      this.listCinemaRoom = data.content;
+      this.totalPage = data.totalPages;
+    })
   }
 
   getSearchByName() {
@@ -29,27 +33,26 @@ export class ListCinemaRoomComponent implements OnInit {
       this.cinemaRoomService.getAllListCinemaRoom(this.page).subscribe((data: any) => {
         this.listCinemaRoom = data.content;
         this.totalPage = data.totalPages;
-        this.router.navigateByUrl('').then(
-          r => this.toastrService.warning(
-            "Vui lòng nhập dữ liệu cần tìm",
-            "Thông báo",
-            {timeOut: 3000, extendedTimeOut: 1500})
-        )
-      })
-    } else if (this.name == null) {
-      this.router.navigateByUrl('').then(
-        r => this.toastrService.warning(
-          "Không tìm thấy dữ liệu",
+        this.toastrService.warning(
+          "Vui lòng nhập dữ liệu cần tìm",
           "Thông báo",
           {timeOut: 3000, extendedTimeOut: 1500})
-      )
-    }else {
-      this.cinemaRoomService.getSearchByName(this.name, this.page).subscribe((data: any) => {
-        this.listCinemaRoom = data.content;
-        this.totalPage = data.totalPages;
+      })
+    } else {
+      this.cinemaRoomService.getSearchByName(this.name,this.page).subscribe((data: any) => {
+        if (data == null || data == '') {
+           this.toastrService.error(
+              "Không tìm thấy dữ liệu",
+              "Thông báo",
+              {timeOut: 3000, extendedTimeOut: 1500})
+        } else {
+          this.listCinemaRoom = data.content;
+          this.totalPage = data.totalPages;
+        }
       })
     }
   }
+
 
 
   getTotalSeat(seatLayout: string) {
