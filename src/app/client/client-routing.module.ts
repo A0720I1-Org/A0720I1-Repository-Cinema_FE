@@ -15,7 +15,6 @@ const routes: Routes = [
   {path: 'detail/:id', component: FilmDetailComponent},
   {path: 'ticket-price', component: TicketPriceComponent},
   {path: 'book', loadChildren: () => import('./ticket-booking/ticket-booking.module').then(m => m.TicketBookingModule)},
-  {path: '', component: ClientComponent},
   {
     path: 'member', component: ClientComponent,
     children: [

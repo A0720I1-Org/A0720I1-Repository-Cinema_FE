@@ -8,6 +8,8 @@ import {IFilmTopDTO} from "../../../dto/IFilmTopDTO";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {TokenStorageService} from "../../../service/token-storage.service";
+import {Showtime} from "../../../model/book-ticket/Showtime";
+import {ShowtimeService} from "../../../service/showtime.service";
 
 @Component({
   selector: 'app-homepages',
@@ -22,6 +24,7 @@ export class HomepagesComponent implements OnInit {
   username: string;
   role: string;
   isLoggedIn: boolean = false;
+  showtimeList: Showtime[] = [];
 
   constructor(
     private filmService: FilmService,
@@ -29,6 +32,7 @@ export class HomepagesComponent implements OnInit {
     private toastrService: ToastrService,
     private router: Router,
     private tokenStorageService: TokenStorageService,
+    private showtimeService: ShowtimeService
   ) {
   }
 
@@ -36,6 +40,7 @@ export class HomepagesComponent implements OnInit {
     this.load();
     this.getListUpShowingFilm();
     this.getTopFilm();
+    this.getShowtimeList();
   }
 
   load() {
@@ -66,6 +71,30 @@ export class HomepagesComponent implements OnInit {
       })
   }
 
+  getShowtimeList() {
+    this.showtimeService.getShowtimeList().subscribe(
+      (data) => {
+        this.showtimeList = data;
+        console.log(data)
+      },
+      error => {
+        console.log(error.message);
+        this.toastrService.error("Có lỗi xảy ra", "Thông báo");
+      }
+    )
+  }
+
+  checkBookTicket(filmId : number){
+    if (this.showtimeList != null){
+      this.showtimeList.forEach(showtime => {
+        if (showtime.filmId == filmId){
+          return true;
+        }
+      })
+    }
+    return false;
+  }
+
   getListUpComingFilm() {
     this.filmService.getListUpComingFilmDTO().subscribe(
       data => {
@@ -90,7 +119,7 @@ export class HomepagesComponent implements OnInit {
         })
       }
       this.filmService.searchUpShowingFilmDTO(this.nameSearch).subscribe((data) => {
-        if (data == '' || data == null) {
+        if (data == null) {
           this.router.navigateByUrl('/').then(
             r => this.toastrService.error(
               "Không tìm thấy dữ liệu",

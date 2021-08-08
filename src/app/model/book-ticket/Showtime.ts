@@ -1,8 +1,8 @@
 import {Time} from "@angular/common";
 
 export class Showtime {
-  showtimeId: number
-  filmId: number
+  showtimeId: number;
+  filmId: number;
   filmName: string;
   filmCategory: string;
   filmActors: string;
