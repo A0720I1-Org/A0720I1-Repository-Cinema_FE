@@ -1,5 +1,5 @@
 import { IAccountDTO } from './../../phat-model/dto/IAccountDTO';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { AccountService } from 'src/app/service/account.service';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
 import { ToastrService } from 'ngx-toastr';
@@ -25,7 +25,8 @@ export class ChangePasswordComponent implements OnInit {
     private toastrService: ToastrService,
    private router: Router,
    private accountService : AccountService,
-   private formBuilder:FormBuilder) { }
+   private formBuilder:FormBuilder,
+   private el: ElementRef) { }
    formChangePassword : FormGroup
   ngOnInit(): void {
 
@@ -40,7 +41,17 @@ export class ChangePasswordComponent implements OnInit {
     },)
   }
   changePassword() {
-    if(this.formChangePassword.valid) {
+    if(this.formChangePassword.invalid){
+      for (const key of Object.keys(this.formChangePassword.controls)) {
+        if (this.formChangePassword.controls[key].invalid) {
+          const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + key + '"]');
+          this.formChangePassword.get(key).markAsTouched();
+          invalidControl.focus();
+          break;
+       }
+     }
+    }
+    else{
       console.log(this.formChangePassword.value);
       this.accountDTO = this.formChangePassword.value;
       this.accountService.changePassword(this.accountDTO).subscribe(
@@ -53,6 +64,10 @@ export class ChangePasswordComponent implements OnInit {
           )
         },
         (error: HttpErrorResponse) => {
+          this.toastrService.error(
+            "Thay đổi mật khẩu thất bại",
+            "Thông báo",
+            {timeOut: 3000})
             this.listError = error.error;
         }
       );
@@ -64,23 +79,23 @@ export class ChangePasswordComponent implements OnInit {
  validationMessage = {
     'oldPassword': [
       {type: 'required', message: 'Mật khẩu cũ không được để trống!'},
-      {type: 'minlength', message: 'Mật khẩu cũ phải chứa nhiều hơn 6 kí tự'},
-      {type: 'maxlength', message: 'Mật khảu cũ chỉ chứa ít hơn 45 kí tự'},
-      {type: 'pattern', message: 'Mật khẩu cũ không được chứa kí tự đặc biệt'}
+      {type: 'minlength', message: 'Mật khẩu cũ phải chứa nhiều hơn 6 kí tự!'},
+      {type: 'maxlength', message: 'Mật khảu cũ chỉ chứa ít hơn 45 kí tự!'},
+      {type: 'pattern', message: 'Mật khẩu cũ không được chứa kí tự đặc biệt!'}
     ],
     'newPassword': [
       {type: 'required', message: 'Mật khẩu mới không được để trống!'},
-      {type: 'minlength', message: 'Mật khẩu mới phải chứa nhiều hơn 6 kí tự'},
-      {type: 'maxlength', message: 'Mật khảu mới chỉ chứa ít hơn 45 kí tự'},
-      {type: 'failPassword', message: 'Mật khẩu mới không được trùng mật khẩu cũ'},
-      {type: 'pattern', message: 'Mật khẩu mới không được chứa kí tự đặc biệt'}
+      {type: 'minlength', message: 'Mật khẩu mới phải chứa nhiều hơn 6 kí tự!'},
+      {type: 'maxlength', message: 'Mật khảu mới chỉ chứa ít hơn 45 kí tự!'},
+      {type: 'failPassword', message: 'Mật khẩu mới không được trùng mật khẩu cũ!'},
+      {type: 'pattern', message: 'Mật khẩu mới không được chứa kí tự đặc biệt!'}
     ],
     'confirmPassword': [
       {type: 'required', message: 'Xác nhận mật khẩu không được để trống!'},
-      {type: 'minlength', message: 'Xác nhận mật khẩu phải chứa nhiều hơn 6 kí tự'},
-      {type: 'maxlength', message: 'Xác nhận mật khẩu chỉ chứa ít hơn 45 kí tự'},
-      {type: 'notMatchPassword',message: 'Xác nhận mật khẩu phải giống mật khẩu mới'},
-      {type: 'pattern', message: 'Xác nhận mật khẩu không được chứa kí tự đặc biệt'}
+      {type: 'minlength', message: 'Xác nhận mật khẩu phải chứa nhiều hơn 6 kí tự!'},
+      {type: 'maxlength', message: 'Xác nhận mật khẩu chỉ chứa ít hơn 45 kí tự!'},
+      {type: 'notMatchPassword',message: 'Xác nhận mật khẩu phải giống mật khẩu mới!'},
+      {type: 'pattern', message: 'Xác nhận mật khẩu không được chứa kí tự đặc biệt!'}
     ]
   };
 }

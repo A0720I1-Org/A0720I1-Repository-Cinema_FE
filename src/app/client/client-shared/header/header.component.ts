@@ -38,4 +38,5 @@ export class HeaderComponent implements OnInit {
     this.ngOnInit();
     this.router.navigateByUrl("/")
   }
+
 }

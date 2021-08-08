@@ -24,13 +24,13 @@ export class AccountService {
     };
   }
   public getAllProvinces(): Observable<any> {
-    return this.http.get<any>(this.AUTH_API + '/api/public/province',this.httpOptions);
+    return this.http.get<any>(this.AUTH_API + '/api/public/address/province',this.httpOptions);
   }
   public getDistrictByProvince(provinceId): Observable<any> {
-    return this.http.get<any>(this.AUTH_API + '/api/public/district?provinceId=' + provinceId,this.httpOptions);
+    return this.http.get<any>(this.AUTH_API + '/api/public/address/district?provinceId=' + provinceId,this.httpOptions);
   }
   public getWardByDistrict(districtId): Observable<any> {
-    return this.http.get<any>(this.AUTH_API + '/api/public/ward?districtId=' + districtId,this.httpOptions);
+    return this.http.get<any>(this.AUTH_API + '/api/public/address/ward?districtId=' + districtId,this.httpOptions);
   }
   public register(memberAccountDTO : IAccountMemberDTO):Observable<any> {
     return this.http.post<any>(this.AUTH_API + '/api/public/register',memberAccountDTO,this.httpOptions);
