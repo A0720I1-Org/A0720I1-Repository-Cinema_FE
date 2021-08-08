@@ -131,4 +131,9 @@ export class BookingConfirmationComponent implements OnInit {
 
     }
   }
+
+  goLogin() {
+    this.toastrService.warning("Vui lòng đăng nhập để tiếp tục đặt vé", "Thông báo")
+    this.router.navigate(['/member/login'], { state: { redirect: this.router.url } })
+  }
 }

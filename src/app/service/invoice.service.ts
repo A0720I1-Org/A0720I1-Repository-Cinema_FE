@@ -35,7 +35,7 @@ export class InvoiceService {
   }
 
   checkSeatAvailable(bookingInformation: BookingInformation): Observable<any> {
-    return this.httpClient.post<any>(this.API_URL + "/api/member/invoice/check-seat-available",bookingInformation, this.httpOptions);
+    return this.httpClient.post<any>(this.API_URL + "/api/public/invoice/check-seat-available",bookingInformation, this.httpOptions);
   }
 
   public getTicketAll(page:any):Observable<any> {
