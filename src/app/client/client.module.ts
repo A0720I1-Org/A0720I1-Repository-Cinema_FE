@@ -44,7 +44,7 @@ import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
     FormsModule,
     ToastrModule.forRoot(),
     MatProgressSpinnerModule,
-    ClientSharedModule
+    ClientSharedModule,
   ]
 })
 export class ClientModule {

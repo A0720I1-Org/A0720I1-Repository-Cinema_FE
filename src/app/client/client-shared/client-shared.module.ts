@@ -14,7 +14,8 @@ import { NavbarComponent } from './navbar/navbar.component';
   ],
   exports: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    NavbarComponent
   ]
 })
 export class ClientSharedModule { }

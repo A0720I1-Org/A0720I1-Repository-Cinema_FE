@@ -8,7 +8,7 @@ export class Showtime {
   filmActors: string;
   filmDirectors: string;
   filmDuration: number;
-  filmAge: number;
+  filmAge: string;
   filmImageUrl: string;
   filmTechnology: string;
   subtitle: string;

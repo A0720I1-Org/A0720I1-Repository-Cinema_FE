@@ -18,26 +18,29 @@
       </button>
       <div class="collapse navbar-collapse navbar-collapse-margin" id="navbarNavDropdown">
         <ul class="navbar-nav">
+          <li class="nav-item"  *ngIf="['ROLE_ADMIN'].indexOf(role) !== -1">
+            <a class="nav-link nav-link-custom" routerLink="/admin/film">ADMIN <span class="sr-only">(current)</span></a>
+          </li>
           <li class="nav-item">
-            <a class="nav-link nav-link-custom" href="#">Trang chủ <span class="sr-only">(current)</span></a>
+            <a class="nav-link nav-link-custom" href="/" *ngIf="['ROLE_ADMIN'].indexOf(role) === -1">Trang chủ <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle nav-link-custom" href="#" id="navbarDropdownMenuLink" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Phim
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item mb-2" style="color: black" href="#idFilm" (click)="getListUpShowingFilm()">Phim
+            <div class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item mb-2 nav-link-custom" style="color: black" href="#idFilm" (click)="getListUpShowingFilm()">Phim
                 đang chiếu</a>
-              <a class="dropdown-item" style="color: black" href="#idFilm" (click)="getListUpComingFilm()">Phim sắp
+              <a class="dropdown-item nav-link-custom" style="color: black" href="#idFilm" (click)="getListUpComingFilm()">Phim sắp
                 chiếu</a>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link nav-link-custom" href="#">Đặt vé </a>
+            <a class="nav-link nav-link-custom" routerLink="/book/film-selection">Đặt vé </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link nav-link-custom" routerLink="/member/ticket-price">Giá vé </a>
+            <a class="nav-link nav-link-custom" routerLink="/ticket-price">Giá vé </a>
           </li>
           <li class="nav-item" *ngIf="isLoggedIn">
             <a class="nav-link nav-link-custom truncate text-left" href="#"
@@ -85,7 +88,7 @@
             <p>{{film.name}}</p>
           </div>
           <div class="position-absolute d-flex btn-top-movie">
-            <a class="btn" [routerLink]="['book/film-selection']" [queryParams]="{filmId: film.id}" > Đặt vé </a>
+            <a class="btn" [routerLink]="['/book/film-selection']" [queryParams]="{filmId: film.id}" > Đặt vé </a>
             <a class="btn" [routerLink]="['/detail', film.id]"> Chi tiết </a>
           </div>
           <div class="rated position-absolute">
@@ -126,14 +129,14 @@
     <!--    List-film-->
     <div class="col-md-10 d-flex justify-content-start flex-wrap mr-auto ml-auto">
       <ng-container *ngFor="let film of listFilmData">
-        <div class="col-md-4 col-lg-3 col-sm-6 p-3">
+        <div class="col-md-4 col-lg-3 col-sm-6">
           <div class="card">
-            <img class="card-img-top card-image"
+            <img class="card-img-top card-image img-top-movie"
                  src="{{film.imageUrl}}"
                  alt="...">
             <div class="hover-overlay"></div>
             <div class="button-overlay d-flex flex-row">
-              <ng-container *ngIf="checkBookTicket(film.id)">
+              <ng-container>
                 <a class="btn-sm mr-3" [routerLink]="['book/film-selection']" [queryParams]="{filmId: film.id}"> Đặt vé </a>
               </ng-container>
               <a class="btn-sm" [routerLink]="['/detail', film.id]"> Chi tiết </a>

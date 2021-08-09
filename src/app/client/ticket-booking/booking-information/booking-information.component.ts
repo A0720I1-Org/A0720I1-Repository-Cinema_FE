@@ -19,7 +19,6 @@ export class BookingInformationComponent implements OnInit {
   showtime: Showtime = new Showtime();
   ticketList: Ticket[] = [];
   invoiceId: number = 0;
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,

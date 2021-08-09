@@ -208,7 +208,7 @@ export class UpdateInfoComponent implements OnInit {
         },
         (err) => {
           console.log(err.error);
-          this.toastrService.error('Hãy kiểm tra lại đăng kí', 'Đăng kí thất bại', {
+          this.toastrService.error('Cập nhật tài khoản thất bại', 'Thông báo', {
             timeOut: 2000,
             progressBar: true,
             progressAnimation: 'increasing'
