@@ -1,6 +1,5 @@
 import { ShareService } from 'src/app/service/share.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { FormGroup } from '@angular/forms';
 import { Component, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
 import { ToastrService } from 'ngx-toastr';
@@ -48,7 +47,7 @@ export class ForgotPasswordComponent implements OnInit {
       this.dialog.closeAll();
       this.isShowOtp=true;
       this.code = data;
-      console.log(data)
+      console.log(data);
     },err=> {
       this.error= err.error;
       setTimeout(()=>{ this.dialog.closeAll(); }, 100);
@@ -63,21 +62,24 @@ export class ForgotPasswordComponent implements OnInit {
           panelClass: 'custom-dialog-container'
         });
       },err=> {
-      })
+        console.log(err.error)
+      });
       }
-    if(this.count === 0) {
-     this.router.navigateByUrl('/').then(()=> {
-       this.toastr.error(
-         'Cập nhật mật khẩu không thành công,vui lòng thử lại',
-        "Lỗi",
-        {timeOut: 3000, extendedTimeOut: 1500})
-     })
-    }
-      else{
-        this.count--;
-        this.errorOTP = "Bạn còn " + this.count + ' lượt nhập';
+      else {
+        if(this.count === 0) {
+          this.router.navigateByUrl('/').then(()=> {
+            this.toastr.error(
+              'Cập nhật mật khẩu không thành công,vui lòng thử lại',
+             "Lỗi",
+             {timeOut: 3000, extendedTimeOut: 1500})
+          })
+         }
+         else{
+             this.count--;
+             this.errorOTP = "Bạn còn " + this.count + ' lượt nhập';
+           }
+         }
       }
-    }
     onSignin(){
       this.router.navigateByUrl("/member/login");
       this.dialog.closeAll();

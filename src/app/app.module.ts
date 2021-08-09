@@ -1,19 +1,23 @@
-import { MatDialogModule } from '@angular/material/dialog';
-
+import {MatDialogModule} from '@angular/material/dialog';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppComponent} from './app.component';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SocialLoginModule, SocialAuthServiceConfig, SocialAuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
-import { HttpClientModule } from '@angular/common/http';
-import { ToastrModule } from 'ngx-toastr';
+import {HttpClientModule} from "@angular/common/http";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+  FacebookLoginProvider,
+  GoogleLoginProvider
+} from 'angularx-social-login';
+import {ToastrModule} from 'ngx-toastr';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../environments/environment';
+import {environment} from "../environments/environment";
 import {AngularFireStorageModule} from "@angular/fire/storage";
+import {AngularFireModule} from "@angular/fire";
 import {AngularFireDatabaseModule} from "@angular/fire/database";
 
 @NgModule({
@@ -23,6 +27,7 @@ import {AngularFireDatabaseModule} from "@angular/fire/database";
     BrowserAnimationsModule,
     RouterModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     SocialLoginModule,

@@ -22,7 +22,7 @@ h1, h2, h3, h4, h5, h6 {
 /*HEADER AND NAVBAR*/
 
 .banner-inner{
-  background: url(../images/1.jpg) no-repeat 0 0;
+  background: url(https://firebasestorage.googleapis.com/v0/b/a0720i1.appspot.com/o/dat-home%2Fmoney-heist.jpg?alt=media&token=f251ca40-e8ef-4d69-bfa7-a122b574e9f7) no-repeat 0 0;
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -33,6 +33,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .banner-inner-dot {
   background: url(../images/dots.png)repeat 0 0;
+
   text-align: center;
   padding-bottom: 150px;
 }
@@ -127,7 +128,7 @@ a.login{
   font-weight: bold;
 }
 a.login:hover{
-  background-color: whitesmoke;
+  background-color: #02a388;
   color: #000000;
 }
 

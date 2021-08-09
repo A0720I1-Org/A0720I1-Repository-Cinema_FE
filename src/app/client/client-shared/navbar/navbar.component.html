@@ -2,7 +2,7 @@
   <div class="navbar-default">
       <div class="navbar-header">
           <nav class="navbar navbar-expand-lg">
-              <h1><a href="index.html"><span>A</span>0720I1 <span>C</span>inema</a></h1>
+              <h1><a routerLink='/'><span>A</span>0720I1 <span>C</span>inema</a></h1>
               <button class="navbar-toggler" type="button" data-toggle="collapse"
                       data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                       aria-label="Toggle navigation">
@@ -11,7 +11,7 @@
               <div class="collapse navbar-collapse navbar-collapse-margin justify-content-end" id="navbarNavDropdown">
                 <ul class="navbar-nav d-flex justify-content-end">
                   <li class="nav-item active">
-                      <a class="nav-link nav-link-custom" href="#">TRANG CHỦ <span class="sr-only">(current)</span></a>
+                      <a class="nav-link nav-link-custom" routerLink='/'>TRANG CHỦ <span class="sr-only">(current)</span></a>
                   </li>
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle nav-link-custom" href="#"
@@ -20,18 +20,18 @@
                           PHIM
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <a class="dropdown-item" href="#">Phim đang chiếu</a>
+                          <a class="dropdown-item" (click)="getShowing()">Phim đang chiếu</a>
                           <a class="dropdown-item" href="#">Phim sắp chiếu</a>
                       </div>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link nav-link-custom" href="#">Đặt vé </a>
+                      <a class="nav-link nav-link-custom" routerLink="/book/film-selection">Đặt vé </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link nav-link-custom" href="#">Giá vé </a>
+                      <a class="nav-link nav-link-custom" routerLink='/ticket-price'>Giá vé </a>
                   </li>
                   <li class="nav-item" *ngIf="isLoggedIn">
-                      <a class="nav-link nav-link-custom" href="#" routerLink="/member/manager/">{{username}} </a>
+                      <a class="nav-link nav-link-custom truncate text-left" href="#" routerLink="/member/manager/">{{username}} </a>
                   </li>
                 </ul>
               </div>
@@ -39,3 +39,5 @@
       </div>
   </div>
 </div>
+
+

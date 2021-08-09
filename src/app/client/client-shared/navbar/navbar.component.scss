@@ -7,3 +7,10 @@
 .dropdown-menu {
   padding: 0;
 }
+.truncate {
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

@@ -1,0 +1,154 @@
+<div class="container-fluid">
+  <app-header></app-header>
+  <div class="content-inner">
+    <div id="follow-div" class="row col-md-8 mx-auto p-0">
+      <div class="follow text-dark col-md-4">
+        <p class="follow-title">chọn phim</p>
+      </div>
+      <div class="follow text-dark col-md-4">
+        <p class="follow-title">chọn ghế</p>
+      </div>
+      <div class="follow text-dark col-md-4">
+        <p class="follow-title active">xác nhận & thanh toán</p>
+      </div>
+    </div>
+    <div class="d-flex flex-row justify-content-between col-md-8 mr-auto ml-auto mt-5 mb-3">
+      <div class="d-flex flex-row justify-content-around col-md-12    ">
+        <div class="col-md-4 mr-3 ml-3 mt-5">
+          <img class="confirm-poster"
+               [src]="showtime.filmImageUrl">
+        </div>
+        <div class="col-md-8 mr-3 ml-3">
+          <div>
+            <h4 class="booking-confirmation-title">THÔNG TIN ĐẶT VÉ</h4>
+            <table class="table table-striped confirm-film-table">
+              <tbody>
+              <tr>
+                <td>Phim:</td>
+                <td class="total-amount">{{showtime.filmName}}</td>
+              </tr>
+              <tr>
+                <td>Đạo diễn:</td>
+                <td>{{showtime.filmDirectors}}</td>
+              </tr>
+              <tr>
+                <td>Diễn viên:</td>
+                <td>{{showtime.filmActors}}</td>
+              </tr>
+              <tr>
+                <td>Thể loại:</td>
+                <td>{{showtime.filmCategory}}</td>
+              </tr>
+              <tr>
+                <td>Thời lượng:</td>
+                <td>{{showtime.filmDuration}} phút</td>
+              </tr>
+              <tr>
+                <td>Hình ảnh & ngôn ngữ:</td>
+                <td>{{showtime.filmTechnology}} - {{showtime.subtitle}}</td>
+              </tr>
+              <tr>
+                <td>Ngày chiếu:</td>
+                <td>{{showtime.showtimeDay | date: "dd-MM-yyyy"}}</td>
+              </tr>
+              <tr>
+                <td>Giờ chiếu:</td>
+                <td>{{showtime.showtimeTime.toString().slice(0, 5)}}</td>
+              </tr>
+              <tr>
+                <td>Rạp:</td>
+                <td>{{showtime.cinemaRoomName}}</td>
+              </tr>
+              <tr>
+                <td>Số lượng vé:</td>
+                <td>{{selectedSeats.length}}</td>
+              </tr>
+              <tr>
+                <td class="pl-3">Vé</td>
+                <td>
+                  <table class="table table-bordered">
+                    <thead>
+                    <th>Số ghế</th>
+                    <th>Số tiền</th>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let seat of selectedSeats">
+                      <td>{{seat.name}}</td>
+                      <td>{{seat.price | number}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">Tổng cộng</td>
+                <td class="total-amount">{{getTotalAmount() | number}} VND</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="mt-5 mb-3">
+            <h4 class="booking-confirmation-title">THÔNG TIN KHÁCH HÀNG</h4>
+            <table class="table table-striped confirm-film-table" *ngIf="membership">
+              <tbody>
+              <tr>
+                <td>Mã thành viên:</td>
+                <td>{{membership.memberCode}}</td>
+              </tr>
+              <tr>
+                <td>Họ và tên:</td>
+                <td>{{membership.name}}</td>
+              </tr>
+              <tr>
+                <td>Số CMND:</td>
+                <td>{{membership.card}}</td>
+              </tr>
+              <tr>
+                <td>SĐT:</td>
+                <td>{{membership.phone}}</td>
+              </tr>
+              <tr>
+                <td>Email:</td>
+                <td>{{membership.email}}</td>
+              </tr>
+              </tbody>
+            </table>
+            <h3 *ngIf="!membership" class="mr-auto ml-auto text-center font-weight-bold text-danger">
+              Vui lòng <a class="text-primary" (click)="goLogin()">đăng nhập</a> để tiếp tục đặt vé
+            </h3>
+          </div>
+          <div class="mt-5 mb-3 col-md-12">
+            <h4 class="booking-confirmation-title mb-3">hình thức THANH TOÁN</h4>
+            <div class="d-table col-md-12">
+              <div class="d-table-row d-flex flex-row justify-content-around">
+                <ng-container *ngFor="let method of paymentMethods">
+                  <div class="d-table-cell">
+                    <img class="payment-method-logo mr-auto ml-auto"
+                         [src]="method.iconUrl">
+                    <p class="text-center mb-1 font-weight-bold">{{method.name}}<br>
+                      <input class="ml-auto mr-auto" type="radio" name="payment-method"
+                             (change)="selectMethod(method.id)"></p>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-row justify-content-center">
+      <button class="btn btn-progress btn-cancel mr-2" (click)="back()"><i class="fa fa-arrow-left mr-1"></i> QUAY LẠI
+      </button>
+      <button class="btn btn-progress btn-submit" *ngIf="membership" (click)="next()">TIẾP TỤC <i class="fa fa-arrow-right ml-1"></i>
+      </button>
+      <button class="btn btn-progress btn-submit" *ngIf="!membership" (click)="goLogin()">TIẾP TỤC <i class="fa fa-arrow-right ml-1"></i>
+      </button>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>
+<ng-template #loading>
+  <div class="d-flex flex-row justify-content-center align-items-center">
+    <mat-spinner></mat-spinner>
+</div>
+</ng-template>

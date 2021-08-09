@@ -9,6 +9,7 @@ export const environment = {
   firebaseConfig: {
     apiKey: "AIzaSyA6I_CF3m0uwOKr-dkGrr4AJ6w8FMxUlZk",
     authDomain: "a0720i1-cinema.firebaseapp.com",
+    databaseURL: "https://a0720i1-cinema-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "a0720i1-cinema",
     storageBucket: "a0720i1-cinema.appspot.com",
     messagingSenderId: "601232487043",
