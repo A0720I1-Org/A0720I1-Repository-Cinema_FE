@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 font-weight-bold text-dark">Phim</h1>
+          <h1 class="m-0 font-weight-bold text-dark">Danh sách phim</h1>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -13,88 +13,97 @@
   <!-- /.content-header -->
 
   <!-- Main content -->
-  <section class="content">
+  <section class="content" id="main-container">
     <div class="container-fluid">
       <div class="card shadow mb-4">
-        <div class="card-header py-3" style="display: flex">
-          <h3 class="m-0 font-weight-bold text-dark">Danh sách phim</h3>
-          <button type="submit" class="btn btn-success" style="position:absolute;left: 18%"> Tạo mới phim</button>
-          <form class="form-inline" style="position:absolute;right: 2%">
-            <input class="form-control mr-sm-10" type="search" placeholder="Nhập hãng phim" aria-label="Search">
-            <input class="form-control mr-sm-10" type="search" placeholder="Nhập tên phim" aria-label="Search">
-            <button class="btn btn-secondary my-sm-0 ml-1" type="submit">Tìm kiếm</button>
-          </form>
+        <div class="col-12 card-header d-flex justify-content-between">
+          <div class="col-6 mt-auto mb-auto">
+            <a class="btn btn-success" [routerLink]="['/admin/film/create']"><i class="fas fa-plus-circle nav-icon"></i> Thêm mới phim</a>
+          </div>
+          <div class="col-4 input-group mt-auto mb-auto">
+            <input type="search" class="form-control mr-2" placeholder="Nhập tên phim" [(ngModel)]="name">
+<!--            <input type="search" class="form-control" placeholder="Nhập ngày khởi chiếu" [(ngModel)]="startDate">-->
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-default" (click)="getSearchByName()">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </div>
         </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
               <thead>
               <tr>
-                <th>STT </th>
-                <th>Tên phim </th>
-                <th>Ngày khời chiếu </th>
-                <th>Hãng phim</th>
-                <th>Thời lượng</th>
-                <th>Phiên bản</th>
-                <th>Thao tác</th>
+                <th class="text-center col-md-1">STT</th>
+                <th class="text-center col-md-4">Tên phim</th>
+                <th class="text-center col-md-2">Ngày khời chiếu</th>
+                <th class="text-center col-md-2">Hãng phim</th>
+                <th class="text-center col-md-1">Thời lượng</th>
+                <th class="text-center">Thao tác</th>
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>1</td>
-                <td>Stand By Me 2</td>
-                <td>18/06/2020</td>
-                <td>Shin-Ei Animation</td>
-                <td>96 phút</td>
-                <td>3D</td>
-                <td>
-                  <button type="submit" class="btn btn-info">Chi tiết</button>
-                  <button type="submit" class="btn btn-warning"> Sửa</button>
-                  <button type="submit" class="btn btn-danger"> Xoá</button>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Stand By Me 2</td>
-                <td>18/06/2020</td>
-                <td>Shin-Ei Animation</td>
-                <td>96 phút</td>
-                <td>3D</td>
-                <td>
-                  <button type="submit" class="mr-1 btn btn-info">Chi tiết</button>
-                  <button type="submit" class="mr-1 btn btn-warning"> Sửa</button>
-                  <button type="submit" class="btn btn-danger"> Xoá</button>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Stand By Me 2</td>
-                <td>18/06/2020</td>
-                <td>Shin-Ei Animation</td>
-                <td>96 phút</td>
-                <td>3D</td>
-                <td>
-                  <button type="submit" class="btn btn-info">Chi tiết</button>
-                  <button type="submit" class="btn btn-warning"> Sửa</button>
-                  <button type="submit" class="btn btn-danger"> Xoá</button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Stand By Me 2</td>
-                <td>18/06/2020</td>
-                <td>Shin-Ei Animation</td>
-                <td>96 phút</td>
-                <td>3D</td>
-                <td>
-                  <button type="submit" class="btn btn-info">Chi tiết</button>
-                  <button type="submit" class="btn btn-warning"> Sửa</button>
-                  <button type="submit" class="btn btn-danger"> Xoá</button>
+              <tr *ngFor="let film of listFilm; let count = index" [attr.data-index]="count">
+                <td class="text-center">{{page*pageSize + count + 1}}</td>
+                <td class="text-dark">{{film.nameFilm}}</td>
+                <td class="text-center">{{film.start_date | date: "dd-MM-yyyy"}}</td>
+                <td class="text-dark">{{film.studio}}</td>
+                <td class="text-center">{{film.duration}} phút</td>
+                <td class="text-center">
+                  <a class="click"><span class="mr-2 material-icons text-info" [routerLink]="['/admin/film/find',film.id]">info</span></a>
+                  <a class="click"><span class="mr-2 material-icons text-warning" [routerLink]="['/admin/film/update',film.id]">edit</span></a>
+<!--                  <a href="#myModal" class="mr-2 trigger-btn" data-toggle="modal" (click)="onOpenModal(film,'delete')"><span class="material-icons text-danger">delete</span></a>-->
                 </td>
               </tr>
               </tbody>
             </table>
+            <!-- Modal -->
 
+<!--            <div class="modal fade" id="deleteFilmModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">-->
+<!--              <div class="modal-dialog" role="document">-->
+<!--                <div class="modal-content">-->
+<!--                  <div class="modal-header">-->
+<!--                    <h5 class="modal-title" id="deleteModelLabel">Xoá phim</h5>-->
+<!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                      <span aria-hidden="true"></span>-->
+<!--                    </button>-->
+<!--                  </div>-->
+<!--                  <div class="modal-body">-->
+<!--                    <p>Bạn có muốn xoá phim {{deleteFilm?.nameFilm}}?</p>-->
+<!--                    <div class="modal-footer">-->
+<!--                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>-->
+<!--                      <button (click)="deleteFilmById(deleteFilm?.id)" class="btn btn-danger" data-dismiss="modal">Có</button>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+
+            <!-- Modal -->
+            <div class="d-flex flex-row justify-content-center ">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item">
+                    <a class="page-link click" tabindex="-1"(click)="paginate(0)">Đầu</a>
+                  </li>
+                  <li class="page-item ">
+                    <button class="page-link text-dark click" (click)="paginate(page-1)"><i class="fas fa-chevron-left"></i></button>
+                  </li >
+                  <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page-2)" *ngIf="page-2>=0&&page+1>=totalPage">{{page-1}}</a></li>
+                  <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page-1)" *ngIf="page-1>=0">{{page}}</a></li>
+                  <li class="page-item click"><a class="page-link text-dark bg-secondary" (click)="paginate(page)">{{page+1}}</a></li>
+                  <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page+1)" *ngIf="page+1<totalPage">{{page+2}}</a></li>
+                  <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page+2)" *ngIf="page+2<totalPage&&page-1<0">{{page+3}}</a></li>
+                  <li class="page-item">
+                    <button class="page-link text-dark click" (click)="paginate(page+1)"><i class="fas fa-chevron-right"></i></button>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link text-dark click" (click)="paginate(totalPage-1)">Cuối</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
           </div>
         </div>
       </div>

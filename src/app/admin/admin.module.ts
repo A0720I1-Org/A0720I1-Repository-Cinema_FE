@@ -7,7 +7,7 @@ import {AdminRoutingModule} from './admin-routing.module';
 import {RouterModule} from "@angular/router";
 import {AdminComponent} from "./admin.component";
 import {AdminSharedModule} from "./admin-shared/admin-shared.module";
-
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [AdminComponent,MemberTicketComponent,ChangeIdPipe],
@@ -15,6 +15,7 @@ import {AdminSharedModule} from "./admin-shared/admin-shared.module";
     CommonModule,
     AdminRoutingModule,
     RouterModule,
+    ToastrModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     AdminSharedModule
