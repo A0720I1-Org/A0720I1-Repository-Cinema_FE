@@ -48,13 +48,13 @@ export class ShowtimeService {
 
   //vu
   createShowtime(createShowtimeDTO: any):Observable<any>{
-    return this.httpClient.post<any>(this.API_URL +"/api/member/showtime/create" ,createShowtimeDTO,this.httpOptions)
+    return this.httpClient.post<any>(this.API_URL +"/api/admin/showtime/create" ,createShowtimeDTO,this.httpOptions)
   }
   getListFilm():Observable<any>{
-    return this.httpClient.get<any>(this.API_URL +"/api/member/showtime/listFilm",this.httpOptions)
+    return this.httpClient.get<any>(this.API_URL +"/api/admin/showtime/listFilm",this.httpOptions)
   }
 
   getListCinemaRoom():Observable<any>{
-    return this.httpClient.get<any>(this.API_URL +"/api/member/showtime/listCinemaRoom",this.httpOptions)
+    return this.httpClient.get<any>(this.API_URL +"/api/admin/showtime/listCinemaRoom",this.httpOptions)
   }
 }

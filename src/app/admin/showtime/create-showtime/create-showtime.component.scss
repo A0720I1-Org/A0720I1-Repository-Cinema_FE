@@ -67,3 +67,7 @@ ul.ks-cboxtags li input[type="checkbox"] {
 ul.ks-cboxtags li input[type="checkbox"] {
   position: absolute;
   opacity: 0; }
+.required:after {
+  content:" *";
+  color: red;
+}

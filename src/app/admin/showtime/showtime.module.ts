@@ -6,6 +6,7 @@ import { DetailShowtimeComponent } from './detail-showtime/detail-showtime.compo
 import {HttpClientModule} from "@angular/common/http";
 import { CreateShowtimeComponent } from './create-showtime/create-showtime.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {ToastrModule} from "ngx-toastr";
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {ReactiveFormsModule} from "@angular/forms";
         CommonModule,
         ShowtimeRoutingModule,
         HttpClientModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ToastrModule.forRoot()
     ]
 })
 export class ShowtimeModule { }

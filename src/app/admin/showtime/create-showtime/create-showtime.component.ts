@@ -8,6 +8,7 @@ import {DTOCreateShowtime} from "../dto/DTOCreateShowtime";
 import {DTOCinemaRoom} from "../../cinema-room/dto/DTOCinemaRoom";
 import {SeatCreateDTO} from "../dto/SeatCreateDTO";
 import {ShowtimeDataDTO} from "../dto/ShowtimeDataDTO";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-create-showtime',
@@ -29,6 +30,7 @@ export class CreateShowtimeComponent implements OnInit {
 
   constructor(private showtimeService: ShowtimeService,
               private formBuilder: FormBuilder,
+              private toastrService: ToastrService
   ) {
   }
 
@@ -77,7 +79,10 @@ export class CreateShowtimeComponent implements OnInit {
     showtimeData.showtimeList = showtimeArr;
     showtimeData.seatList = this.seatList;
       this.showtimeService.createShowtime(showtimeData).subscribe(
-        data => console.log("them thanh cong"),
+        data => {
+          this.toastrService.success("Tạo mới thành công suất chiếu", "Thông báo")
+          this.createForm.reset()
+        },
         error => console.log(error.message)
       )
 
