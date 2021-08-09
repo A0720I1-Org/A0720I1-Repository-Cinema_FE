@@ -311,3 +311,8 @@
   margin-left: 1rem;
 
 }
+::ng-deep.mat-dialog-container{
+  background-color: white;
+  padding: 0 !important;
+  margin: 0 !important;
+}

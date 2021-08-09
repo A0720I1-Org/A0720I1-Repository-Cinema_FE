@@ -20,7 +20,7 @@ export class DetailFilmComponent implements OnInit {
 
   ngOnInit(): void {
     this.idFilm = this.activatedRoute.snapshot.params['id'];
-    this.filmService.getFilmById(this.idFilm).subscribe(data => {
+    this.filmService.getFilmDTOById(this.idFilm).subscribe(data => {
       this.film = data;
       if(this.film.age.localeCompare('https://firebasestorage.googleapis.com/v0/b/a0720i1.appspot.com/o/dat-home%2Fc-18.png?alt=media&token=17900829-a490-475b-b8c7-96cd1bbf2c62')){
         this.film.age = '16 tuổi';

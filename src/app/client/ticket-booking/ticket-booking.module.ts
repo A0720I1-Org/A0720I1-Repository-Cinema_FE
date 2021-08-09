@@ -9,7 +9,7 @@ import { BookingConfirmationComponent } from './booking-confirmation/booking-con
 import { BookingInformationComponent } from './booking-information/booking-information.component';
 import {ClientSharedModule} from "../client-shared/client-shared.module";
 import { CreateBookingComponent } from './create-booking/create-booking.component';
-
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [FilmSelectionComponent, SeatSelectionComponent, BookingConfirmationComponent, BookingInformationComponent, CreateBookingComponent],
@@ -17,7 +17,8 @@ import { CreateBookingComponent } from './create-booking/create-booking.componen
         CommonModule,
         TicketBookingRoutingModule,
         ToastrModule.forRoot(),
-        ClientSharedModule
+        ClientSharedModule,
+        MatProgressSpinnerModule
     ]
 })
 export class TicketBookingModule { }

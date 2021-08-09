@@ -89,7 +89,7 @@ export class UpdateFilmComponent implements OnInit {
 
   getFilmId() {
     this.idFilm = this.activatedRoute.snapshot.params['id'];
-    this.filmService.getFilmById(this.idFilm).subscribe(data => {
+    this.filmService.getFilmDTOById(this.idFilm).subscribe(data => {
       this.film = data;
       this.filePath = this.film.imageURL;
       this.film.imageURL = null;

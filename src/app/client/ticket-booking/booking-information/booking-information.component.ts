@@ -7,6 +7,7 @@ import {Showtime} from "../../../model/book-ticket/Showtime";
 import {Ticket} from "../../../model/book-ticket/Ticket";
 import {ShowtimeService} from "../../../service/showtime.service";
 import {TicketService} from "../../../service/ticket.service";
+import {TokenStorageService} from "../../../service/token-storage.service";
 
 @Component({
   selector: 'app-booking-information',
@@ -18,21 +19,25 @@ export class BookingInformationComponent implements OnInit {
   showtime: Showtime = new Showtime();
   ticketList: Ticket[] = [];
   invoiceId: number = 0;
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private invoiceService: InvoiceService,
     private showtimeService: ShowtimeService,
     private ticketService: TicketService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private tokenStorageService: TokenStorageService
   ) { }
 
   ngOnInit(): void {
     this.invoiceId = this.activatedRoute.snapshot.params['id'];
     this.invoiceService.getInvoiceById(this.invoiceId).subscribe(
       data => {
-        this.invoice = data
+        this.invoice = data;
+        if (this.invoice.memberId != this.tokenStorageService.getUser().membership.id){
+          this.router.navigateByUrl('/')
+          this.toastrService.warning("Bạn không có quyền truy cập trang này", "Thông báo")
+        }
       },
       error => this.toastrService.warning("Có lỗi xảy ra!", "Thông báo")
     )

@@ -1,0 +1,205 @@
+<!--Nav-bar-->
+<h1><small>CINEMA</small> A0720I1 <small>This is your world</small></h1>
+<div class="slideshow position-relative container-fluid">
+  <div class="slideshow-image"
+       style="background-image: url('https://images-na.ssl-images-amazon.com/images/I/81jqQeQZUIL._RI_.jpg')"></div>
+  <div class="slideshow-image"
+       style="background-image: url('https://i2.wp.com/dmtalkies.com/wp-content/uploads/2020/09/qypq1yizrfzf2wzbluyl.jpg?fit=1280%2C720&ssl=1')"></div>
+  <div class="slideshow-image"
+       style="background-image: url('https://khenphim.com/wp-content/uploads/2019/03/us-2-banner.jpg')"></div>
+  <div class="slideshow-image"
+       style="background-image: url('https://vtv1.mediacdn.vn/2019/4/26/poster-payoff-1-1556273680151870157160-crop-1556273779257196175768.jpg')"></div>
+  <div class="navbar-header">
+    <nav class="navbar navbar-expand-lg navbar-light position-absolute">
+      <h1><a href="#"><span>A</span>0720I1 <span>C</span>inema</a></h1>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse navbar-collapse-margin" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item"  *ngIf="['ROLE_ADMIN'].indexOf(role) !== -1">
+            <a class="nav-link nav-link-custom" routerLink="/admin/film">ADMIN <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom" href="/" *ngIf="['ROLE_ADMIN'].indexOf(role) === -1">Trang chủ <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle nav-link-custom" href="#" id="navbarDropdownMenuLink" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Phim
+            </a>
+            <div class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item mb-2 nav-link-custom" style="color: black" href="#idFilm" (click)="getListUpShowingFilm()">Phim
+                đang chiếu</a>
+              <a class="dropdown-item nav-link-custom" style="color: black" href="#idFilm" (click)="getListUpComingFilm()">Phim sắp
+                chiếu</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom" routerLink="/book/film-selection">Đặt vé </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom" routerLink="/ticket-price">Giá vé </a>
+          </li>
+          <li class="nav-item" *ngIf="isLoggedIn">
+            <a class="nav-link nav-link-custom truncate text-left" href="#"
+               routerLink="/member/manager/">{{username}} </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+<div class="w3_agilits_banner_bootm">
+  <div class="w3_agilits_inner_bottom">
+    <span class="red-bar mx-0 px-0">
+      <i class="material-icons" aria-hidden="true">call</i>(+084) 037 471 8365
+    </span>
+    <span>
+      <a routerLink='/member/login' class="login" *ngIf="!isLoggedIn">Đăng nhập</a>
+      <a routerLink='/member/register' class="login ml-1" *ngIf="!isLoggedIn">Đăng ký</a>
+    </span>
+  </div>
+</div>
+<!--Nav-bar-->
+<div class="container-fluid">
+  <div class="banner-top-movie">
+  <span class="message">
+    BEST YOUR CHOICE
+  </span>
+    <h1 class="banner-top-movie-title">TOP MOVIES</h1>
+  </div>
+  <!--  Top movie -->
+  <div class="top-film d-flex flex-wrap justify-content-center mb-3">
+    <ng-container *ngFor="let film of listTopFilm">
+      <div class="col-md-3 col-lg-3 col-sm-6 p-3">
+        <div class="card position-relative">
+          <img class="card-img-top img-top-movie"
+               src="{{film.imageUrl}}"
+               alt="...">
+          <div class="hover-overlay-top-movie"></div>
+          <div class="position-absolute play-top-movie">
+            <button class="border-0" (click)="viewTrailer(film.trailer)">
+              <span class="material-icons">play_arrow</span>
+            </button>
+          </div>
+          <div class="position-absolute name-top-movie">
+            <p>{{film.name}}</p>
+          </div>
+          <div class="position-absolute d-flex btn-top-movie">
+            <a class="btn" [routerLink]="['/book/film-selection']" [queryParams]="{filmId: film.id}" > Đặt vé </a>
+            <a class="btn" [routerLink]="['/detail', film.id]"> Chi tiết </a>
+          </div>
+          <div class="rated position-absolute">
+            <img
+              src="{{film.age}}"
+              alt="Cam do tuoi">
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <!--  Top movie -->
+  <!--  Banner-->
+  <div>
+    <div class="banner-film"><img
+      src="https://firebasestorage.googleapis.com/v0/b/a0720i1.appspot.com/o/dat-home%2F8728.jpg?alt=media&token=df04b398-a967-4d39-aee8-1a31ddef77ac"
+      alt="banner"></div>
+  </div>
+  <!--  Banner-->
+  <!--  Header list-film-->
+  <div class="main-list-film">
+    <div class="nav-herder d-flex justify-content-center flex-wrap" id="idFilm">
+      <span [ngStyle]="{background: isShowing ? '#02a388' : '#0c0d0d'}"><a href="#idFilm"
+                                                                           (click)="getListUpShowingFilm()">Phim Đang Chiếu</a></span>
+      <span [ngStyle]="{background: isShowing ? '#0c0d0d' : '#02a388'}"><a href="#idFilm"
+                                                                           (click)="getListUpComingFilm()">Phim Sắp Chiếu</a></span>
+    </div>
+    <!--  Header list-film-->
+    <!--    Button search-->
+    <div id="wrap">
+      <div>
+        <input id="search" name="search" type="text" placeholder="Nhập để tìm kiếm" [(ngModel)]="nameSearch"
+               (keydown.enter)="searchFilm()">
+        <span class="material-icons material-icons-outlined search_submit">search</span>
+      </div>
+    </div>
+    <!--    Button search-->
+    <!--    List-film-->
+    <div class="col-md-10 d-flex justify-content-start flex-wrap mr-auto ml-auto">
+      <ng-container *ngFor="let film of listFilmData">
+        <div class="col-md-4 col-lg-3 col-sm-6">
+          <div class="card">
+            <img class="card-img-top card-image img-top-movie"
+                 src="{{film.imageUrl}}"
+                 alt="...">
+            <div class="hover-overlay"></div>
+            <div class="button-overlay d-flex flex-row">
+              <ng-container>
+                <a class="btn-sm mr-3" [routerLink]="['book/film-selection']" [queryParams]="{filmId: film.id}"> Đặt vé </a>
+              </ng-container>
+              <a class="btn-sm" [routerLink]="['/detail', film.id]"> Chi tiết </a>
+              <div class="button-play-video">
+                <button class="border-0" (click)="viewTrailer(film.trailer)">
+                  <span class="material-icons">play_arrow</span>
+                </button>
+              </div>
+            </div>
+            <div class="card-body pt-2">
+              <div class="card-title info-header">
+                <a [routerLink]="['/detail', film.id]"><h3>{{film.name}}</h3></a>
+              </div>
+              <div class="card-text info-detail">
+                <ul>
+                  <li><span>Thể loại:</span> {{film.category}}</li>
+                  <li><span>Thời Lượng:</span> {{film.duration}} phút</li>
+                  <li><span>Ngày khởi chiếu:</span> {{film.start_date | date: "dd/MM/yyyy"}}</li>
+                </ul>
+              </div>
+            </div>
+            <div class="rated position-absolute">
+              <img src="{{film.age}}" alt="Cam do tuoi">
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <!--    List-film-->
+  </div>
+  <!--  Header list-film-->
+
+  <!--    Promote-->
+  <h3 class="agile_w3_title promote-header">KHUYẾN<span>MÃI</span> & ƯU<span>ĐÃI</span></h3>
+  <hr>
+  <div class="col-md-10 promote ml-auto mr-auto">
+    <div class="d-flex flex-row justify-content-between">
+      <div>
+        <span><img
+          src="https://firebasestorage.googleapis.com/v0/b/a0720i1.appspot.com/o/dat-home%2Fpromote1.png?alt=media&token=78a6989f-fc68-4cdd-a9aa-0286fcb6485a"
+          alt="asd" class="promote-main"></span>
+      </div>
+      <div class="list-promote">
+                <span>
+                    <a href=""><img
+                      src="https://firebasestorage.googleapis.com/v0/b/a0720i1.appspot.com/o/dat-home%2Fpromote2.jpg?alt=media&token=d69484ec-d352-4326-b025-328948b6e991"
+                      alt=""></a>
+                </span>
+        <span><a href=""><img
+          src="https://firebasestorage.googleapis.com/v0/b/a0720i1.appspot.com/o/dat-home%2Fpromote3.jpg?alt=media&token=bb7e8b29-00c1-4580-beee-167fc209f3e9"
+          alt=""></a></span>
+        <span><a href=""><img
+          src="https://firebasestorage.googleapis.com/v0/b/a0720i1.appspot.com/o/dat-home%2Fpromote4.jpg?alt=media&token=a9e23269-124e-4aeb-801f-de1024c79292"
+          alt=""></a></span>
+        <span><a href=""><img
+          src="https://firebasestorage.googleapis.com/v0/b/a0720i1.appspot.com/o/dat-home%2Fpromote5.jpg?alt=media&token=c98b5d49-b4f6-4612-b9c4-d338e8e8bf75"
+          alt=""></a></span>
+        <span><a href=""><img
+          src="https://firebasestorage.googleapis.com/v0/b/a0720i1.appspot.com/o/dat-home%2Fpromote6.jpg?alt=media&token=52d376fc-5d57-41f3-9a01-189a4dc6bc6f"
+          alt=""></a></span>
+      </div>
+    </div>
+  </div>
+  <!--    Promote-->
+  <app-footer></app-footer>
+</div>

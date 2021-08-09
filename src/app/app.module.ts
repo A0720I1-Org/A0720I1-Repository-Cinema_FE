@@ -1,5 +1,4 @@
-import { MatDialogModule } from '@angular/material/dialog';
-
+import {MatDialogModule} from '@angular/material/dialog';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
