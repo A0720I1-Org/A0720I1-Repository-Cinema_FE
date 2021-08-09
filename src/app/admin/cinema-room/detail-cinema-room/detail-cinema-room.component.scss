@@ -1,0 +1,136 @@
+/*CINEMA SELECTION*/
+.screen{
+  border-bottom: 3px solid dimgrey;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 5rem;
+}
+
+.screen div{
+  font-size: 1rem;
+  font-weight: bold;
+}
+.seat-layout{
+  border: none;
+  padding: 2px;
+  width: auto;
+}
+
+.seat-layout tbody tr td{
+  cursor: pointer;
+  width: inherit;
+  padding: 0.2rem;
+  margin: 0;
+  height: inherit;
+}
+.seat-layout tbody tr td div{
+  margin: 0;
+}
+
+.seat {
+  border: 1px solid #7ab489;
+  font-weight: bold;
+  font-size: 13px;
+  color: black;
+  width: 35px;
+  height: 35px;
+  margin: 0;
+  align-items: center;
+}
+.damaged-seat {
+  background-color: #d1002f !important;
+  cursor: not-allowed;
+}
+
+.seat-none {
+  border: none !important;
+  color: white;
+  cursor: context-menu;
+}
+.standard-seat {
+  background-color: #f4ebe5 !important;
+  cursor: pointer;
+}
+.booked-seat {
+  background-color: grey!important;
+  cursor: not-allowed;
+}
+.keeping-seat {
+  background-color:  #a8db26 !important;
+  cursor: pointer;
+}
+.vip-seat {
+  background-color: lightpink !important;
+  cursor: pointer;
+}
+
+.seat-selection-info{
+  text-align: center;
+  border-bottom: 3px solid dimgrey;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.seat-selection-film{
+  text-align: center;
+  text-transform: uppercase;
+  color: #fe423f;
+  margin: 1rem 1rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.seat-selection-table{
+  width: 100%;
+  padding: 0.1rem 0.1rem;
+}
+
+.seat-selection-table tbody tr td{
+  height: 2rem;
+  color: #0a7362;
+  font-size: 1rem;
+}
+.total-amount{
+  font-weight: bold;
+  font-size: 1.1rem !important;
+  color: #fe423f !important;
+  border-top: 1px solid dimgrey;
+  text-transform: uppercase;
+}
+
+/*BOOKING CONFIRMATION*/
+
+.booking-confirmation-title{
+  text-align: center;
+  text-transform: uppercase;
+  color: #0a7362;
+  margin: 1rem 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.confirm-poster{
+  width: 100%;
+}
+
+.confirm-film-table tbody tr td{
+  height: 3rem;
+}
+
+.payment-method-logo{
+  height: 6rem ;
+}
+
+/*BOOKING INFORMATION*/
+
+.table-booking-info tbody tr td{
+  height: 1.5rem;
+  font-size: 1rem;
+}
+
+.notice{
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-left: 1rem;
+
+}

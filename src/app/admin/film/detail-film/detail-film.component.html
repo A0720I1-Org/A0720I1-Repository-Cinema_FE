@@ -1,0 +1,109 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 font-weight-bold">Thông tin phim</h1>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="card shadow mb-4">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card card-user">
+              <div class="card-body">
+                <label class="required">Poster</label>
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                  <div class="fileinput-new thumbnail img-raised">
+                    <img [src]="film.imageURL" *ngIf="film.imageURL"
+                         style="width: 100%;" alt="..." rel="nofollow">
+                  </div>
+                  <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--End table information-->
+          <div class="col-md-9">
+            <div class="card-user">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-10 mx-auto table-responsive">
+                    <table class="table">
+                      <tr>
+                        <th class=" text-primary col-md-3">Tên phim</th>
+                        <td class="">{{film.name}}</td>
+                      </tr>
+                      <tr>
+                        <th class="text-primary">Ngày chiếu</th>
+                        <td class="">{{film.startDate | date: "dd-MM-yyyy"}}</td>
+                      </tr>
+                      <tr>
+                        <th class=" text-primary">Ngày kết thúc</th>
+                        <td class="">{{film.endDate | date: "dd-MM-yyyy"}}</td>
+                      </tr>
+                      <tr>
+                        <th class=" text-primary">Diễn viên</th>
+                        <td class="   ">{{film.actors}}</td>
+                      </tr>
+                      <tr>
+                        <th class=" text-primary">Hãng phim</th>
+                        <td class="   ">{{film.studio}}</td>
+                      </tr>
+                      <tr>
+                        <th class=" text-primary">Thời lượng</th>
+                        <td class="   ">{{film.durations}}</td>
+                      </tr>
+                      <tr>
+                        <th class=" text-primary">Đạo diễn</th>
+                        <td class="   ">{{film.directors}}</td>
+                      </tr>
+                      <tr>
+                        <th class=" text-primary">Trailer</th>
+                        <td class="   ">{{film.trailers}}</td>
+                      </tr>
+                      <tr>
+                        <th class=" text-primary">Thể loại</th>
+                        <td class="   ">{{film.category}}</td>
+                      </tr>
+                      <tr>
+                        <th class=" text-primary">Tuổi giới hạn</th>
+                        <td class="">{{film.age}}</td>
+                      </tr>
+                      <tr>
+                        <th class=" text-primary">Công nghệ</th>
+                        <td class="   ">{{film.filmTechnology}}</td>
+                      </tr>
+                      <tr>
+                        <th class=" text-primary">Bản dịch</th>
+                        <td class="   ">{{film.subTitle}}</td>
+                      </tr>
+                      <tr>
+                        <th class=" text-primary">Nội dung</th>
+                        <td class="">{{film.descriptions}}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-md-8 seat-layout d-flex flex-row justify-content-center ml-auto mr-auto mt-2 ">
+                  <button class="btn btn-primary mr-1" routerLink="/admin/film/list"> Quay lại</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+

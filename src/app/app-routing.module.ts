@@ -7,7 +7,7 @@ const routes: Routes = [
   {path: '', loadChildren: () => import('./client/client.module').then(m => m.ClientModule)},
   {path: 'admin'
   , loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
-  canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
   data: {
     roles: ['ROLE_ADMIN'] //Quy dinh role nao duoc truy cap vao component nay
     },
