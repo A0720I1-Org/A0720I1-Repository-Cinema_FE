@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TokenStorageService } from './token-storage.service';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class ShowtimeService {
 
   private API_URL = environment.apiBaseUrl;
-  AUTH_API = environment.apiBaseUrl;
   httpOptions: any;
 
   constructor(
@@ -45,6 +45,19 @@ export class ShowtimeService {
 
   getPaymentMethodList(): Observable<any> {
     return this.http.get<any>(this.API_URL + "/api/public/showtime/get-payment-method-list", this.httpOptions);
+  }
+
+
+  //vu
+  createShowtime(createShowtimeDTO: any):Observable<any>{
+    return this.http.post<any>(this.API_URL +"/api/admin/showtime/create" ,createShowtimeDTO,this.httpOptions)
+  }
+  getListFilm():Observable<any>{
+    return this.http.get<any>(this.API_URL +"/api/admin/showtime/listFilm",this.httpOptions)
+  }
+
+  getListCinemaRoom():Observable<any>{
+    return this.http.get<any>(this.API_URL +"/api/admin/showtime/listCinemaRoom",this.httpOptions)
   }
 
 }

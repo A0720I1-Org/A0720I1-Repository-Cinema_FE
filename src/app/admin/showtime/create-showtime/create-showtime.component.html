@@ -1,0 +1,131 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 font-weight-bold">Tạo suất chiếu</h1>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="card shadow mb-4">
+        <div class="card-header card-background-color ">
+<!--          <h3 class="m-0 font-weight-bold text-primary">Tạo mới phim</h3>-->
+        </div>
+        <div class="row">
+          <div class="col-md-12 mr-auto ml-auto">
+            <div class="card-user">
+              <div class="card-body">
+                <form [formGroup]="createForm" (ngSubmit)="onSubmit() ">
+
+<!--                  <div class="row">-->
+<!--                    <div class="col-md-3">-->
+<!--                      <div class="card card-user">-->
+<!--                        <div class="card-body">-->
+<!--                          <label class="required">Poster</label>-->
+<!--                          <div class="fileinput fileinput-new text-center" data-provides="fileinput">-->
+<!--                            <div class="fileinput-new thumbnail img-raised">-->
+<!--&lt;!&ndash;                              <img style="width: 100%;" alt="..." rel="nofollow">&ndash;&gt;-->
+<!--                            </div>-->
+<!--                            <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>-->
+<!--                            <div>-->
+<!--                          <span class="btn btn-info btn-round btn-default btn-file btn__upload-custom">-->
+<!--                        <span class="fileinput-new">Upload</span>-->
+<!--                        <input type="file" class="form-control" id="imageUrl" accept=".jpg,.jpeg,.png"-->
+<!--                               formControlName="imageURL">-->
+<!--                          </span>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+                    <div class="col-md-6 ">
+                      <div class="form-group">
+                        <label class="required">Phim</label>
+                        <select class="form-control" id="nameFilm" formControlName="filmId">
+                          <option selected disabled value="-Chọn-">-Chọn-</option>
+                          <ng-container *ngIf="films != null">
+                            <ng-container *ngFor="let film of films">
+                              <option value="{{film.id}}"> {{film.name}}</option>
+                            </ng-container>
+                          </ng-container>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="required">Ngày: </label>
+                        <input type="date" class="form-control" formControlName="day">
+                      </div>
+                    </div>
+                    <div class="col-md-6 ">
+                      <div class="form-group">
+                        <label class="required">Tên Phòng</label>
+                        <select class="form-control" id="cinemaRoom" formControlName="cinemaRoomId"
+                                (change)="getRoom()">
+                          <option selected disabled value="-Chọn-">-Chọn-</option>
+                          <ng-container *ngIf="cinemaRooms != null">
+                            <ng-container *ngFor="let cinemaRoom of cinemaRooms">
+                              <option value="{{cinemaRoom.id}}"> {{cinemaRoom.name}}</option>
+                            </ng-container>
+                          </ng-container>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6 ">
+                      <div class="form-group">
+                        <label class="required">Công nghệ</label>
+                        <select class="form-control" id="filmTechnology" formControlName="filmTechnology">
+                          <option selected disabled value="-Chọn-">-Chọn-</option>
+                          <option>2D</option>
+                          <option>3D</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6 ">
+                      <div class="form-group">
+                        <label class="required">Ngôn ngữ</label>
+                        <select class="form-control" id="subTitle" formControlName="subTitle">
+                          <option selected disabled value="-Chọn-">-Chọn-</option>
+                          <option>Phụ đề</option>
+                          <option>Lồng tiếng</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="required">Giờ chiếu </label>
+                        <ul class="col-md-12 ks-cboxtags d-flex flex-wrap justify-content-start m-0 p-0 ml-1">
+
+                          <ng-container *ngFor="let time of timeArr">
+                            <li class="mr-2">
+                              <input type="checkbox" id="{{time}}" (change)="getTime(time)">
+                              <label for="{{time}}">{{time.slice(0, 5)}}</label>
+                            </li>
+                          </ng-container>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="col-md-8 seat-layout d-flex flex-row justify-content-center ml-auto mr-auto mt-2 ">
+                      <button class="btn btn-primary mr-1" routerLink="/admin/film/list"> Quay lại</button>
+                      <button type="submit" class="btn btn-success"> Tạo mới</button>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

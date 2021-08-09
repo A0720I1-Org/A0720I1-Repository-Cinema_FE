@@ -6,14 +6,9 @@ import {AppComponent} from './app.component';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from "@angular/common/http";
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {
-  SocialLoginModule,
-  SocialAuthServiceConfig,
-  FacebookLoginProvider,
-  GoogleLoginProvider
-} from 'angularx-social-login';
-import {ToastrModule} from 'ngx-toastr';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+import { ToastrModule } from 'ngx-toastr';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {environment} from "../environments/environment";
 import {AngularFireStorageModule} from "@angular/fire/storage";
