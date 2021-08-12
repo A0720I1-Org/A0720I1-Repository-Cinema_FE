@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="index3.html" class="brand-link">
+  <a routerLink='' class="brand-link">
     <!--            <img src="./assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">-->
     <span class="brand-text font-weight-light">A0720I1 Cinemas</span>
   </a>
@@ -23,37 +23,15 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
+
         <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon far fa-building"></i>
-            <p>
-              Rạp phim
-              <i class="fas fa-angle-left right"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="fas fa-plus-circle nav-icon ml-2"></i>
-                <p>Thêm rạp</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="fas fa-list nav-icon ml-2"></i>
-                <p>Danh sách rạp</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
+          <div class="nav-link text-light" style="cursor: pointer;">
             <i class="nav-icon fas fa-door-open"></i>
             <p>
               Phòng chiếu
               <i class="fas fa-angle-left right"></i>
             </p>
-          </a>
+          </div>
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="#" class="nav-link" >
@@ -62,7 +40,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link" [routerLink]="['/admin/cinema-room']">
+              <a class="nav-link" [routerLink]="['/admin/cinema-room']">
                 <i class="fas fa-list nav-icon ml-2"></i>
                 <p>Danh sách phòng</p>
               </a>
@@ -70,13 +48,13 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <div class="nav-link text-light" style="cursor: pointer;">
             <i class="nav-icon fas fa-film"></i>
             <p>
               Phim
               <i class="fas fa-angle-left right"></i>
             </p>
-          </a>
+          </div>
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a [routerLink]="['/admin/film/create']" class="nav-link">
@@ -85,7 +63,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" [routerLink]="['/admin/film/list']">
+              <a class="nav-link" [routerLink]="['/admin/film/']">
                 <i class="fas fa-list nav-icon ml-2"></i>
                 <p>Danh sách phim</p>
               </a>
@@ -93,13 +71,13 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <div class="nav-link text-light" style="cursor: pointer;">
             <i class="fas fa-video nav-icon"></i>
             <p>
               Suất chiếu phim
               <i class="fas fa-angle-left right"></i>
             </p>
-          </a>
+          </div>
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="#" class="nav-link" [routerLink]="['/admin/showtime/create']">
@@ -116,13 +94,13 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <div class="nav-link text-light" style="cursor: pointer;">
             <i class="nav-icon fas fa-ticket-alt"></i>
             <p>
               Vé xem phim
               <i class="fas fa-angle-left right"></i>
             </p>
-          </a>
+          </div>
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -139,13 +117,13 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <div class="nav-link text-light" style="cursor: pointer;">
             <i class="nav-icon fas fa-tags"></i>
             <p>
               Khuyến mãi
               <i class="fas fa-angle-left right"></i>
             </p>
-          </a>
+          </div>
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -162,13 +140,13 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <div class="nav-link text-light" style="cursor: pointer;">
             <i class="nav-icon fas fa-users"></i>
             <p>
               Thành viên
               <i class="fas fa-angle-left right"></i>
             </p>
-          </a>
+          </div>
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -185,13 +163,13 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <div class="nav-link text-light" style="cursor: pointer;">
             <i class="nav-icon fas fa-id-badge"></i>
             <p>
               Nhân viên
               <i class="fas fa-angle-left right"></i>
             </p>
-          </a>
+          </div>
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -200,7 +178,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a class="nav-link">
                 <i class="fas fa-list nav-icon ml-2"></i>
                 <p>Danh sách nhân viên</p>
               </a>
@@ -208,12 +186,12 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <div class="nav-link text-light" style="cursor: pointer;" (click)="logOut()">
             <i class="nav-icon fas fa-sign-out-alt"></i>
             <p>
               Đăng xuất
             </p>
-          </a>
+          </div>
         </li>
       </ul>
     </nav>
