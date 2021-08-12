@@ -230,7 +230,7 @@ export class UpdateFilmComponent implements OnInit {
     } else {
       this.checkedItems.splice(this.checkedItems.indexOf(item), 1)
     }
-    this.checkString = this.checkedItems.join(' - ');
+    this.checkString = this.checkedItems.join(" - ");
     this.filmForm.value.category = this.checkString;
   }
 }

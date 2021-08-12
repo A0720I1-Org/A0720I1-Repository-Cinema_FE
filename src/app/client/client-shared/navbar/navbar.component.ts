@@ -33,4 +33,9 @@ export class NavbarComponent implements OnInit {
       this.router.navigateByUrl("/#idFilm")
     })
   }
+  onClickToAdmin(){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate(['/admin/film']);
+  });
+  }
 }

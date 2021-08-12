@@ -112,7 +112,9 @@ export class BookingConfirmationComponent implements OnInit {
             this.invoiceService.createInvoice(bookingInformation).subscribe(
               data => {
                 this.dialog.closeAll();
-                this.router.navigateByUrl('book/booking-information/' + data.id)
+                this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+                  this.router.navigateByUrl('book/booking-information/' + data.id)
+              });
                 this.toastrService.success("Mua vé thành công", "Thông báo")
               },
               error => {
@@ -139,6 +141,7 @@ export class BookingConfirmationComponent implements OnInit {
 
   goLogin() {
     this.toastrService.warning("Vui lòng đăng nhập để tiếp tục đặt vé", "Thông báo")
+    console.log(this.router.url);
     this.router.navigate(['/member/login'], { state: { redirect: this.router.url } })
   }
 }

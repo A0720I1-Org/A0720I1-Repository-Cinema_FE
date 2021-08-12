@@ -121,8 +121,8 @@ export class LoginComponent implements OnInit {
       this.authService.loginGoogle({token : tokenGoogle}).subscribe(data => {
           this.tokenStorage.saveTokenSession(data.token);
           this.tokenStorage.saveUserSession(data)
-          this.shareService.sendClickEvent();
           const { redirect } = window.history.state;
+          console.log(redirect)
           this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
             this.router.navigate([redirect || '']);
         });
@@ -149,7 +149,6 @@ export class LoginComponent implements OnInit {
       this.authService.loginFacebook({token : tokenFacebook}).subscribe(data => {
           this.tokenStorage.saveTokenSession(data.token);
           this.tokenStorage.saveUserSession(data)
-          this.shareService.sendClickEvent();
           const { redirect } = window.history.state;
           this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
             this.router.navigate([redirect || '']);

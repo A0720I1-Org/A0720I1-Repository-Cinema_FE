@@ -131,7 +131,7 @@
       <ng-container *ngFor="let film of listFilmData">
         <div class="col-md-4 col-lg-3 col-sm-6">
           <div class="card">
-            <img class="card-img-top card-image img-top-movie"
+            <img class="card-img-top card-image"
                  src="{{film.imageUrl}}"
                  alt="...">
             <div class="hover-overlay"></div>
@@ -152,7 +152,7 @@
               </div>
               <div class="card-text info-detail">
                 <ul>
-                  <li><span>Thể loại:</span> {{film.category}}</li>
+                  <li  class="li-category mb-1"><span>Thể loại:</span>{{film.category}} </li>
                   <li><span>Thời Lượng:</span> {{film.duration}} phút</li>
                   <li><span>Ngày khởi chiếu:</span> {{film.start_date | date: "dd/MM/yyyy"}}</li>
                 </ul>

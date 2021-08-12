@@ -7,7 +7,8 @@ import {DetailFilmComponent} from "./detail-film/detail-film.component";
 
 
 const routes: Routes = [
-  {path: "list", component: ListFilmComponent},
+  // {path: "", redirectTo: '/admin/film/list',pathMatch: 'full'},
+  {path: "", component: ListFilmComponent},
   {path: "create", component: CreateFilmComponent},
   {path: "update/:id", component: UpdateFilmComponent},
   {path: "find/:id", component: DetailFilmComponent}

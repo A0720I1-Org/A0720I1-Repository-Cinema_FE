@@ -45,4 +45,7 @@ export class InvoiceService {
   public getTicketAllBySearch(page:any,key:string):Observable<any> {
     return this.httpClient.get(this.API_URL + '/api/public/invoice/'+key+'?page='+page,this.httpOptions);
   }
+  public getInvoiceMember(id:number):Observable<any> {
+    return this.httpClient.get(this.API_URL + '/api/public/invoice-member/'+id,this.httpOptions);
+  }
 }

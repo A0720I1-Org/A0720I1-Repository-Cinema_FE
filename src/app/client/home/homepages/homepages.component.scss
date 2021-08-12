@@ -125,7 +125,7 @@ ul.dropdown-menu.multi-column.w-200 {
   top: 0;
   left: 0;
   width: 100%;
-  height: 77%;
+  height: 74%;
   background: rgba(73, 73, 73, 0);
   transition: background 0.5s ease;
 }
@@ -196,7 +196,13 @@ ul.dropdown-menu.multi-column.w-200 {
   font-size: 5rem;
   vertical-align: text-bottom;
 }
-
+.li-category {
+  text-overflow: ellipsis;
+    overflow: hidden;
+    width: 245px;
+    height: 1.2em;
+    white-space: nowrap;
+}
 .information {
   position: absolute;
   width: 225px;
