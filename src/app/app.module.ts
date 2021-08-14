@@ -1,14 +1,13 @@
-import { MatDialogModule } from '@angular/material/dialog';
-
+import {MatDialogModule} from '@angular/material/dialog';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppComponent} from './app.component';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
+import {HttpClientModule} from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SocialLoginModule, SocialAuthServiceConfig, SocialAuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
-import { HttpClientModule } from '@angular/common/http';
+import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { ToastrModule } from 'ngx-toastr';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {environment} from "../environments/environment";

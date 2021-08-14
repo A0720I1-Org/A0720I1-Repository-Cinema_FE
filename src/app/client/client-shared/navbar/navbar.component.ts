@@ -28,5 +28,14 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.load();
   }
-
+  getShowing(){
+    this.router.navigateByUrl("/").then(() => {
+      this.router.navigateByUrl("/#idFilm")
+    })
+  }
+  onClickToAdmin(){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate(['/admin/film']);
+  });
+  }
 }

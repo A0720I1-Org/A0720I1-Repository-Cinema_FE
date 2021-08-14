@@ -1,0 +1,245 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 font-weight-bold">Phim</h1>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="card shadow mb-4">
+        <div class="card-header card-background-color ">
+          <h3 class="m-0 font-weight-bold text-primary">Tạo mới phim</h3>
+        </div>
+        <form [formGroup]="filmForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card card-user">
+              <div class="card-body">
+                <label class="required">Poster</label>
+                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                  <div class="fileinput-new thumbnail img-raised">
+                    <img [src]="getImageUrl()"
+                         style="width: 100%;" alt="..." rel="nofollow">
+                  </div>
+                  <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                  <div>
+                     <span class="btn btn-info btn-round btn-default btn-file btn__upload-custom">
+                        <span class="fileinput-new">Upload</span>
+                        <input type="file" class="form-control" id="imageUrl" accept=".jpg,.jpeg,.png"
+                               (change)="selectImage($event)" formControlName="imageURL">
+                     </span>
+                    <ng-container *ngFor="let validation of validationMessage.imageURL">
+                      <small class="form-text text-danger"
+                             *ngIf="filmForm.get('imageURL').hasError(validation.type)&& filmForm.get('imageURL').touched">
+                        {{validation.message}}
+                      </small>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--End table information-->
+          <div class="col-md-9">
+            <div class="card-user">
+              <div class="card-body">
+<!--                <form [formGroup]="filmForm" (ngSubmit)="onSubmit()">-->
+                  <div class="row">
+                    <div class="col-md-12 pr-1">
+                      <div class="form-group">
+                        <label class="required">Tên phim</label>
+                        <input type="text" class="form-control" placeholder="Tên Phim" formControlName="name">
+                        <ng-container *ngFor="let validation of validationMessage.name">
+                          <small class="form-text text-danger"
+                                 *ngIf="filmForm.get('name').hasError(validation.type)&& filmForm.get('name').touched">
+                            {{validation.message}}
+                          </small>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label class="required"> Ngày khởi chiếu: </label>
+                        <input type="date" class="form-control" formControlName="startDate">
+                        <ng-container *ngFor="let validation of validationMessage.startDate">
+                          <small class="form-text text-danger"
+                                 *ngIf="filmForm.get('startDate').hasError(validation.type)&& filmForm.get('startDate').touched">
+                            {{validation.message}}
+                          </small>
+                        </ng-container>
+                      </div>
+                    </div>
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label class="required"> Ngày kết thúc: </label>
+                        <input type="date" class="form-control" formControlName="endDate">
+                        <ng-container *ngFor="let validation of validationMessage.endDate">
+                          <small class="form-text text-danger"
+                                 *ngIf="filmForm.get('endDate').hasError(validation.type)&& filmForm.get('endDate').touched">
+                            {{validation.message}}
+                          </small>
+                        </ng-container>
+                        <ng-container *ngFor="let validation of validationMessage.endDate">
+                          <small class="form-text text-danger"
+                                 *ngIf="filmForm.hasError(validation.type)&& filmForm.get('endDate').touched">
+                            {{validation.message}}
+                          </small>
+                        </ng-container>
+<!--                        <ng-container *ngFor="let validation of validationMessage.imageURL">-->
+<!--                          <small class="form-text text-danger"-->
+<!--                                 *ngIf="filmForm.get('imageURL').hasError(validation.type)&& filmForm.get('endDate').touched">-->
+<!--                            {{validation.message}}-->
+<!--                          </small>-->
+<!--                        </ng-container>-->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 pr-1">
+                      <div class="form-group">
+                        <label class="required"> Diễn viên </label>
+                        <input type="text" class="form-control" placeholder="Nhập diễn viên" formControlName="actors">
+                        <ng-container *ngFor="let validation of validationMessage.actors">
+                          <small class="form-text text-danger"
+                                 *ngIf="filmForm.get('actors').hasError(validation.type)&& filmForm.get('actors').touched">
+                            {{validation.message}}
+                          </small>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label class="required"> Hãng phim </label>
+                        <input type="text" class="form-control" placeholder="Nhập hãng phim" formControlName="studio">
+                        <ng-container *ngFor="let validation of validationMessage.studio">
+                          <small class="form-text text-danger"
+                                 *ngIf="filmForm.get('studio').hasError(validation.type)&& filmForm.get('studio').touched">
+                            {{validation.message}}
+                          </small>
+                        </ng-container>
+                      </div>
+                    </div>
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label class="required"> Đạo diễn </label>
+                        <input type="text" class="form-control" placeholder="Nhập đạo diễn" formControlName="directors">
+                        <ng-container *ngFor="let validation of validationMessage.directors">
+                          <small class="form-text text-danger"
+                                 *ngIf="filmForm.get('directors').hasError(validation.type)&& filmForm.get('directors').touched">
+                            {{validation.message}}
+                          </small>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label class="required">Thời lượng </label>
+                        <input type="number" class="form-control" placeholder="Nhập thời lượng phim"
+                               formControlName="duration">
+                        <ng-container *ngFor="let validation of validationMessage.duration">
+                          <small class="form-text text-danger"
+                                 *ngIf="filmForm.get('duration').hasError(validation.type)&& filmForm.get('duration').touched">
+                            {{validation.message}}
+                          </small>
+                        </ng-container>
+                      </div>
+                    </div>
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label class="required">Độ tuổi</label>
+                        <select class="form-control" id="gender" formControlName="age">
+                          <option selected disabled value="-Chọn-">-Chọn-</option>
+                          <option value="https://firebasestorage.googleapis.com/v0/b/a0720i1.appspot.com/o/dat-home%2Fc-18.png?alt=media&token=17900829-a490-475b-b8c7-96cd1bbf2c62">16 tuổi</option>
+                          <option value="https://firebasestorage.googleapis.com/v0/b/a0720i1.appspot.com/o/dat-home%2Fc-16.png?alt=media&token=3ed7b6ef-9e9a-4f03-bece-3c0f281c1b63">18 tuổi</option>
+                        </select>
+                        <ng-container *ngFor="let validation of validationMessage.age">
+                          <small class="form-text text-danger"
+                                 *ngIf="filmForm.get('age').hasError(validation.type)&& filmForm.get('age').touched">
+                            {{validation.message}}
+                          </small>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 pr-1">
+                      <div class="form-group">
+                        <label class="required">Trailer </label>
+                        <input type="text" class="form-control" placeholder="Nhập link trailer"
+                               formControlName="trailers">
+                        <ng-container *ngFor="let validation of validationMessage.trailers">
+                          <small class="form-text text-danger"
+                                 *ngIf="filmForm.get('trailers').hasError(validation.type)&& filmForm.get('trailers').touched">
+                            {{validation.message}}
+                          </small>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 pr-1">
+                      <div class="form-group">
+                        <label class="required">Thể loại </label>
+                        <div class="col-md-12 d-flex flex-wrap justify-content-start">
+                          <ng-container *ngFor="let item of categories">
+                            <div class="form-check form-check-inline col-md-2">
+                              <label>
+                                <input type="checkbox" (change)="changeSelection(item)"> {{item}}
+                              </label>
+                            </div>
+                          </ng-container>
+                        </div>
+                        <small class="form-text text-danger"
+                               *ngIf="checkString == ''">
+                          Thể loại không được để trống!
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 pr-1">
+                      <div class="form-group">
+                        <label class="required">Nội dung </label>
+                        <textarea class="form-control" rows="4" placeholder="Nhập nội dung"
+                                  formControlName="description"></textarea>
+                        <ng-container *ngFor="let validation of validationMessage.description">
+                          <small class="form-text text-danger"
+                                 *ngIf="filmForm.get('description').hasError(validation.type)&& filmForm.get('description').touched">
+                            {{validation.message}}
+                          </small>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-8 seat-layout d-flex flex-row justify-content-center ml-auto mr-auto mt-2 ">
+                    <button class="btn btn-primary mr-1" routerLink="/admin/film/list"> Quay lại</button>
+                    <button type="submit" class="btn btn-success" [disabled]="filmForm.invalid"> Tạo mới</button>
+                  </div>
+<!--                </form>-->
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+

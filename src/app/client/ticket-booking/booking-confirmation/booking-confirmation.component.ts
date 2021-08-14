@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {DataService} from "../../../service/data.service";
 import {Showtime} from "../../../model/book-ticket/Showtime";
 import {Router} from "@angular/router";
@@ -13,6 +13,7 @@ import {PaymentService} from "../../../service/payment.service";
 import {BookingStorageService} from "../../../service/booking-storage.service";
 import {TokenStorageService} from "../../../service/token-storage.service";
 import {Membership} from "../../../model/book-ticket/Membership";
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-booking-confirmation',
@@ -27,7 +28,7 @@ export class BookingConfirmationComponent implements OnInit {
   methodId = 0;
   payment = new Payment();
   membership: Membership = null;
-
+  @ViewChild('loading', { static: true }) loading: TemplateRef<any>;
   constructor(
     private dataService: DataService,
     private router: Router,
@@ -36,7 +37,8 @@ export class BookingConfirmationComponent implements OnInit {
     private invoiceService: InvoiceService,
     private paymentService: PaymentService,
     private bookingStorageService: BookingStorageService,
-    private tokenStorageService: TokenStorageService
+    private tokenStorageService: TokenStorageService,
+    private dialog: MatDialog,
   ) {
   }
 
@@ -78,15 +80,11 @@ export class BookingConfirmationComponent implements OnInit {
   }
 
   next() {
-    const memberId = this.tokenStorageService.getUser().account.id;
+    const memberId = this.tokenStorageService.getUser().membership.id;
     let bookingInformation = new BookingInformation(this.showtime.showtimeId, memberId, this.selectedSeatIdList, this.methodId);
     this.dataService.setBooking(bookingInformation);
     switch (this.methodId) {
       case 1: {
-        console.log(this.methodId);
-        break;
-      }
-      case 2: {
         this.payment.amount = this.getTotalAmount();
         this.bookingStorageService.saveBookingLocal(bookingInformation);
         this.invoiceService.checkSeatAvailable(bookingInformation).subscribe(
@@ -104,15 +102,25 @@ export class BookingConfirmationComponent implements OnInit {
         )
         break;
       }
-      case 3: {
+      case 2: {
+        this.dialog.open(this.loading,{
+          width: '150px',
+          height:'125px',
+        });
         this.invoiceService.checkSeatAvailable(bookingInformation).subscribe(
           data => {
             this.invoiceService.createInvoice(bookingInformation).subscribe(
               data => {
-                this.router.navigateByUrl('book/booking-information/' + data.id)
+                this.dialog.closeAll();
+                this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+                  this.router.navigateByUrl('book/booking-information/' + data.id)
+              });
                 this.toastrService.success("Mua vé thành công", "Thông báo")
               },
-              error => this.toastrService.error("Có lỗi xảy ra")
+              error => {
+                this.toastrService.error("Có lỗi xảy ra");
+                this.dialog.closeAll();
+              }
             )
           },
           error => {
@@ -121,7 +129,6 @@ export class BookingConfirmationComponent implements OnInit {
             this.toastrService.warning(error.error.message, 'Có lỗi xảy ra');
           }
         )
-
         console.log(bookingInformation);
         break;
       }
@@ -134,6 +141,7 @@ export class BookingConfirmationComponent implements OnInit {
 
   goLogin() {
     this.toastrService.warning("Vui lòng đăng nhập để tiếp tục đặt vé", "Thông báo")
+    console.log(this.router.url);
     this.router.navigate(['/member/login'], { state: { redirect: this.router.url } })
   }
 }

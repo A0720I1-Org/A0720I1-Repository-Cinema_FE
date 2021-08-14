@@ -1,46 +1,63 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {environment} from "../../environments/environment";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {TokenStorageService} from "./token-storage.service";
-import {Observable} from "rxjs";
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { TokenStorageService } from './token-storage.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShowtimeService {
+
   private API_URL = environment.apiBaseUrl;
   httpOptions: any;
+
   constructor(
-    private httpClient: HttpClient,
+    private http: HttpClient,
     private tokenStorageService: TokenStorageService
   ) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ` + this.tokenStorageService.getToken()
-      })
-      , 'Access-Control-Allow-Origin': 'http://localhost:4200',
+      }),
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
     };
   }
 
   getShowtimeList(): Observable<any> {
-    return this.httpClient.get<any>(this.API_URL + "/api/public/showtime/get-showtime-showing", this.httpOptions);
+    return this.http.get<any>(this.API_URL + "/api/public/showtime/get-showtime-showing", this.httpOptions);
   }
 
   getSeatList(showTimeId: number): Observable<any> {
-    return this.httpClient.get<any>(this.API_URL + "/api/public/showtime/get-seat-of-showtime?showtimeId=" + showTimeId, this.httpOptions);
+    return this.http.get<any>(this.API_URL + "/api/public/showtime/get-seat-of-showtime?showtimeId=" + showTimeId, this.httpOptions);
   }
 
   getCinemaRoomLayout(showTimeId: number): Observable<any> {
-    return this.httpClient.get<any>(this.API_URL + "/api/public/showtime/get-cinema-room-layout?showtimeId=" + showTimeId, this.httpOptions);
+    return this.http.get<any>(this.API_URL + "/api/public/showtime/get-cinema-room-layout?showtimeId=" + showTimeId, this.httpOptions);
   }
 
   getShowtimeByInvoiceId(invoiceId: number): Observable<any> {
-    return this.httpClient.get<any>(this.API_URL + "/api/member/showtime/get-showtime-by-invoice-id?invoiceId=" + invoiceId, this.httpOptions);
+    return this.http.get<any>(this.API_URL + "/api/member/showtime/get-showtime-by-invoice-id?invoiceId=" + invoiceId, this.httpOptions);
   }
 
   getPaymentMethodList(): Observable<any> {
-    return this.httpClient.get<any>(this.API_URL + "/api/public/showtime/get-payment-method-list", this.httpOptions);
+    return this.http.get<any>(this.API_URL + "/api/public/showtime/get-payment-method-list", this.httpOptions);
   }
+
+
+  //vu
+  createShowtime(createShowtimeDTO: any):Observable<any>{
+    return this.http.post<any>(this.API_URL +"/api/admin/showtime/create" ,createShowtimeDTO,this.httpOptions)
+  }
+  getListFilm():Observable<any>{
+    return this.http.get<any>(this.API_URL +"/api/admin/showtime/listFilm",this.httpOptions)
+  }
+
+  getListCinemaRoom():Observable<any>{
+    return this.http.get<any>(this.API_URL +"/api/admin/showtime/listCinemaRoom",this.httpOptions)
+  }
+
 }
