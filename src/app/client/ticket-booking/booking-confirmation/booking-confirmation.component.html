@@ -139,9 +139,9 @@
     <div class="d-flex flex-row justify-content-center">
       <button class="btn btn-progress btn-cancel mr-2" (click)="back()"><i class="fa fa-arrow-left mr-1"></i> QUAY LẠI
       </button>
-      <button class="btn btn-progress btn-submit" *ngIf="membership" (click)="next()">TIẾP TỤC <i class="fa fa-arrow-right ml-1"></i>
+      <button class="btn btn-progress btn-submit" *ngIf="membership != null" (click)="next()">TIẾP TỤC <i class="fa fa-arrow-right ml-1"></i>
       </button>
-      <button class="btn btn-progress btn-submit" *ngIf="!membership" (click)="goLogin()">TIẾP TỤC <i class="fa fa-arrow-right ml-1"></i>
+      <button class="btn btn-progress btn-submit" *ngIf="membership == null" (click)="goLogin()">TIẾP TỤC <i class="fa fa-arrow-right ml-1"></i>
       </button>
     </div>
   </div>

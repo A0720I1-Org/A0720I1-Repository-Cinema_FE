@@ -53,7 +53,7 @@ export class BookingConfirmationComponent implements OnInit {
     this.showtimeService.getPaymentMethodList().subscribe(
       data => this.paymentMethods = data,
       error => console.log(error.message))
-      this.membership = this.tokenStorageService.getUser().membership;
+    this.membership = this.tokenStorageService.getUser().membership;
   }
 
   getTotalAmount() {
