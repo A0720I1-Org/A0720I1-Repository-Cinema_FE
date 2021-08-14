@@ -22,34 +22,11 @@
           <div class="col-md-12 mr-auto ml-auto">
             <div class="card-user">
               <div class="card-body">
-                <form [formGroup]="createForm" (ngSubmit)="onSubmit() ">
-
-<!--                  <div class="row">-->
-<!--                    <div class="col-md-3">-->
-<!--                      <div class="card card-user">-->
-<!--                        <div class="card-body">-->
-<!--                          <label class="required">Poster</label>-->
-<!--                          <div class="fileinput fileinput-new text-center" data-provides="fileinput">-->
-<!--                            <div class="fileinput-new thumbnail img-raised">-->
-<!--&lt;!&ndash;                              <img style="width: 100%;" alt="..." rel="nofollow">&ndash;&gt;-->
-<!--                            </div>-->
-<!--                            <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>-->
-<!--                            <div>-->
-<!--                          <span class="btn btn-info btn-round btn-default btn-file btn__upload-custom">-->
-<!--                        <span class="fileinput-new">Upload</span>-->
-<!--                        <input type="file" class="form-control" id="imageUrl" accept=".jpg,.jpeg,.png"-->
-<!--                               formControlName="imageURL">-->
-<!--                          </span>-->
-<!--                            </div>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
-                    <div class="col-md-6 ">
+                <div class="col-md-6 mr-auto ml-auto">
+                  <form [formGroup]="createForm" (ngSubmit)="onSubmit() ">
                       <div class="form-group">
                         <label class="required">Phim</label>
-                        <select class="form-control" id="nameFilm" formControlName="filmId">
+                        <select class="form-control" id="nameFilm" formControlName="filmId" (change)="selectFilm($event)">
                           <option selected disabled value="-Chọn-">-Chọn-</option>
                           <ng-container *ngIf="films != null">
                             <ng-container *ngFor="let film of films">
@@ -57,15 +34,23 @@
                             </ng-container>
                           </ng-container>
                         </select>
+                        <ng-container *ngFor="let validation of validationMessage.filmId">
+                          <small class="form-text text-danger"
+                                 *ngIf="createForm.get('filmId').hasError(validation.type)&& createForm.get('filmId').touched">
+                            {{validation.message}}
+                          </small>
+                        </ng-container>
                       </div>
-                    </div>
-                    <div class="col-md-6">
                       <div class="form-group">
                         <label class="required">Ngày: </label>
                         <input type="date" class="form-control" formControlName="day">
+                        <ng-container *ngFor="let validation of validationMessage.day">
+                          <small class="form-text text-danger"
+                                 *ngIf="createForm.get('day').hasError(validation.type)&& createForm.get('day').touched">
+                            {{validation.message}}
+                          </small>
+                        </ng-container>
                       </div>
-                    </div>
-                    <div class="col-md-6 ">
                       <div class="form-group">
                         <label class="required">Tên Phòng</label>
                         <select class="form-control" id="cinemaRoom" formControlName="cinemaRoomId"
@@ -77,9 +62,13 @@
                             </ng-container>
                           </ng-container>
                         </select>
+                        <ng-container *ngFor="let validation of validationMessage.cinemaRoomId">
+                          <small class="form-text text-danger"
+                                 *ngIf="createForm.get('cinemaRoomId').hasError(validation.type)&& createForm.get('cinemaRoomId').touched">
+                            {{validation.message}}
+                          </small>
+                        </ng-container>
                       </div>
-                    </div>
-                    <div class="col-md-6 ">
                       <div class="form-group">
                         <label class="required">Công nghệ</label>
                         <select class="form-control" id="filmTechnology" formControlName="filmTechnology">
@@ -87,9 +76,13 @@
                           <option>2D</option>
                           <option>3D</option>
                         </select>
+                        <ng-container *ngFor="let validation of validationMessage.filmTechnology">
+                          <small class="form-text text-danger"
+                                 *ngIf="createForm.get('filmTechnology').hasError(validation.type)&& createForm.get('filmTechnology').touched">
+                            {{validation.message}}
+                          </small>
+                        </ng-container>
                       </div>
-                    </div>
-                    <div class="col-md-6 ">
                       <div class="form-group">
                         <label class="required">Ngôn ngữ</label>
                         <select class="form-control" id="subTitle" formControlName="subTitle">
@@ -97,8 +90,13 @@
                           <option>Phụ đề</option>
                           <option>Lồng tiếng</option>
                         </select>
+                        <ng-container *ngFor="let validation of validationMessage.subTitle">
+                          <small class="form-text text-danger"
+                                 *ngIf="createForm.get('subTitle').hasError(validation.type)&& createForm.get('subTitle').touched">
+                            {{validation.message}}
+                          </small>
+                        </ng-container>
                       </div>
-                    </div>
                     <div class="col-md-12">
                       <div class="form-group">
                         <label class="required">Giờ chiếu </label>
@@ -111,14 +109,18 @@
                             </li>
                           </ng-container>
                         </ul>
+                          <div class="form-text text-danger"
+                               *ngIf="errorMessage != ''">
+                            {{errorMessage}}
+                          </div>
                       </div>
                     </div>
-
                     <div class="col-md-8 seat-layout d-flex flex-row justify-content-center ml-auto mr-auto mt-2 ">
-                      <button class="btn btn-primary mr-1" routerLink="/admin/film/list"> Quay lại</button>
-                      <button type="submit" class="btn btn-success"> Tạo mới</button>
+                      <button class="btn btn-primary mr-1" routerLink="/admin/film"> Quay lại</button>
+                      <button type="submit" class="btn btn-success" [disabled]="createForm.invalid"> Tạo mới</button>
                     </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>

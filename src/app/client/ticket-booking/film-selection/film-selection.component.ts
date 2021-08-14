@@ -45,6 +45,7 @@ export class FilmSelectionComponent implements OnInit {
         this.showtimeList = data;
         if (this.showtimeList != null){
           this.filmList = Array.from(data.reduce((m, t) => m.set(t.filmId, t), new Map()).values());
+          console.log(this.filmList)
           this.activatedRoute.queryParams
             .subscribe(params => {
                 this.filmId = params.filmId;

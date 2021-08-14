@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ShowtimeModule} from "../showtime.module";
 import {ShowtimeService} from "../../../service/showtime.service";
 import {Router} from "@angular/router";
@@ -20,6 +20,8 @@ export class CreateShowtimeComponent implements OnInit {
   films: any;
   cinemaRooms: any;
   room: DTOCinemaRoom;
+  film: any;
+  errorMessage = '';
   // timeArr: Time[] = [{hours: 11, minutes: 0}, {hours: 13, minutes: 30}, {hours: 16, minutes: 0},
   //   {hours: 18, minutes: 30}, {hours: 21, minutes: 0}, {hours: 23, minutes: 30}];
   // timeCheck: Time[] = [];
@@ -27,6 +29,25 @@ export class CreateShowtimeComponent implements OnInit {
   timeCheck: string[] = [];
   timeString: any;
   seatList: SeatCreateDTO[] = [];
+
+  validationMessage = {
+    'filmId': [
+      {type: 'required', message: 'Phim không được để trống'},
+    ],
+    'day': [
+      {type: 'required', message: 'Ngày chiếu không được để trống!'},
+      {type: 'future', message: 'Ngày chiếu phải là ngày trong tương lai'}
+    ],
+    'cinemaRoomId': [
+      {type: 'required', message: 'Phòng chiếu không được để trống'}
+    ],
+    'filmTechnology': [
+      {type: 'required', message: 'Công nghệ không được để trống!'},
+    ],
+    'subTitle': [
+      {type: 'required', message: 'Ngôn ngữ không được để trống!'},
+    ],
+  };
 
   constructor(private showtimeService: ShowtimeService,
               private formBuilder: FormBuilder,
@@ -43,49 +64,53 @@ export class CreateShowtimeComponent implements OnInit {
   initForm() {
     this.createForm = new FormGroup({
       filmId: new FormControl("", [Validators.required]),
-      day: new FormControl("", [Validators.required]),
+      day: new FormControl("", [Validators.required, future]),
       cinemaRoomId: new FormControl("", [Validators.required]),
       filmTechnology: new FormControl("", [Validators.required]),
-      time: new FormControl("", [Validators.required]),
+      // time: new FormControl("", [Validators.required]),
       subTitle: new FormControl("", [Validators.required]),
     })
   }
 
   onSubmit() {
     let showtimeArr = [];
-    for (let time of this.timeCheck){
-      let showtime = new DTOCreateShowtime(this.createForm.get('filmId').value, this.createForm.get('cinemaRoomId').value,
-        this.createForm.get('day').value, time, this.createForm.get('filmTechnology').value,
-        this.createForm.get('subTitle').value)
-      showtimeArr.push(showtime)
-    }
-
-    this.seatList = [];
-    for (let row=0; row < this.room.rowSeat; row++ ){
-      for (let column=0; column < this.room.columnSeat; column++){
-        let seat = new SeatCreateDTO();
-        if (this.room.seatLayout[row * this.room.columnSeat + column] != 'n'){
-          seat.name=this.getSeatName(row, column)
-          seat.code= this.room.seatLayout[row * this.room.columnSeat + column]
-        } else {
-          seat.name='';
-          seat.code=this.room.seatLayout[row * this.room.columnSeat + column];
-        }
-        this.seatList.push(seat)
+    if (this.timeCheck.length == 0){
+      this.toastrService.warning("Vui lòng chọn giờ chiếu", "Thông báo")
+    } else {
+      for (let time of this.timeCheck){
+        let showtime = new DTOCreateShowtime(this.createForm.get('filmId').value, this.createForm.get('cinemaRoomId').value,
+          this.createForm.get('day').value, time, this.createForm.get('filmTechnology').value,
+          this.createForm.get('subTitle').value)
+        showtimeArr.push(showtime)
       }
-    }
-    console.log(this.seatList)
-    let showtimeData = new ShowtimeDataDTO();
-    showtimeData.showtimeList = showtimeArr;
-    showtimeData.seatList = this.seatList;
+      this.seatList = [];
+      for (let row=0; row < this.room.rowSeat; row++ ){
+        for (let column=0; column < this.room.columnSeat; column++){
+          let seat = new SeatCreateDTO();
+          if (this.room.seatLayout[row * this.room.columnSeat + column] != 'n'){
+            seat.name=this.getSeatName(row, column)
+            seat.code= this.room.seatLayout[row * this.room.columnSeat + column]
+          } else {
+            seat.name='';
+            seat.code=this.room.seatLayout[row * this.room.columnSeat + column];
+          }
+          this.seatList.push(seat)
+        }
+      }
+      let showtimeData = new ShowtimeDataDTO();
+      showtimeData.showtimeList = showtimeArr;
+      showtimeData.seatList = this.seatList;
       this.showtimeService.createShowtime(showtimeData).subscribe(
         data => {
           this.toastrService.success("Tạo mới thành công suất chiếu", "Thông báo")
           this.createForm.reset()
         },
-        error => console.log(error.message)
+        error => {
+          this.toastrService.warning("Không thể tạo suất chiếu", "Thông báo");
+          this.errorMessage = error.error.message;
+        }
       )
-
+    }
   }
 
   getListFilm() {
@@ -115,6 +140,7 @@ export class CreateShowtimeComponent implements OnInit {
       // @ts-ignore
       this.timeCheck.push(time)
     }
+    console.log(this.timeCheck)
   }
 
 
@@ -152,4 +178,19 @@ export class CreateShowtimeComponent implements OnInit {
       }
     }
   }
+
+  selectFilm(event: any) {
+    this.film = this.films.filter(f => f.id == event.target.value);
+    return this.film.imageURL;
+    console.log(this.film)
+  }
+}
+function future(formControl: AbstractControl) {
+  const formValue = formControl.value;
+  const start_date = new Date(formValue)
+  const today = new Date();
+  if (today.getTime() > start_date.getTime()) {
+    return {future: true};
+  }
+  return null;
 }
