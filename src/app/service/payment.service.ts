@@ -27,6 +27,6 @@ export class PaymentService {
   }
 
   payByPaypal(payment: Payment): Observable<any> {
-    return this.httpClient.post<any>(this.API_URL + "/api/member/paypal/pay", payment, this.httpOptions);
+    return this.httpClient.post<any>(this.API_URL + "/api/public/paypal/pay", payment, this.httpOptions);
   }
 }
